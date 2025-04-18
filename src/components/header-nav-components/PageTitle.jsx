@@ -17,9 +17,10 @@ function PageTitle() {
   const currentPage = pagesList.find((page) =>
     currentLocation.includes(page.toLowerCase())
   );
-
   return (
-    <Text textStyle={'xl'} color={'gray.500'} fontWeight={'semibold'}>{currentPage}</Text>
+    <Text textStyle={"xl"} color={"gray.500"} fontWeight={"semibold"}>
+      {currentPage}
+    </Text>
   );
 }
 

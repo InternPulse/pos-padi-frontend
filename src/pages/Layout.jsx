@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { Flex, Box } from "@chakra-ui/react";
-
-//Test Components
+import { Flex, Box, Stack } from "@chakra-ui/react";
 import NotificationButton from "@/components/header-nav-components/NotificationButton";
 import MenuButton from "@/components/header-nav-components/MenuButton";
 import Logo from "@/components/header-nav-components/Logo";
 import PageTitle from "@/components/header-nav-components/PageTitle";
+import Navigation from "@/components/header-nav-components/Navigation";
+import Advert from "@/components/header-nav-components/Advert";
+import MobileNav from "@/components/header-nav-components/MobileNav";
 
 function Layout() {
   return (
@@ -16,7 +17,12 @@ function Layout() {
         direction={"column"}
       >
         {/* Desktop Navigation */}
-        <Logo isConcise={false} />
+        <Box>
+          <Logo isConcise={false} />
+        </Box>
+
+        <Navigation userRole="admin" />
+        <Advert />
       </Flex>
       <Flex
         direction={"column"}
@@ -27,38 +33,41 @@ function Layout() {
         }}
       >
         <Flex
-          px={{base: 3, lg: 5}}
+          px={{ base: 3, lg: 5 }}
           height={{ base: "56px", sm: "80px" }}
-          gap={{base: 5, md: 5}}
+          gap={{ base: 5, md: 5 }}
           width={"100%"}
           justify={"flex-end"}
           align={"center"}
         >
           {/* Header */}
 
-          <Box display={{ base: "block", lg: "none" }} mr={'auto'}>
+          <Box display={{ base: "block", lg: "none" }} mr={"auto"}>
             <Logo />
           </Box>
-          <Box mr={'auto'} display={{base: 'none', lg: 'block'}}>
+          <Box mr={"auto"} display={{ base: "none", lg: "block" }}>
             <PageTitle />
           </Box>
           <NotificationButton count={49} />
 
-
-          <Box height={{base: '40px', lg: '60px'}} width={{base: '40px', lg: '180px'}} bg='gray.300'>
+          <Box
+            height={{ base: "40px", lg: "60px" }}
+            width={{ base: "40px", lg: "180px" }}
+            bg="gray.300"
+          >
             {/*Awaiting Avatar Component */}
           </Box>
-          
-          
-          <Box display={{base: 'block', lg: 'none'}}>
-            <MenuButton />
+
+          <Box display={{ base: "block", lg: "none" }}>
+            {/* <MenuButton /> */}
+            <MobileNav />
           </Box>
         </Flex>
         <Box
           bg="gray.100"
           minH={{ base: "calc(100vh - 56px)", sm: "calc(100vh - 80px)" }}
         >
-          <Box display={{base: 'block', lg: 'none'}} p={2}>
+          <Box display={{ base: "block", lg: "none" }} p={2}>
             <PageTitle />
           </Box>
           <Outlet />
