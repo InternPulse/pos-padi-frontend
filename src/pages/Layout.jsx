@@ -2,10 +2,10 @@ import { Outlet } from "react-router-dom";
 import { Flex, Box } from "@chakra-ui/react";
 
 //Test Components
-import NotificationButton from "@/components/header-components/NotificationButton";
-import MenuButton from "@/components/header-components/MenuButton";
-import Logo from "@/components/header-components/Logo";
-import PageTitle from "@/components/header-components/PageTitle";
+import NotificationButton from "@/components/header-nav-components/NotificationButton";
+import MenuButton from "@/components/header-nav-components/MenuButton";
+import Logo from "@/components/header-nav-components/Logo";
+import PageTitle from "@/components/header-nav-components/PageTitle";
 
 function Layout() {
   return (
