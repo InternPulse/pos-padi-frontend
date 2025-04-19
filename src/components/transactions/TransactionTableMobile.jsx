@@ -7,7 +7,7 @@ import { transactions } from "./transactionsMockData.js";
 function TransactionTableMobile() {
   return (
     <Flex
-      width={{ base: "20.323rem", sm: "100%" }}
+      width="100%"
       height="auto"
       display={{ base: "block", md: "none" }}
       // border="1px solid green"
@@ -15,7 +15,7 @@ function TransactionTableMobile() {
       {/* Container for the Search Functionality */}
       {transactions.map((item) => (
         <Flex
-          width={{ base: "20.323rem", sm: "100%" }}
+          width="100%"
           height="4.315rem"
           key={item.reference}
           justify="space-between"

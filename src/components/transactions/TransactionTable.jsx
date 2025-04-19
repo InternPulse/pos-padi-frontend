@@ -32,36 +32,17 @@ function TransactionTable() {
 
   // $ State for the transaction data for each row to be passed to the transaction card - to be moved to the GlobalContext
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-
+  console.log(selectedTransaction);
   // $ Check if the values are correct and passed into the state.
-  // useEffect(() => {
-  //   if (selectedTransaction) {
-  console.log("New selected transaction:", selectedTransaction);
-  //   }
-  // }, [selectedTransaction]);
-
   return (
-    <Stack
-      width="66.75rem"
-      gap="3"
-      rounded="md"
-      display={{ base: "none", md: "block" }}
-    >
+    <Stack display={{ base: "none", md: "block" }}>
       <Table.ScrollArea
+        maxWidth="5xl"
         roundedTop="10px"
-        roundedBottom="0.5px"
-        borderWidth="1px"
-        borderBottom={"none"}
+        roundedBottom="8px"
+        border="1px solid rgba(233, 233, 233, 0.7)"
       >
-        <Table.Root size={{ md: "sm", lg: "lg" }}>
-          <Table.ColumnGroup>
-            <Table.Column htmlWidth="100px" />
-            <Table.Column htmlWidth="100px" />
-            <Table.Column htmlWidth="100px" />
-            <Table.Column htmlWidth="180px" />
-            <Table.Column htmlWidth="180px" />
-            <Table.Column htmlWidth="80px" />
-          </Table.ColumnGroup>
+        <Table.Root>
           <Table.Header>
             <Table.Row
               bgColor={"#E9E9E9"}
@@ -73,7 +54,7 @@ function TransactionTable() {
                   key={header.name}
                   color="#626C7A"
                   border="none"
-                  fontSize="0.875rem"
+                  fontSize={{ base: "0.725rem", xl: "0.875rem" }}
                   fontWeight="600"
                   textTransform={"capitalize"}
                 >
@@ -101,7 +82,7 @@ function TransactionTable() {
                   <Table.Cell
                     color="#1A1A1A"
                     borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
-                    fontSize="0.875rem"
+                    fontSize={{ base: "0.725rem", xl: "0.875rem" }}
                     fontWeight="400"
                   >
                     {item.reference}
@@ -109,7 +90,7 @@ function TransactionTable() {
                   <Table.Cell
                     color="#1A1A1A"
                     borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
-                    fontSize="0.875rem"
+                    fontSize={{ base: "0.725rem", xl: "0.875rem" }}
                     fontWeight="400"
                   >
                     {item.amount.toFixed(2)}
@@ -117,7 +98,7 @@ function TransactionTable() {
                   <Table.Cell
                     color="#1A1A1A"
                     borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
-                    fontSize="0.875rem"
+                    fontSize={{ base: "0.725rem", xl: "0.875rem" }}
                     fontWeight="400"
                   >
                     {item.customer}
@@ -125,7 +106,7 @@ function TransactionTable() {
                   <Table.Cell
                     color="#1A1A1A"
                     borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
-                    fontSize="0.875rem"
+                    fontSize={{ base: "0.725rem", xl: "0.875rem" }}
                     fontWeight="400"
                   >
                     {item.type}
@@ -133,7 +114,7 @@ function TransactionTable() {
                   <Table.Cell
                     color="#1A1A1A"
                     borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
-                    fontSize="0.875rem"
+                    fontSize={{ base: "0.725rem", xl: "0.875rem" }}
                     fontWeight="400"
                   >
                     {item.agent}
@@ -141,7 +122,7 @@ function TransactionTable() {
                   <Table.Cell
                     color="#1A1A1A"
                     borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
-                    fontSize="0.875rem"
+                    fontSize={{ base: "0.725rem", xl: "0.875rem" }}
                     fontWeight="400"
                   >
                     {item.dateTime}
