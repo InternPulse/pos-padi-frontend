@@ -14,7 +14,40 @@ function PlaceHolderTransactionsCard() {
   );
 }
 
-function PlaceholderChart(){
+function ButtonGroupContainer() {
+  return (
+    <Box
+      width={{ base: "108px", md: "200px", xl:'344px'}}
+      bg={"gray.200"}
+      height={{ base: "40px", md: "40px" }}
+      rounded={'xl'}
+    ></Box>
+  );
+}
+
+function SelectDateContainer() {
+  return (
+    <Box
+      width={{ base: "150px", md: "200px"}}
+      bg={"gray.200"}
+      height={{ base: "40px", md: "40px" }}
+      rounded={'xl'}
+    ></Box>
+  );
+}
+
+function ExportButtonContainer() {
+  return (
+    <Box
+      width={{ base: "40px", md: "140px"}}
+      bg={"gray.200"}
+      height={{ base: "40px", md: "40px" }}
+      rounded={'xl'}
+    ></Box>
+  );
+}
+
+function ChartContainer(){
   return (
     <Box
       width={{ base: "100%", lg: "738px" }}
@@ -74,6 +107,13 @@ function Dashboard() {
 
   return (
     <Flex p={5} direction={'column'} gap={5}>
+      <Flex width={'100%'} justify={'space-between'} px={{base: 2, md: 8, xl: 14}}>
+        <ButtonGroupContainer />
+        <Flex width={{base: '200px', md: '360px'}} justify={'space-between'}>
+          <SelectDateContainer />
+          <ExportButtonContainer />
+        </Flex>
+      </Flex>
       <Flex width={'100%'} wrap={'wrap'} gap={5} justify={'center'}>
         {
           placeholderTransactionSummaries.map(item => <PlaceHolderTransactionsCard />)
@@ -81,7 +121,7 @@ function Dashboard() {
       </Flex>
       <Flex direction={{base:'column', xl:'row'}} gap={5} justify={'center'} align={{lg:'center'}}>
 
-        <PlaceholderChart />
+        <ChartContainer />
         <Flex direction={{base: 'column', sm: 'row', xl: 'column'}} gap={5} justify={{base:'space-between', md:'space-around'}}>
           <RevenueCardContainer />
           
