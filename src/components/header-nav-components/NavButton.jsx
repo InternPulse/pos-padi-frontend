@@ -1,30 +1,33 @@
-import { Button, Icon, Text, Box } from "@chakra-ui/react"
+import { Icon, Text, Box } from "@chakra-ui/react"
 
-const NavButton = ({ icon, text, isSelected = false, onClick }) => {
+const NavButton = ({ icon, text, isSelected = false }) => {
   return (
-    <Button
-      onClick={onClick}
+    <Box
       display="flex"
       alignItems="center"
       justifyContent="flex-start"
       width="100%"
-      py={2}
-      px={4}
-      borderRadius="md"
-      bg={isSelected ? "gray.100" : "transparent"}
-      _hover={{ bg: "gray.50" }}
+      height='64px'
+      fontWeight={isSelected ? 'semibold' : ''}
+      color={isSelected ? '#02B14F' : {base: 'black', _dark: 'white'}}
+      borderLeft={isSelected ? '4px solid #02B14F' : ''}
+      py={'20px'}
+      px={'30px'}
+      bg={isSelected ? "rgba(2,177,79,0.05)" : "transparent"}
+      _hover={{ color: '#02B14F', fontWeight: 'semibold' }}
       _active={{ bg: "gray.100" }}
-      transition="background-color 0.2s"
+      transition="background-color 0.2s"  
     >
       {icon && (
-        <Box mr={2} fontSize="20px">
-          <Icon as={icon} />
+        <Box mr={5} fontSize="20px">
+          {/* <Icon as={icon} /> */}
+          {icon}
         </Box>
       )}
-      <Text display="block" fontSize="sm">
+      <Text display="block" fontSize="1.0rem">
         {text}
       </Text>
-    </Button>
+    </Box>
   )
 }
 
