@@ -21,7 +21,7 @@ function Layout() {
           <Logo isConcise={false} />
         </Box>
 
-        <Navigation userRole="admin" />
+        <Navigation userRole="agent" />
         <Advert />
       </Flex>
       <Flex
@@ -48,7 +48,7 @@ function Layout() {
           <Box mr={"auto"} display={{ base: "none", lg: "block" }}>
             <PageTitle />
           </Box>
-          <NotificationButton count={49} />
+          <NotificationButton count={120} />
 
           <Box
             height={{ base: "40px", lg: "60px" }}
