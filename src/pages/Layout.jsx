@@ -64,7 +64,8 @@ function Layout() {
           </Box>
         </Flex>
         <Box
-          bg="gray.100"
+          bg={{base: 'gray.100', _dark: 'gray.900'}}
+          // color={{base: 'black', _dark: 'white'}}
           minH={{ base: "calc(100vh - 56px)", sm: "calc(100vh - 80px)" }}
         >
           <Box display={{ base: "block", lg: "none" }} p={2}>

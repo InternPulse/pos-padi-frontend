@@ -9,7 +9,7 @@ const NavButton = ({ icon, text, isSelected = false }) => {
       width="100%"
       height='64px'
       fontWeight={isSelected ? 'semibold' : ''}
-      color={isSelected ? '#02B14F' : 'gray.500'}
+      color={isSelected ? '#02B14F' : {base: 'black', _dark: 'white'}}
       borderLeft={isSelected ? '4px solid #02B14F' : ''}
       py={'20px'}
       px={'30px'}

@@ -21,10 +21,9 @@ const TopAgentCard = ({
       width={{ base: "330px", sm: "360px" }}
       height="284px"
       borderRadius="10px"
-      // border="1px solid #E5E7EB"
-      bg="#FFFFFF"
+      bg={{base: 'white', _dark: 'gray.900'}}
       p="24px"
-      boxShadow="xs"
+      boxShadow={{base: "xs", _dark: '0 0 3px white'}}
       position="relative"
     >
       {/* Heading */}
@@ -33,7 +32,7 @@ const TopAgentCard = ({
         fontWeight="500"
         fontSize="18px"
         lineHeight="100%"
-        color="#626C7A"
+        color={{base: "#626C7A" , _dark: 'gray.400'}}
         mb="16px"
       >
         Our Top Agent
@@ -62,18 +61,18 @@ const TopAgentCard = ({
           fontSize="16px"
           lineHeight="100%"
           textAlign="center"
-          color="#1A1A1A"
+          color={{base: "#1A1A1A", _dark: 'white'}}
           mb="14px"
         >
           {userFullName}
         </Text>
 
         {/* Amount and Clients Section */}
-        <Flex justify="space-between" width={"173px"} align="center" color="#626C7A" gap="16px">
+        <Flex justify="space-between" width={"173px"} align="center" color={{base: "#626C7A" , _dark: 'gray.300'}} gap="16px">
           {/* Wallet + Amount */}
           <Flex align="center" gap="8px">
             <LuWallet size="14px" />
-            <Text fontSize="14px" fontWeight="500" color="#626C7A">
+            <Text fontSize="14px" fontWeight="500" color={{base: "#626C7A" , _dark: 'gray.300'}}>
               {formatAmount(amount)}
             </Text>
           </Flex>
@@ -81,7 +80,7 @@ const TopAgentCard = ({
           {/* Users + Count */}
           <Flex align="center" gap="8px">
             <LuUsers size="14px" />
-            <Text fontSize="14px" fontWeight="500" color="#626C7A">
+            <Text fontSize="14px" fontWeight="500" color={{base: "#626C7A" , _dark: 'gray.300'}}>
               {clients}
             </Text>
           </Flex>
