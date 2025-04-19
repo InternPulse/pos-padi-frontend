@@ -1,130 +1,220 @@
+"use client";
+import { useState } from "react";
+
 // $ Chakra UI Components
-import { Badge, Table, Box } from "@chakra-ui/react";
-// $ Project Data
+import {
+  Badge,
+  Table,
+  Box,
+  Stack,
+  ButtonGroup,
+  IconButton,
+  Pagination,
+} from "@chakra-ui/react";
+
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+
+// $ Transactions Data
 import {
   transactions,
   transactionTableHeaders,
 } from "./transactionsMockData.js";
 
+// $ Pagination Logic
+const PAGE_SIZE = 10;
+
 function TransactionTable() {
+  const [page, setPage] = useState(1);
+  const paginatedItems = transactions.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
+
+  // $ State for the transaction data for each row to be passed to the transaction card - to be moved to the GlobalContext
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+
+  // $ Check if the values are correct and passed into the state.
+  // useEffect(() => {
+  //   if (selectedTransaction) {
+  console.log("New selected transaction:", selectedTransaction);
+  //   }
+  // }, [selectedTransaction]);
+
   return (
-    <Table.ScrollArea
-      rounded="10px"
-      borderColor={"gray.200"}
-      borderWidth="1px"
-      display={{ base: "hidden", md: "block" }}
+    <Stack
+      width="66.75rem"
+      gap="3"
+      rounded="md"
+      display={{ base: "none", md: "block" }}
     >
-      <Table.Root size="sm" stickyHeader interactive>
-        <Table.Header>
-          <Table.Row bgColor={"#C4C4C4"} height="3rem">
-            {transactionTableHeaders.map((header) => (
-              <Table.ColumnHeader
-                key={header.name}
-                color="gray.600"
-                border="none"
-                fontSize={{ base: "0.85rem", lg: "0.875rem" }}
-                textTransform={"capitalize"}
-              >
-                {header.name}
-              </Table.ColumnHeader>
-            ))}
-          </Table.Row>
-        </Table.Header>
-        <Table.Body bgColor="transparent">
-          {transactions && transactions.length > 0 ? (
-            transactions.map((item) => (
-              <Table.Row
-                key={item.reference}
-                _hover={{
-                  bgColor: "gray.200/50",
-                }}
-                textTransform={"capitalize"}
-                height="70px"
-                bgColor="transparent"
-                color="gray.600"
-              >
-                <Table.Cell
-                  color="gray.500"
-                  borderColor="gray.200"
-                  fontSize="0.75rem"
-                  textAlign="left"
+      <Table.ScrollArea
+        roundedTop="10px"
+        roundedBottom="0.5px"
+        borderWidth="1px"
+        borderBottom={"none"}
+      >
+        <Table.Root size={{ md: "sm", lg: "lg" }}>
+          <Table.ColumnGroup>
+            <Table.Column htmlWidth="100px" />
+            <Table.Column htmlWidth="100px" />
+            <Table.Column htmlWidth="100px" />
+            <Table.Column htmlWidth="180px" />
+            <Table.Column htmlWidth="180px" />
+            <Table.Column htmlWidth="80px" />
+          </Table.ColumnGroup>
+          <Table.Header>
+            <Table.Row
+              bgColor={"#E9E9E9"}
+              height="4.375rem"
+              p="20px 30px 20px 30px"
+            >
+              {transactionTableHeaders.map((header) => (
+                <Table.ColumnHeader
+                  key={header.name}
+                  color="#626C7A"
+                  border="none"
+                  fontSize="0.875rem"
+                  fontWeight="600"
+                  textTransform={"capitalize"}
                 >
-                  {item.reference}
-                </Table.Cell>
-                <Table.Cell
-                  color="gray.500"
-                  borderColor="gray.200"
-                  fontSize="0.75rem"
+                  {header.name}
+                </Table.ColumnHeader>
+              ))}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body bgColor="transparent">
+            {paginatedItems && paginatedItems.length > 0 ? (
+              paginatedItems.map((item) => (
+                <Table.Row
+                  key={item.reference}
+                  _hover={{
+                    bgColor: "gray.200/50",
+                    cursor: "pointer",
+                  }}
+                  textTransform="capitalize"
+                  height="70px"
+                  bgColor="transparent"
+                  color="gray.600"
+                  p="20px 30px 20px 30px"
+                  onClick={() => setSelectedTransaction(item)}
                 >
-                  {item.amount}
-                </Table.Cell>
-                <Table.Cell
-                  color="gray.500"
-                  borderColor="gray.200"
-                  fontSize="0.75rem"
-                >
-                  {item.customer}
-                </Table.Cell>
-                <Table.Cell
-                  color="gray.500"
-                  borderColor="gray.200"
-                  fontSize="0.75rem"
-                >
-                  {item.type}
-                </Table.Cell>
-                <Table.Cell
-                  color="gray.500"
-                  borderColor="gray.200"
-                  fontSize="0.75rem"
-                >
-                  {item.agent}
-                </Table.Cell>
-                <Table.Cell
-                  color="gray.500"
-                  borderColor="gray.200"
-                  fontSize="0.75rem"
-                >
-                  {item.dateTime}
-                </Table.Cell>
-                <Table.Cell borderColor="gray.200" fontSize="0.75rem">
-                  <Badge
-                    fontSize={{ base: "0.6rem", lg: "0.75rem" }}
-                    textAlign={"center"}
-                    width={"5rem"}
-                    py={1.5}
-                    rounded={"full"}
-                    color={
-                      item.status === "successful"
-                        ? "green.500"
-                        : item.status === "pending"
-                        ? "gray.400"
-                        : "red.400"
-                    }
-                    bgColor={
-                      item.status === "successful"
-                        ? "green.100"
-                        : item.status === "pending"
-                        ? "gray.200"
-                        : "red.100"
-                    }
+                  <Table.Cell
+                    color="#1A1A1A"
+                    borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
+                    fontSize="0.875rem"
+                    fontWeight="400"
                   >
-                    <Box as="span" mx="auto">
-                      {item.status}
-                    </Box>
-                  </Badge>
+                    {item.reference}
+                  </Table.Cell>
+                  <Table.Cell
+                    color="#1A1A1A"
+                    borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
+                    fontSize="0.875rem"
+                    fontWeight="400"
+                  >
+                    {item.amount.toFixed(2)}
+                  </Table.Cell>
+                  <Table.Cell
+                    color="#1A1A1A"
+                    borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
+                    fontSize="0.875rem"
+                    fontWeight="400"
+                  >
+                    {item.customer}
+                  </Table.Cell>
+                  <Table.Cell
+                    color="#1A1A1A"
+                    borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
+                    fontSize="0.875rem"
+                    fontWeight="400"
+                  >
+                    {item.type}
+                  </Table.Cell>
+                  <Table.Cell
+                    color="#1A1A1A"
+                    borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
+                    fontSize="0.875rem"
+                    fontWeight="400"
+                  >
+                    {item.agent}
+                  </Table.Cell>
+                  <Table.Cell
+                    color="#1A1A1A"
+                    borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
+                    fontSize="0.875rem"
+                    fontWeight="400"
+                  >
+                    {item.dateTime}
+                  </Table.Cell>
+                  <Table.Cell
+                    borderBottom="0.5px solid rgba(233, 233, 233, 0.7)"
+                    fontSize="0.75rem"
+                  >
+                    <Badge
+                      fontSize="0.625rem"
+                      textAlign={"center"}
+                      width={"5rem"}
+                      p={"4px 10px 4px 10px"}
+                      rounded={"full"}
+                      color={
+                        item.status === "successful" ? "#0B9D09" : "#FF3939"
+                      }
+                      bgColor={
+                        item.status === "successful" ? "#0B9D0910" : "#FF393910"
+                      }
+                    >
+                      <Box as="span" mx="auto">
+                        {item.status}
+                      </Box>
+                    </Badge>
+                  </Table.Cell>
+                </Table.Row>
+              ))
+            ) : (
+              <Table.Row>
+                <Table.Cell as="td" textAlign="center" py={4}>
+                  No transactions found. Add a new transaction to get started.
                 </Table.Cell>
               </Table.Row>
-            ))
-          ) : (
-            <Table.Row>
-              <Table.Cell as="td" textAlign="center" py={4}>
-                No transactions found. Add a new transaction to get started.
-              </Table.Cell>
-            </Table.Row>
-          )}
-        </Table.Body>
-      </Table.Root>
-    </Table.ScrollArea>
+            )}
+          </Table.Body>
+        </Table.Root>
+      </Table.ScrollArea>
+
+      <Pagination.Root
+        count={transactions.length}
+        pageSize={PAGE_SIZE}
+        page={page}
+        onPageChange={(details) => setPage(details.page)}
+        align="end"
+      >
+        <ButtonGroup variant="ghost" size="sm" wrap="wrap">
+          <Pagination.PrevTrigger asChild>
+            <IconButton>
+              <LuChevronLeft />
+            </IconButton>
+          </Pagination.PrevTrigger>
+
+          <Pagination.Items
+            render={(paginationPage) => (
+              <IconButton
+                key={paginationPage.value}
+                onClick={() => setPage(paginationPage.value)}
+                variant={{ base: "ghost", _selected: "outline" }}
+              >
+                {paginationPage.value}
+              </IconButton>
+            )}
+          />
+
+          <Pagination.NextTrigger asChild>
+            <IconButton>
+              <LuChevronRight />
+            </IconButton>
+          </Pagination.NextTrigger>
+        </ButtonGroup>
+      </Pagination.Root>
+    </Stack>
   );
 }
 
