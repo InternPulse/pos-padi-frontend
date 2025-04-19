@@ -18,7 +18,7 @@ function PageTitle() {
     currentLocation.includes(page.toLowerCase())
   );
   return (
-    <Text textStyle={"xl"} color={"gray.500"} fontWeight={"semibold"}>
+    <Text textStyle={"xl"} color={{base: "gray.500", _dark: 'gray.300'}} fontWeight={"semibold"}>
       {currentPage}
     </Text>
   );

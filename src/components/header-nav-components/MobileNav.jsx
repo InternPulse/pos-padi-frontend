@@ -42,7 +42,7 @@ function MobileNav() {
                   <Drawer.Context>
                     {(store) => (
                       <Drawer.Body p={0} onClick={() => store.setOpen(false)}>
-                        <Navigation userRole="admin" />
+                        <Navigation userRole="agent" />
                       </Drawer.Body>
                     )}
                   </Drawer.Context>
