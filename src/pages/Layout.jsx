@@ -15,6 +15,12 @@ function Layout() {
         width={{ lg: "200px", xl: "260px" }}
         display={{ base: "none", lg: "flex" }}
         direction={"column"}
+        //Testing position modifications
+
+        position={"fixed"}
+        zIndex={10}
+        bg={{ base: "white", _dark: "black" }}
+        minH={"100vh"}
       >
         {/* Desktop Navigation */}
         <Box>
@@ -31,48 +37,79 @@ function Layout() {
           lg: "calc(100vw - 200px)",
           xl: "calc(100vw - 260px)",
         }}
+        //Testing position modifications
+
+        left={{ lg: "200px", xl: "260px" }}
+        position={"absolute"}
+        height={"100px"}
       >
         <Flex
           px={{ base: 3, lg: 5 }}
           height={{ base: "56px", sm: "80px" }}
           gap={{ base: 5, md: 5 }}
-          width={"100%"}
-          justify={"flex-end"}
+          // width={"100%"}
+          width={{
+            base: "100vw",
+            lg: "calc(100vw - 200px)",
+            xl: "calc(100vw - 260px)",
+          }}
+          justify={"space-between"}
           align={"center"}
+          //Testing position modifications
+
+          position={"fixed"}
+          top={0}
+          zIndex={10}
+          bg={{ base: "white", _dark: "black" }}
         >
           {/* Header */}
 
-          <Box display={{ base: "block", lg: "none" }} mr={"auto"}>
-            <Logo />
-          </Box>
-          <Box mr={"auto"} display={{ base: "none", lg: "block" }}>
-            <PageTitle />
-          </Box>
-          <NotificationButton count={120} />
+          <Flex>
+            <Box display={{ base: "block", lg: "none" }}>
+              <Logo />
+            </Box>
+            <Box display={{ base: "none", lg: "block" }}>
+              <PageTitle />
+            </Box>
+          </Flex>
+          <Flex align={"center"} gap={5}>
+            <NotificationButton count={120} />
+            <Box
+              height={{ base: "40px", lg: "60px" }}
+              width={{ base: "40px", lg: "180px" }}
+              bg="gray.300"
+            >
+              {/*Awaiting Avatar Component */}
+            </Box>
+            <Box display={{ base: "block", lg: "none" }}>
+              {/* <MenuButton /> */}
+              <MobileNav />
+            </Box>
+          </Flex>
+        </Flex>
+        <Flex
+          justify={"center"}
+          align={"start"}
+          minH={"100vh"}
+          bg={{ base: "gray.100", _dark: "gray.900" }}
+          width={"100%"}
+          //Testing position modifications
 
+          position={"absolute"}
+          top={{ base: "56px", sm: "80px" }}
+        >
           <Box
-            height={{ base: "40px", lg: "60px" }}
-            width={{ base: "40px", lg: "180px" }}
-            bg="gray.300"
+            maxW={"1280px"}
+            mx={"auto"}
+            // color={{base: 'black', _dark: 'white'}}
+            // minH={{ base: "calc(100vh - 56px)", sm: "calc(100vh - 80px)" }}
           >
-            {/*Awaiting Avatar Component */}
-          </Box>
-
-          <Box display={{ base: "block", lg: "none" }}>
-            {/* <MenuButton /> */}
-            <MobileNav />
+            <Box display={{ base: "block", lg: "none" }} p={2}>
+              <PageTitle />
+            </Box>
+            <Outlet />
           </Box>
         </Flex>
-        <Box
-          bg={{base: 'gray.100', _dark: 'gray.900'}}
-          // color={{base: 'black', _dark: 'white'}}
-          minH={{ base: "calc(100vh - 56px)", sm: "calc(100vh - 80px)" }}
-        >
-          <Box display={{ base: "block", lg: "none" }} p={2}>
-            <PageTitle />
-          </Box>
-          <Outlet />
-        </Box>
       </Flex>
     </Flex>
   );
