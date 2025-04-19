@@ -76,7 +76,7 @@ function Dashboard() {
           placeholderTransactionSummaries.map(item => <PlaceHolderTransactionsCard />)
         }
       </Flex>
-      <Flex direction={{base:'column', xl:'row'}} gap={5} justify={'center'}>
+      <Flex direction={{base:'column', xl:'row'}} gap={5} justify={'center'} align={'center'}>
 
         <PlaceholderChart />
         <Flex direction={{base: 'column', sm: 'row', xl: 'column'}} gap={5} justify={{base:'space-between', md:'space-around'}}>
