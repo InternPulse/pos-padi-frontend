@@ -64,7 +64,6 @@ function RevenueCardContainer(){
   return (
     <Box
       width={{ base: "100%", sm: '50%', lg: "360px" }}
-      bg={"gray.200"}
       height={{ base: "230px", sm:'284px', xl: "170px" }}
       rounded={'xl'}
     >

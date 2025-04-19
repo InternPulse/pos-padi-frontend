@@ -28,9 +28,9 @@ export default function RevenueCard({
   return (
     <Flex justify="center" align="center" width={"100%"} height={"100%"}>
       <Flex
-        bg="white"
+        bg={{base:'white', _dark: 'black'}}
         borderRadius="md"
-        boxShadow="xs"
+        boxShadow={'0 0 3px lightgrey'}
         direction={"column"}
         justify={"start"}
         w={"100%"}
@@ -39,7 +39,7 @@ export default function RevenueCard({
         {/* Revenue title and waveform chart */}
         <Flex height={"30%"} p={2} direction={'column'} justify={'center'}>
           <Flex justifyContent="space-between" alignItems="center">
-            <Text fontSize="md" fontWeight="medium" color="gray.700">
+            <Text fontSize="md" fontWeight="medium" color={{base:"gray.700", _dark:'gray.200'}}>
               Revenue
             </Text>
             <Flex
@@ -70,10 +70,10 @@ export default function RevenueCard({
         {/* Amount and percentage change */}
         <Flex height={"70%"} p={2} justify={"center"} align={"center"}>
           <VStack spacing={0}>
-            <Text fontSize="lg" fontWeight="bold" color="gray.800">
+            <Text fontSize="lg" fontWeight="bold" color={{base:"gray.800", _dark: 'gray.100'}}>
               {amount}
             </Text>
-            <Text fontSize="xs" color="black">
+            <Text fontSize="xs" color={{base: "black", _dark: 'white'}}>
               {Math.abs(percentageChange)}%{" "}
               {isNegative ? "decrease" : "increase"} from {timeframe}
             </Text>
