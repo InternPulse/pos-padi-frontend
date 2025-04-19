@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Box, 
-  Flex, 
-  Text, 
-  VStack 
-} from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
+import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 
-export default function RevenueCard({ 
-  amount = "N 150,967.64", 
-  percentageChange = -70, 
-  timeframe = "last month"
+export default function RevenueCard({
+  amount = "N 150,967.64",
+  percentageChange = -70,
+  timeframe = "last month",
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true);
@@ -31,41 +26,35 @@ export default function RevenueCard({
   const isNegative = percentageChange < 0;
 
   return (
-    <Flex justify="center" align="center" p={2}>
-      <Box 
-        bg="white" 
-        borderRadius="md" 
-        boxShadow="md" 
-        w="100%" 
-        maxW="xs" 
-        p={3}
+    <Flex justify="center" align="center" width={"100%"} height={"100%"}>
+      <Flex
+        bg="white"
+        borderRadius="md"
+        boxShadow="xs"
+        direction={"column"}
+        justify={"start"}
+        w={"100%"}
+        h={"100%"}
       >
         {/* Revenue title and waveform chart */}
-        <Box 
-          borderWidth="1px"
-          borderStyle="solid" 
-          borderColor="gray.200" 
-          borderRadius="md" 
-          p={2} 
-          mb={2}
-        >
+        <Flex height={"30%"} p={2} direction={'column'} justify={'center'}>
           <Flex justifyContent="space-between" alignItems="center">
-            <Text fontSize="sm" fontWeight="medium" color="gray.700">
+            <Text fontSize="md" fontWeight="medium" color="gray.700">
               Revenue
             </Text>
-            <Flex 
-              h="32px" 
-              w="96px" 
-              alignItems="flex-end" 
-              role="img" 
+            <Flex
+              h="32px"
+              w="96px"
+              alignItems="flex-end"
+              role="img"
               aria-label="Revenue trend visualization"
               gap="1px"
             >
               {barData.map((height, index) => (
-                <Box 
+                <Box
                   key={index}
-                  w="3px" 
-                  bg="orange.500" 
+                  w="3px"
+                  bg="orange.500"
                   borderTopRadius="sm"
                   height={isVisible ? `${height}%` : "0%"}
                   transition="all 0.5s ease-out"
@@ -74,26 +63,23 @@ export default function RevenueCard({
               ))}
             </Flex>
           </Flex>
-        </Box>
-        
+        </Flex>
+
+        <hr />
+
         {/* Amount and percentage change */}
-        <Box 
-          borderWidth="1px"
-          borderStyle="solid" 
-          borderColor="gray.200" 
-          borderRadius="md" 
-          p={2}
-        >
+        <Flex height={"70%"} p={2} justify={"center"} align={"center"}>
           <VStack spacing={0}>
             <Text fontSize="lg" fontWeight="bold" color="gray.800">
               {amount}
             </Text>
             <Text fontSize="xs" color="black">
-              {Math.abs(percentageChange)}% {isNegative ? 'decrease' : 'increase'} from {timeframe}
+              {Math.abs(percentageChange)}%{" "}
+              {isNegative ? "decrease" : "increase"} from {timeframe}
             </Text>
           </VStack>
-        </Box>
-      </Box>
+        </Flex>
+      </Flex>
     </Flex>
   );
 }

@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import TopAgentCard from "@/components/TopAgentCard";
+import RevenueCard from "@/components/RevenueCard";
 
 function PlaceHolderTransactionsCard() {
   return (
@@ -23,14 +24,36 @@ function PlaceholderChart(){
   );
 }
 
-function PlaceholderRevenue(){
+function RevenueCardContainer(){
   return (
     <Box
-      width={{ base: "100%", lg: "360px" }}
+      width={{ base: "100%", sm: '50%', lg: "360px" }}
       bg={"gray.200"}
-      height={{ base: "230px", lg: "170px" }}
+      height={{ base: "230px", sm:'284px', xl: "170px" }}
       rounded={'xl'}
-    ></Box>
+    >
+      <RevenueCard />
+    </Box>
+  );  
+}
+
+function TopAgentContainer(){
+
+  const topAgentDetails = {
+    userFullName: "Biolaluwatito Adubi",
+    amount: "353560.03",
+    clients: 18
+  }
+
+  return (
+    <Box
+      width={{ base: "100%", sm: '50%', lg: "360px" }}
+      bg={"gray.200"}
+      height="284px"
+      rounded={'xl'}
+    >
+      <TopAgentCard {...topAgentDetails}/>
+    </Box>
   );  
 }
 
@@ -44,11 +67,7 @@ function Dashboard() {
     'data',
   ]
 
-  const topAgentDetails = {
-    userFullName: "Biolaluwatito Adubi",
-    amount: "353560.03",
-    clients: 18
-  }
+
 
   return (
     <Flex p={5} direction={'column'} gap={5}>
@@ -57,13 +76,13 @@ function Dashboard() {
           placeholderTransactionSummaries.map(item => <PlaceHolderTransactionsCard />)
         }
       </Flex>
-      <Flex direction={{base:'column', lg:'row'}} gap={5} justify={'center'}>
+      <Flex direction={{base:'column', xl:'row'}} gap={5} justify={'center'}>
 
         <PlaceholderChart />
-        <Flex direction={'column'} gap={5} justify={'space-between'}>
-          <PlaceholderRevenue />
-          <TopAgentCard {...topAgentDetails}/>
-
+        <Flex direction={{base: 'column', sm: 'row', xl: 'column'}} gap={5} justify={{base:'space-between', md:'space-around'}}>
+          <RevenueCardContainer />
+          
+          <TopAgentContainer />
         </Flex>
       </Flex>
     </Flex>

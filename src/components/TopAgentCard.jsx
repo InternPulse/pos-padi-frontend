@@ -18,7 +18,7 @@ const TopAgentCard = ({
 }) => {
   return (
     <Box
-      width={{ base: "330px", sm: "360px" }}
+      width={{ base: "100%" }}
       height="284px"
       borderRadius="10px"
       bg={{base: 'white', _dark: 'gray.900'}}
