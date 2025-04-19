@@ -1,13 +1,14 @@
 import { Box, Flex } from "@chakra-ui/react";
 import TopAgentCard from "@/components/TopAgentCard";
 import RevenueCard from "@/components/RevenueCard";
+import Financecharts from "@/components/DashboardComponents/Financecharts";
 
 function PlaceHolderTransactionsCard() {
   return (
     <Box
-      width={{ base: "168px", lg: "360px" }}
+      width={{ base: "168px", md: "300px", lg:'360px'}}
       bg={"gray.200"}
-      height={{ base: "68px", lg: "145px" }}
+      height={{ base: "68px", md: "145px" }}
       rounded={'xl'}
     ></Box>
   );
@@ -20,7 +21,9 @@ function PlaceholderChart(){
       bg={"gray.200"}
       height={{ base: "230px", lg: "484px" }}
       rounded={'xl'}
-    ></Box>
+    >
+      <Financecharts />
+    </Box>
   );
 }
 
@@ -76,7 +79,7 @@ function Dashboard() {
           placeholderTransactionSummaries.map(item => <PlaceHolderTransactionsCard />)
         }
       </Flex>
-      <Flex direction={{base:'column', xl:'row'}} gap={5} justify={'center'} align={'center'}>
+      <Flex direction={{base:'column', xl:'row'}} gap={5} justify={'center'} align={{lg:'center'}}>
 
         <PlaceholderChart />
         <Flex direction={{base: 'column', sm: 'row', xl: 'column'}} gap={5} justify={{base:'space-between', md:'space-around'}}>
