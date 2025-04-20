@@ -11,7 +11,7 @@ function Transactions() {
       maxWidth="73.75rem"
       // border="2px dashed red"
       gap={{ base: "1.25rem", xl: "1.125rem" }}
-      p={{ base: "1rem", xl: "1.875rem" }}
+      p={4}
     >
       {/* Add Transaction: Visible width < 680px */}
       <GridItem
