@@ -1,16 +1,12 @@
 // $ Chakra UI Components
 import { Badge, Flex, Box, Text } from "@chakra-ui/react";
 
-// $ Transactions Data
-import { transactions } from "./transactionsMockData.js";
-
-function TransactionTableMobile() {
+function TransactionTableMobile({ transactions }) {
   return (
     <Flex
       width="100%"
       height="auto"
       display={{ base: "block", md: "none" }}
-      // border="1px solid green"
     >
       {/* Container for the Search Functionality */}
       {transactions.map((item) => (
@@ -35,19 +31,19 @@ function TransactionTableMobile() {
               fontSize="0.875rem"
               fontWeight="500"
               textTransform={"capitalize"}
-              color={{ _dark: "gray.700" }}
+              color={{ _dark: "gray.200" }}
             >
               {item.type} - {""}
               <Box
                 as="span"
                 fontSize="0.8rem"
                 fontWeight="500"
-                color={{ _dark: "gray.700" }}
+                color={{ _dark: "gray.200" }}
               >
                 {item.customer}
               </Box>
             </Text>
-            <Text color="#626C7A" fontSize="0.625rem" justifySelf={"end"}>
+            <Text color={{base: "#626C7A", _dark: 'gray.300'}} fontSize="0.625rem" justifySelf={"end"}>
               {item.dateTime}
             </Text>
           </Flex>
@@ -63,7 +59,7 @@ function TransactionTableMobile() {
             <Text
               height="1.3125rem"
               fontSize="0.875rem"
-              color={{ _dark: "gray.700" }}
+              color={{ _dark: "gray.200" }}
             >
               {item.amount.toFixed(2)}
             </Text>
