@@ -5,7 +5,6 @@ import Dashboard from "./pages/Dashboard";
 import Layout from "./pages/Layout";
 import Transactions from "./pages/Transactions";
 
-import TopAgent from "./pages/TopAgent";
 
 
 
