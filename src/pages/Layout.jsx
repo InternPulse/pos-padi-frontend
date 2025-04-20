@@ -101,13 +101,16 @@ function Layout() {
           <Box
             maxW={"1280px"}
             mx={"auto"}
+            width={'100%'}
             // color={{base: 'black', _dark: 'white'}}
             // minH={{ base: "calc(100vh - 56px)", sm: "calc(100vh - 80px)" }}
           >
             <Box display={{ base: "block", lg: "none" }} p={2}>
               <PageTitle />
             </Box>
-            <Outlet />
+            <Flex justify={'center'} width={'100%'}>
+              <Outlet />
+            </Flex>
           </Box>
         </Flex>
       </Flex>
