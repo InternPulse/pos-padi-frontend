@@ -11,7 +11,7 @@ import MobileNav from "@/components/header-nav-components/MobileNav";
 function Layout() {
   return (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
-    <Flex width={"100vh"} height={"100vh"}>
+    <Flex width={"100vw"} height={"100vh"}>
       <Flex
         width={{ lg: "200px", xl: "260px" }}
         display={{ base: "none", lg: "flex" }}
