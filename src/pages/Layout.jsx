@@ -10,6 +10,7 @@ import MobileNav from "@/components/header-nav-components/MobileNav";
 
 function Layout() {
   return (
+    // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
     <Flex width={"100vw"} height={"100vh"}>
       <Flex
         width={{ lg: "200px", xl: "260px" }}
@@ -63,7 +64,6 @@ function Layout() {
           bg={{ base: "white", _dark: "black" }}
         >
           {/* Header */}
-
           <Flex>
             <Box display={{ base: "block", lg: "none" }}>
               <Logo />
@@ -101,13 +101,16 @@ function Layout() {
           <Box
             maxW={"1280px"}
             mx={"auto"}
+            width={'100%'}
             // color={{base: 'black', _dark: 'white'}}
             // minH={{ base: "calc(100vh - 56px)", sm: "calc(100vh - 80px)" }}
           >
             <Box display={{ base: "block", lg: "none" }} p={2}>
               <PageTitle />
             </Box>
-            <Outlet />
+            <Flex justify={'center'} width={'100%'}>
+              <Outlet />
+            </Flex>
           </Box>
         </Flex>
       </Flex>

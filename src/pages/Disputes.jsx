@@ -1,8 +1,6 @@
-import React from 'react'
-
 function Disputes() {
   return (
-    <div>Disputes</div>
+    <div>Dispute</div>
   )
 }
 
