@@ -14,6 +14,7 @@ import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
 
+import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
           <Route path='terminals' element={<Terminals />} />
           <Route path='disputes' element={<Disputes />} />
           <Route path='settings' element={<Settings />} />
+          <Route path='topagents' element={<TopAgent />} />
+          <Route path='notifications' element={<NotificationsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
