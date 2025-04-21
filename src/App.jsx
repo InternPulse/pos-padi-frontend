@@ -9,7 +9,7 @@ import AltTransactions from "./components/alt/transactions/AltTransactions";
 
 
 
-import Agents from "./pages/Agents";
+//import Agents from "./pages/Agents";
 import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
@@ -27,12 +27,12 @@ function App() {
           <Route path="transactions" element={<AltTransactions />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='transactions/settings' element={<Settings />} />
-          <Route path='agents' element={<Agents />} />
+          
           <Route path='customers' element={<Customers />} />
           <Route path='terminals' element={<Terminals />} />
           <Route path='disputes' element={<Disputes />} />
           <Route path='settings' element={<Settings />} />
-          <Route path='topagents' element={<TopAgent />} />
+           
           <Route path='notifications' element={<NotificationsPage />} />
         </Route>
       </Routes>
