@@ -7,6 +7,7 @@ import PageTitle from "@/components/header-nav-components/PageTitle";
 import Navigation from "@/components/header-nav-components/Navigation";
 import Advert from "@/components/header-nav-components/Advert";
 import MobileNav from "@/components/header-nav-components/MobileNav";
+import NotificationsDrawer from "@/components/header-nav-components/NotificationsDrawer";
 
 function Layout() {
   return (
@@ -28,7 +29,7 @@ function Layout() {
           <Logo isConcise={false} />
         </Box>
 
-        <Navigation userRole="agent" />
+        <Navigation userRole="admin" />
         <Advert />
       </Flex>
       <Flex
@@ -73,7 +74,7 @@ function Layout() {
             </Box>
           </Flex>
           <Flex align={"center"} gap={5}>
-            <NotificationButton count={120} />
+            <NotificationsDrawer count={120} />
             <Box
               height={{ base: "40px", lg: "60px" }}
               width={{ base: "40px", lg: "180px" }}
