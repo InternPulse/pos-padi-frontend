@@ -3,7 +3,6 @@ import HomePage from "./pages/HomePage";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./pages/Layout";
-import Transactions from "./pages/Transactions";
 import AltTransactions from "./components/alt/transactions/AltTransactions";
 
 
@@ -26,13 +25,11 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="transactions" element={<AltTransactions />} />
           <Route path='dashboard' element={<Dashboard />} />
-          <Route path='transactions/settings' element={<Settings />} />
           <Route path='agents' element={<Agents />} />
           <Route path='customers' element={<Customers />} />
           <Route path='terminals' element={<Terminals />} />
           <Route path='disputes' element={<Disputes />} />
           <Route path='settings' element={<Settings />} />
-          <Route path='topagents' element={<TopAgent />} />
           <Route path='notifications' element={<NotificationsPage />} />
         </Route>
       </Routes>

@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import TransactionDialog from "./Effects/TransactionDialog";
 
 const PAGE_SIZE = 10;
 
@@ -160,7 +161,7 @@ function AltTransactionTable({ transactions }) {
         <TableData isHeader={true} {...transactionsTableHeader} />
 
         {paginatedItems.map((item) => (
-          <TableData {...item} />
+          <TransactionDialog><TableData {...item} /></TransactionDialog>
         ))}
       </Box>
 
