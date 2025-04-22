@@ -1,5 +1,6 @@
 // $ Chakra UI Components
 import { Badge, Flex, Box, Text } from "@chakra-ui/react";
+import TransactionDialog from "../alt/transactions/Effects/TransactionDialog";
 
 function TransactionTableMobile({ transactions }) {
   return (
@@ -10,6 +11,7 @@ function TransactionTableMobile({ transactions }) {
     >
       {/* Container for the Search Functionality */}
       {transactions.map((item) => (
+        <TransactionDialog>
         <Flex
           width="100%"
           height="4.315rem"
@@ -17,7 +19,7 @@ function TransactionTableMobile({ transactions }) {
           justify="space-between"
           borderBottom="1px solid rgba(227, 232, 239, 0.70)"
           py="0.625rem"
-          onClick={() => alert("you clicked me")}
+          
         >
           {/* // $ Left Size of Card */}
           <Flex
@@ -78,6 +80,8 @@ function TransactionTableMobile({ transactions }) {
             </Badge>
           </Flex>
         </Flex>
+
+        </TransactionDialog>
       ))}
     </Flex>
   );
