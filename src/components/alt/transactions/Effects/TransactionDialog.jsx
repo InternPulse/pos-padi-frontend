@@ -1,4 +1,6 @@
-import { Button, Box, CloseButton, Dialog, Portal } from "@chakra-ui/react"
+import { Button, Box, CloseButton, Dialog, Portal, Image } from "@chakra-ui/react"
+import TransactionDetailsCard from "../TransactionDetailsCard"
+import logo from "../../../../assets/logo-lg.png"
 
 function TransactionDialog({ children }) {
   return (
@@ -11,13 +13,16 @@ function TransactionDialog({ children }) {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>Transaction Details</Dialog.Title>
+              <Dialog.Title>
+                <Image src={logo} height="66px" width="100%" />
+              </Dialog.Title>
             </Dialog.Header>
             <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />
             </Dialog.CloseTrigger>
             <Dialog.Body>
-              Transaction Details Card
+             
+              <TransactionDetailsCard />
             </Dialog.Body>
           </Dialog.Content>
         </Dialog.Positioner>
