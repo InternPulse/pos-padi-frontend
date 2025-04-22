@@ -4,17 +4,11 @@ import RevenueCard from "@/components/RevenueCard";
 import Financecharts from "@/components/DashboardComponents/Financecharts";
 import DateRangePicker from "@/components/header-nav-components/DateRangePicker";
 import { useState } from "react";
-
-function PlaceHolderTransactionsCard() {
-  return (
-    <Box
-      width={{ base: "168px", md: "300px", lg: "360px" }}
-      bg={"gray.200"}
-      height={{ base: "68px", md: "145px" }}
-      rounded={"xl"}
-    ></Box>
-  );
-}
+import { IoPeopleOutline } from "react-icons/io5";
+import { GrGroup } from "react-icons/gr";
+import { GiSwipeCard } from "react-icons/gi";
+import { transactionSummary } from "@/components/alt/transactions/AltTransactions";
+import Card from "@/components/alt/dashboard-components/Card";
 
 function ButtonGroupContainer() {
   return (
@@ -97,14 +91,37 @@ function TopAgentContainer() {
 
 function Dashboard() {
   const [filteredTransactions, setFilteredTransactions] = useState(null);
-  const placeholderTransactionSummaries = [
-    'data',
-    'data',
-    'data',
-    'data',
-    'data',
-    'data',
-  ]
+  
+  const CompanySummaries = [
+    ...transactionSummary,
+    {
+      title: 'Agents',
+      amount: 8,
+      icon: <IoPeopleOutline />,
+      iconColor: {base: 'orange.600', _dark:'orange.300'},
+      iconBgColor: {base: 'orange.50', _dark: 'orange.800'},
+      percent: 15,
+      period: 'month'
+    },
+    {
+      title: 'Customers',
+      amount: 352,
+      icon: <GrGroup />,
+      iconColor: {base: 'yellow.600', _dark:'yellow.300'},
+      iconBgColor: {base: 'yellow.50', _dark: 'yellow.800'},
+      percent: -5,
+      period: 'month'
+    },
+    {
+      title: 'Transaction Count',
+      amount: 7214,
+      icon: <GiSwipeCard />,
+      iconColor: {base: 'purple.600', _dark:'purple.300'},
+      iconBgColor: {base: 'purple.50', _dark: 'purple.800'},
+      percent: 23,
+      period: 'month'
+    },
+  ];
 
   const handleDateRangeChange = ({ startDate, endDate, transactions }) => {
     if (!startDate && !endDate) {
@@ -147,11 +164,9 @@ function Dashboard() {
         gap={{ base: 3, md: 5 }} 
         justify={'center'}
       >
-        {
-          placeholderTransactionSummaries.map((item, index) => (
-            <PlaceHolderTransactionsCard key={index} />
-          ))
-        }
+        {CompanySummaries.map((item, index) => (
+          <Card key={index} {...item} />
+        ))}
       </Flex>
       <Flex 
         direction={{ base: 'column', xl: 'row' }} 

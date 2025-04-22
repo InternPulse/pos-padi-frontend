@@ -116,7 +116,7 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
       { name: "Successful", color: "blue.500" },
       { name: "fail", color: "red.500" },
     ],
-  })
+  });
 
   // Determine if we should show all month labels or fewer based on screen size
   const tickInterval = useBreakpointValue({ base: 2, sm: 1 })
@@ -126,7 +126,7 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
       <ResponsiveContainer width="100%" height="100%">
         <LineChart 
           data={chart.data} 
-          margin={{ top: 5, right: 10, left: 10, bottom: 30 }}
+          margin={{ top: 5, right: 5, left: 5, bottom: 30 }}
         >
           <CartesianGrid stroke="var(--chakra-colors-gray-200, #E2E8F0)" vertical={false} />
           <XAxis
@@ -138,7 +138,7 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
             interval={tickInterval}
             height={25}
             dy={15}
-            padding={{ left: 10, right: 10 }}
+            padding={{ left: 5, right: 5 }}
             style={{ zIndex: 1000 }}
           />
           <YAxis
@@ -192,6 +192,8 @@ const Financecharts = ({ filteredTransactions, showEmptyState }) => {
       overflow="hidden"
       position="relative"
       zIndex={10}
+      bg={{base: 'white', _dark: 'gray.900'}}
+      boxShadow={{base: "xs", _dark: '0 0 3px white'}}
     >
       <Box 
         display="flex"
@@ -211,6 +213,7 @@ const Financecharts = ({ filteredTransactions, showEmptyState }) => {
           pl={{ base: 2, sm: 2 }}
           position="relative"
           zIndex={10}
+          color={{base: "#626C7A", _dark: 'gray.400'}}
         >
           Monthly Transaction Trend
         </Card.Header>
@@ -233,8 +236,7 @@ const Financecharts = ({ filteredTransactions, showEmptyState }) => {
           h="100%" 
           w="100%" 
           position="relative"
-          px={{ base: 2, sm: 2 }}
-          ml={{ base: -1, sm: 0 }}
+          px={{ base: 0, sm: 1 }}
         >
           <Box 
             w="100%" 
