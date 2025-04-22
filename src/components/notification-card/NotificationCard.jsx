@@ -1,30 +1,48 @@
-import { Box, HStack, VStack, Text, Circle, Image } from "@chakra-ui/react";
+import { Box, HStack, VStack, Text, Image } from "@chakra-ui/react";
 import moment from "moment";
 import { BsEnvelopeCheck } from "react-icons/bs";
 import { BiTask } from "react-icons/bi";
 import { LuWallet } from "react-icons/lu";
 import { TiUserAddOutline } from "react-icons/ti";
 import { GiSwipeCard } from "react-icons/gi";
-import {FaBell } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 import dotIcon from "../../assets/dotIcon.png";
 
-//  Switch case to get the icon based on the icon name
+// Return the icon component with color
 const getIcon = (iconName, size) => {
   const iconProps = { size };
 
   switch (iconName) {
     case "message":
-      return <BsEnvelopeCheck {...iconProps} color="#805AD5" />;  
+      return <BsEnvelopeCheck {...iconProps} color="#805AD5" />;
     case "task":
-      return <BiTask {...iconProps} color="#38A169" />;  
+      return <BiTask {...iconProps} color="#38A169" />;
     case "transaction":
-      return <LuWallet {...iconProps} color="#E53E3E" />; 
+      return <LuWallet {...iconProps} color="#E53E3E" />;
     case "user-add":
-      return <TiUserAddOutline {...iconProps} color="#38A169" />;  
+      return <TiUserAddOutline {...iconProps} color="#38A169" />;
     case "terminal":
-      return <GiSwipeCard {...iconProps} color="#E53E3E" />; 
+      return <GiSwipeCard {...iconProps} color="#E53E3E" />;
     default:
-      return <FaBell {...iconProps} color="#38A169" />; 
+      return <FaBell {...iconProps} color="#38A169" />;
+  }
+};
+
+// Return the background color (muted) based on the icon
+const getIconBgColor = (iconName) => {
+  switch (iconName) {
+    case "message":
+      return "purple.50";
+    case "task":
+      return "green.50";
+    case "transaction":
+      return "red.50";
+    case "user-add":
+      return "green.50";
+    case "terminal":
+      return "red.50";
+    default:
+      return "green.50";
   }
 };
 
@@ -44,7 +62,15 @@ const formatRelativeTime = (time) => {
   return "Just now";
 };
 
-const NotificationCard = ({ title, subtitle, icon, isRead, time, name, onClick }) => {
+const NotificationCard = ({
+  title,
+  subtitle,
+  icon,
+  isRead,
+  time,
+  name,
+  onClick,
+}) => {
   return (
     <Box
       borderBottom="1px solid #EDF2F7"
@@ -55,13 +81,24 @@ const NotificationCard = ({ title, subtitle, icon, isRead, time, name, onClick }
       _hover={{ bg: "#F1F5F9" }}
     >
       <HStack spacing="16px" align="flex-start">
-        <Circle bg="gray.100" size={{ base: "32px", md: "40px" }}>
+        <Box
+          bg={getIconBgColor(icon)}
+          borderRadius="12px"
+          boxSize={{ base: "32px", md: "40px" }}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
           {getIcon(icon, "18px")}
-        </Circle>
+        </Box>
 
         <VStack spacing="4px" align="start">
-        <Text fontWeight={isRead ? "500" : "700"} fontSize="14px" color="#1A202C">
-           {title}
+          <Text
+            fontWeight={isRead ? "500" : "700"}
+            fontSize="14px"
+            color="#1A202C"
+          >
+            {title}
           </Text>
           <Text fontSize="12px" color="#718096">
             {subtitle}
