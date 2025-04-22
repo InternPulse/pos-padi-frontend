@@ -3,6 +3,7 @@
 import { Chart, useChart } from "@chakra-ui/charts"
 import {
   CartesianGrid,
+  Legend,
   Line,
   LineChart,
   Tooltip,
@@ -134,24 +135,23 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
           
           {chart.series.map((item) => (
             <Line
-              type="monotone"
               key={item.name}
+              type="monotone"
               dataKey={chart.key(item.name)}
               stroke={chart.color(item.color)}
               strokeWidth={strokeWidth}
-              dot={true}
-              activeDot={{ r: 6, strokeWidth: 1 }}
-              fill="transparent"
-              opacity={chart.getSeriesOpacity(item.name)}
-              connectNulls={true}
-              style={{ zIndex: 5 }}
+              dot={false}
+              activeDot={{
+                r: 4,
+                style: { fill: chart.color(item.color) }
+              }}
             />
           ))}
         </LineChart>
       </ResponsiveContainer>
     </Chart.Root>
-  )
-}
+  );
+};
 
 const Financecharts = ({ filteredTransactions, showEmptyState }) => {
   // Responsive text sizes

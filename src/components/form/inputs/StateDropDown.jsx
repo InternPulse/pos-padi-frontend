@@ -70,7 +70,7 @@ function StateDropDown({ size, width }) {
   }
 
   return (
-    <VStack gap={5} bg={{base: 'white', _dark: 'inherit'}} p={5} width={width}>
+    <VStack gap={5} bg={{base: 'white', _dark: 'inherit'}} p={5} width={width} border={'1px solid red'} mt={'300px'}>
       {/* <Text>{state}</Text>
       <Text>{lga}</Text>
       <Text>{axis}</Text> */}

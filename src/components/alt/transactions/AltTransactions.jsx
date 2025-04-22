@@ -1,7 +1,9 @@
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import AltTransactionTable from "./AltTransactionTable";
 import { transactions } from "@/components/transactions/transactionsMockData";
-import { BiDirections } from "react-icons/bi";
+// import { BiDirections } from "react-icons/bi";
+import Card from "../dashboard-components/Card";
+import { LuWallet } from "react-icons/lu";
 
 function TransactionsCardContainer() {
   return (
@@ -14,14 +16,55 @@ function TransactionsCardContainer() {
   );
 }
 
+export function formatCurrency(num){
+  const formattedCurrency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'NGN'
+  }).format(num)
+
+  return formattedCurrency
+}
+
+export const transactionSummary = [
+  {
+    title: 'Total Transaction',
+    amount: formatCurrency(536000),
+    icon: <LuWallet />,
+    iconColor: {base: 'blue.600', _dark:'blue.300'},
+    iconBgColor: {base: 'blue.50', _dark: 'blue.800'},
+    percent: -30,
+    period: 'month'
+  },
+  {
+    title: 'Successful',
+    amount: formatCurrency(132394.05),
+    icon: <LuWallet />,
+    iconColor: {base: 'green.600', _dark:'green.300'},
+    iconBgColor: {base: 'green.50', _dark: 'green.800'},
+    percent: 30,
+    period: 'month'
+  },
+  {
+    title: 'Failed',
+    amount: formatCurrency(357304.26),
+    icon: <LuWallet />,
+    iconColor: {base: 'red.600', _dark:'red.300'},
+    iconBgColor: {base: 'red.50', _dark: 'red.800'},
+    percent: 10,
+    period: 'month'
+  },
+]
+
 function AltTransactions() {
+  
+
   const placeholderTransactionSummaries = ["data", "data", "data"];
 
   return (
     <Flex direction={"column"} gap={5} py={5} align={"center"} >
       <Flex wrap={"wrap"} gap={5} p={5} justify={{base: 'center', lg:'start'}}>
-        {placeholderTransactionSummaries.map((item) => (
-          <TransactionsCardContainer />
+        {transactionSummary.map((item) => (
+          <Card {...item} />
         ))}
       </Flex>
 

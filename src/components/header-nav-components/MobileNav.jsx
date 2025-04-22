@@ -13,8 +13,17 @@ import Logo from "./Logo";
 import { LuLogOut } from "react-icons/lu";
 import MenuButton from "./MenuButton";
 import Navigation from "./Navigation";
+import UserAvatar from "./UserAvatar";
 
 function MobileNav() {
+  const user = {
+    id: "1",
+    name: "John Mason",
+    email: "john.mason@example.com",
+    avatar: "https://i.pravatar.cc/300?u=iu",
+    role: "admin",
+  };
+
   return (
     <HStack wrap="wrap">
       <For each={["start"]}>
@@ -42,13 +51,13 @@ function MobileNav() {
                   <Drawer.Context>
                     {(store) => (
                       <Drawer.Body p={0} onClick={() => store.setOpen(false)}>
-                        <Navigation userRole="admin" />
+                        <Navigation userRole={user.role} />
                       </Drawer.Body>
                     )}
                   </Drawer.Context>
                   <Drawer.Footer>
                     <Flex justify={"center"} align={"center"} gap={3}>
-                      <Box width={"180px"} height={"40px"} bg="gray.400"></Box>
+                      <Box width={"180px"} height={"40px"}><UserAvatar user={user} /></Box>
                       <IconButton variant={"ghost"}>
                         <LuLogOut />
                       </IconButton>
