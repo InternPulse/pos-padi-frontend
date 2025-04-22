@@ -37,12 +37,12 @@ const Financechartsdata= () => {
     }
   });
 
-  // Step 2: Convert to array for the chart
+  // Converting data to array for the chart
   const chartData = Object.values(monthMap).sort((a, b) =>
     new Date(`1 ${a.month}`) - new Date(`1 ${b.month}`)
   );
 
-  // Step 3: Hook up with Chakra UI Chart
+  // Hook up with Chakra UI Chart
   const chart = useChart({
     data: chartData,
     series: [
