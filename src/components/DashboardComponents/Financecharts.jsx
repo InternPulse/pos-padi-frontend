@@ -8,12 +8,15 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  ResponsiveContainer
 } from "recharts"
+import { Card, HStack, Text, Box, useBreakpointValue } from "@chakra-ui/react"
 
-
-import { Card, HStack, Text } from "@chakra-ui/react"
-
-const Financechartsdata= () => {
+const Financechartsdata = () => {
+  // Responsive adjustments based on breakpoint - using percentages for height to fit container
+  const strokeWidth = useBreakpointValue({ base: 1.5, md: 2, lg: 3 })
+  const fontSize = useBreakpointValue({ base: "8px", sm: "10px", md: "12px", lg: "14px" })
+  
   const chart = useChart({
     data: [
         { month: "Jan", Successful: 60, fail: 55 },
@@ -35,25 +38,32 @@ const Financechartsdata= () => {
     ],
   })
 
+
+  const tickInterval = useBreakpointValue({ base: 2, sm: 1 })
+  
   return (
-    <Chart.Root maxH="lg" chart={chart}>
-        <LineChart data={chart.data}>
-            <CartesianGrid stroke={chart.color("gray.200")} vertical={false}/>
+    <Chart.Root chart={chart} width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={chart.data} margin={{ top: 5, right: 10, left: 5, bottom: 15 }}>
+            <CartesianGrid stroke={chart.color("gray.200")} vertical={false} />
             <XAxis
-            axisLine={false}
-            tickLine={false}
-            dataKey={chart.key("month")}
-            tickFormatter={(value) => value.slice(0, 3)}
+              axisLine={false}
+              tickLine={false}
+              dataKey={chart.key("month")}
+              tickFormatter={(value) => value.slice(0, 3)}
+              tick={{ fontSize: fontSize }}
+              // On smaller screens, show fewer ticks
+              interval={tickInterval}
             />
             <YAxis
-            axisLine={false}
-            tickLine={false}
-            tick={() => null}
+              axisLine={false}
+              tickLine={false}
+              tick={() => null}
             />
             <Tooltip
-            animationDuration={100}
-            cursor={false}
-            content={<Chart.Tooltip />}
+              animationDuration={100}
+              cursor={false}
+              content={<Chart.Tooltip />}
             />
             
             {chart.series.map((item) => (
@@ -63,35 +73,53 @@ const Financechartsdata= () => {
                 isAnimationActive={false}
                 dataKey={chart.key(item.name)}
                 stroke={chart.color(item.color)}
-                strokeWidth={3}
+                strokeWidth={strokeWidth}
                 dot={false}
                 fill={chart.color("bg")}
                 opacity={chart.getSeriesOpacity(item.name)}
             />
             ))}
         </LineChart>
+      </ResponsiveContainer>
     </Chart.Root>
   )
 }
-const Financecharts = () =>{
-return(
-  <Card.Root w="full" h="full" bg="white" borderRadius="lg" p={4} overflow="hidden">
-    <HStack
-      justifyContent="space-between"
-      alignItems="center"
-      w="full"
-      mb={4}>
-         <Card.Header color="black" > Monthly Transaction Trend </Card.Header>
-         <HStack gap="6" pt="1.5rem" >
-            <Text fontSize="xs" color="black">🔵 Successful</Text>
-            <Text fontSize="xs" color="black">🔴 Fail</Text>
-         </HStack>
-      </HStack>
-   
-    <Card.Body p="0">
-      <Financechartsdata />
-    </Card.Body>
-  </Card.Root>
-)
+
+const Financecharts = () => {
+  // Responsive text sizes
+  const headerSize = useBreakpointValue({ base: "xs", sm: "sm", md: "md" })
+  const legendSize = useBreakpointValue({ base: "2xs", sm: "xs" })
+  const padding = useBreakpointValue({ base: 2, sm: 3, md: 4 })
+  
+  // Responsive layout direction
+  const headerDirection = useBreakpointValue({ base: "column", sm: "row" })
+  const legendSpacing = useBreakpointValue({ base: 2, md: 4 })
+
+  return (
+    <Card.Root w="full" h="full" bg="white" borderRadius="lg" p={padding} overflow="hidden">
+      <Box 
+        display="flex"
+        flexDirection={headerDirection}
+        justifyContent="space-between"
+        alignItems={{ base: "flex-start", sm: "center" }}
+        w="full"
+        mb={2}>
+        <Card.Header color="black" fontSize={headerSize} fontWeight="medium" py={1}>
+          Monthly Transaction Trend
+        </Card.Header>
+        <HStack gap={legendSpacing} flexWrap="wrap" mt={{ base: 0, sm: 0 }} pt={{ base: 0, sm: 0 }}>
+          <Text fontSize={legendSize} color="black">🔵 Successful</Text>
+          <Text fontSize={legendSize} color="black">🔴 Fail</Text>
+        </HStack>
+      </Box>
+     
+      <Card.Body p="0" h="calc(100% - 40px)">
+        <Box h="100%" w="100%">
+          <Financechartsdata />
+        </Box>
+      </Card.Body>
+    </Card.Root>
+  )
 }
+
 export default Financecharts
