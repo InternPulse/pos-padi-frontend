@@ -16,6 +16,7 @@ function App() {
 
   return (
     <BrowserRouter>
+
       {isUserAuthenticated ? (
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -36,6 +37,7 @@ function App() {
           <Route path="/" element={<HomePage />}></Route>
         </Routes>
       )}
+
     </BrowserRouter>
   );
 }
