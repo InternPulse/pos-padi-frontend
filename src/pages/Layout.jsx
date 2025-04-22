@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Flex, Box, Stack } from "@chakra-ui/react";
+import { Flex, Box, Stack, IconButton } from "@chakra-ui/react";
 import NotificationButton from "@/components/header-nav-components/NotificationButton";
 import MenuButton from "@/components/header-nav-components/MenuButton";
 import Logo from "@/components/header-nav-components/Logo";
@@ -8,8 +8,20 @@ import Navigation from "@/components/header-nav-components/Navigation";
 import Advert from "@/components/header-nav-components/Advert";
 import MobileNav from "@/components/header-nav-components/MobileNav";
 import NotificationsDrawer from "@/components/header-nav-components/NotificationsDrawer";
+import UserAvatar from "@/components/header-nav-components/UserAvatar";
+import UserAvatarBrief from "@/components/header-nav-components/UserAvatarBrief";
+import { LuLogOut } from "react-icons/lu";
 
 function Layout() {
+
+  const user = {
+    id: "1",
+    name: "John Mason",
+    email: "john.mason@example.com",
+    avatar: "https://i.pravatar.cc/300?u=iu",
+    role: 'admin'
+  }
+
   return (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
     <Flex width={"100vw"} height={"100vh"}>
@@ -17,8 +29,6 @@ function Layout() {
         width={{ lg: "200px", xl: "260px" }}
         display={{ base: "none", lg: "flex" }}
         direction={"column"}
-        //Testing position modifications
-
         position={"fixed"}
         zIndex={10}
         bg={{ base: "white", _dark: "black" }}
@@ -29,7 +39,7 @@ function Layout() {
           <Logo isConcise={false} />
         </Box>
 
-        <Navigation userRole="admin" />
+        <Navigation userRole={user.role} />
         <Advert />
       </Flex>
       <Flex
@@ -39,8 +49,6 @@ function Layout() {
           lg: "calc(100vw - 200px)",
           xl: "calc(100vw - 260px)",
         }}
-        //Testing position modifications
-
         left={{ lg: "200px", xl: "260px" }}
         position={"absolute"}
         height={"100px"}
@@ -57,8 +65,6 @@ function Layout() {
           }}
           justify={"space-between"}
           align={"center"}
-          //Testing position modifications
-
           position={"fixed"}
           top={0}
           zIndex={10}
@@ -75,13 +81,22 @@ function Layout() {
           </Flex>
           <Flex align={"center"} gap={5}>
             <NotificationsDrawer count={120} />
-            <Box
+            <Flex
               height={{ base: "40px", lg: "60px" }}
               width={{ base: "40px", lg: "180px" }}
-              bg="gray.300"
+              align={'center'}
             >
               {/*Awaiting Avatar Component */}
-            </Box>
+              <Box display={{base: 'none', lg:'block'}}>
+
+              <UserAvatar user={user} />
+              </Box>
+              <Box display={{base: 'block', lg:'none'}}>
+
+              <UserAvatarBrief  user={user} />
+              </Box>
+              <IconButton display={{base: 'none', lg: 'flex'}} variant={'ghost'}><LuLogOut /></IconButton>
+            </Flex>
             <Box display={{ base: "block", lg: "none" }}>
               {/* <MenuButton /> */}
               <MobileNav />
@@ -94,22 +109,20 @@ function Layout() {
           minH={"100vh"}
           bg={{ base: "gray.100", _dark: "gray.900" }}
           width={"100%"}
-          //Testing position modifications
-
           position={"absolute"}
           top={{ base: "56px", sm: "80px" }}
         >
           <Box
             maxW={"1280px"}
             mx={"auto"}
-            width={'100%'}
+            width={"100%"}
             // color={{base: 'black', _dark: 'white'}}
             // minH={{ base: "calc(100vh - 56px)", sm: "calc(100vh - 80px)" }}
           >
             <Box display={{ base: "block", lg: "none" }} p={2}>
               <PageTitle />
             </Box>
-            <Flex justify={'center'} width={'100%'}>
+            <Flex justify={"center"} width={"100%"}>
               <Outlet />
             </Flex>
           </Box>
