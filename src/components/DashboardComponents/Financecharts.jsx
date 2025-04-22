@@ -48,65 +48,45 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
   const strokeWidth = useBreakpointValue({ base: 1.5, md: 2, lg: 3 })
   const fontSize = useBreakpointValue({ base: "8px", sm: "10px", md: "12px", lg: "14px" })
   
-  // Create a map to organize transactions by month
-  const monthMap = {
-    Jan: { month: "Jan", Successful: 0, fail: 0 },
-    Feb: { month: "Feb", Successful: 0, fail: 0 },
-    Mar: { month: "Mar", Successful: 0, fail: 0 },
-    Apr: { month: "Apr", Successful: 0, fail: 0 },
-    May: { month: "May", Successful: 0, fail: 0 },
-    Jun: { month: "Jun", Successful: 0, fail: 0 },
-    Jul: { month: "Jul", Successful: 0, fail: 0 },
-    Aug: { month: "Aug", Successful: 0, fail: 0 },
-    Sep: { month: "Sep", Successful: 0, fail: 0 },
-    Oct: { month: "Oct", Successful: 0, fail: 0 },
-    Nov: { month: "Nov", Successful: 0, fail: 0 },
-    Dec: { month: "Dec", Successful: 0, fail: 0 }
-  };
-  
   // Process transaction data to create chart data
   const chartData = useMemo(() => {
-    if (showEmptyState) {
-      // Return empty data structure for all months
-      return Object.keys(monthMap).map(month => ({
-        month,
-        Successful: 0,
-        fail: 0
-      }));
-    }
-    
-    // Create a copy of the monthMap for processing
-    const processedMonthMap = { ...monthMap };
-    
-    // Process each transaction
+    const monthMap = {};
+
     const transactionsToProcess = filteredTransactions || transactions;
-    transactionsToProcess.forEach(transaction => {
-      // Extract month from dateTime
-      const dateStr = transaction.dateTime
-      const monthStr = dateStr.substring(0, 3)
-      
-      // Increment the appropriate counter
-      if (transaction.status === "successful") {
-        processedMonthMap[monthStr].Successful += 1
-      } else {
-        processedMonthMap[monthStr].fail += 1
+    transactionsToProcess.forEach((transaction) => {
+      const dateObj = new Date(transaction.dateTime);
+      const month = dateObj.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+      });
+
+      if (!monthMap[month]) {
+        monthMap[month] = { month, Successful: 0, failed: 0 };
       }
-    })
-    
-    // Convert map to array and add a little offset to ensure lines don't reach the very edge
-    const result = Object.values(processedMonthMap);
-    
+
+      if (transaction.status === "successful") {
+        monthMap[month].Successful += 1;
+      } else if (transaction.status === "failed") {
+        monthMap[month].failed += 1;
+      }
+    });
+
+    // Converting data to array for the chart and sorting by date
+    const result = Object.values(monthMap).sort((a, b) =>
+      new Date(`1 ${a.month}`) - new Date(`1 ${b.month}`)
+    );
+
     // Add a tiny offset to first and last months to avoid edge issues
     if (result[0]) {
       result[0].Successful += 0.01;
-      result[0].fail += 0.01;
+      result[0].failed += 0.01;
     }
     
     if (result[result.length - 1]) {
       result[result.length - 1].Successful += 0.01;
-      result[result.length - 1].fail += 0.01;
+      result[result.length - 1].failed += 0.01;
     }
-    
+
     return result;
   }, [filteredTransactions, showEmptyState])
   
@@ -114,7 +94,7 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
     data: chartData,
     series: [
       { name: "Successful", color: "blue.500" },
-      { name: "fail", color: "red.500" },
+      { name: "failed", color: "red.500" },
     ],
   });
 

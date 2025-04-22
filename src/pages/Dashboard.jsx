@@ -89,6 +89,17 @@ function TopAgentContainer() {
   );
 }
 
+function PlaceHolderTransactionsCard() {
+  return (
+    <Box
+      width={{ base: "168px", md: "300px", lg:'360px'}}
+      bg={"gray.200"}
+      height={{ base: "68px", md: "145px" }}
+      rounded={'xl'}
+    ></Box>
+  );
+}
+
 function Dashboard() {
   const [filteredTransactions, setFilteredTransactions] = useState(null);
   
