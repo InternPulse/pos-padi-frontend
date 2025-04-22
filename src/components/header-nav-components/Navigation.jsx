@@ -20,7 +20,7 @@ function Navigation({ userRole }) {
     {
       icon: <LuLayoutDashboard />,
       text: "Dashboard",
-      destination: "/dashboard",
+      destination: "/",
       authorizedGroup: ["admin", "agent"],
     },
     {

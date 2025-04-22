@@ -14,9 +14,10 @@ function PageTitle() {
     "Settings",
   ];
 
-  const currentPage = pagesList.find((page) =>
+  const currentPage = (currentLocation == '/') ? 'Dashboard' : pagesList.find((page) =>
     currentLocation.includes(page.toLowerCase())
   );
+
   return (
     <Text textStyle={"xl"} color={{base: "gray.500", _dark: 'gray.300'}} fontWeight={"semibold"}>
       {currentPage}
