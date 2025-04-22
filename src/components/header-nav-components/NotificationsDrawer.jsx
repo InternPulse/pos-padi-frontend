@@ -30,7 +30,7 @@ function NotificationsDrawer({ count }) {
                   <Drawer.Header>
                     <Drawer.Title>Notifications</Drawer.Title>
                   </Drawer.Header>
-                  <Drawer.Body p={0}>
+                  <Drawer.Body px={2}>
                     <NotificationsPage />
                   </Drawer.Body>
                   {/* <Drawer.Footer>
