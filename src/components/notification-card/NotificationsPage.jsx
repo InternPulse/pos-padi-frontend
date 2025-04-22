@@ -1,6 +1,6 @@
 import { VStack, Box, Heading, HStack, Button } from "@chakra-ui/react";
 import { useState } from "react";
-import NotificationCard from "../components/notification-card/NotificationCard";  
+import NotificationCard from "./NotificationCard";  
 import moment from "moment";
 
 const allNotifications = [
@@ -74,26 +74,25 @@ const NotificationsPage = () => {
 
   return (
     <Box
-      width={{ base: "100%", md: "500px" }}
+      width={{ base: "100%", md: "300px" }}
       maxHeight="1024px"
       bg="#FFFFFF"
       borderRadius="10px"
-      p="20px"
     >
       {/* Header */}
-      <Heading
+      {/* <Heading
         fontSize="20px"
         fontWeight="600"
         fontFamily="Poppins"
         mb="36px"
       >
         Notifications
-      </Heading>
+      </Heading> */}
 
       {/* Filter Buttons */}
-      <HStack spacing="10px" mb="20px" ml="4px">
+      <HStack spacing="10px" mb="20px" ml="4px" px='4' gap={8}>
         <Box
-          borderBottom={filter === "all" ? "1px solid #02B14F" : "none"}
+          borderBottom={filter === "all" ? "3px solid #02B14F" : "none"}
           pb="1px"
         >
           <Button
@@ -112,7 +111,7 @@ const NotificationsPage = () => {
         </Box>
 
         <Box
-          borderBottom={filter === "unread" ? "1px solid #02B14F" : "none"}
+          borderBottom={filter === "unread" ? "3px solid #02B14F" : "none"}
           pb="1px"
         >
           <Button

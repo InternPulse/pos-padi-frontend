@@ -9,7 +9,7 @@ import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
 
-import NotificationsPage from "./pages/NotificationsPage";
+// import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
@@ -29,7 +29,7 @@ function App() {
             <Route path="terminals" element={<Terminals />} />
             <Route path="disputes" element={<Disputes />} />
             <Route path="settings" element={<Settings />} />
-            <Route path="notifications" element={<NotificationsPage />} />
+            {/* <Route path="notifications" element={<NotificationsPage />} /> */}
           </Route>
         </Routes>
       ) : (
