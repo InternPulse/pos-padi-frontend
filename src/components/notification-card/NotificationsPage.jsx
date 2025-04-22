@@ -76,7 +76,6 @@ const NotificationsPage = () => {
     <Box
       width={{ base: "100%", md: "300px" }}
       maxHeight="1024px"
-      bg="#FFFFFF"
       borderRadius="10px"
     >
       {/* Header */}
