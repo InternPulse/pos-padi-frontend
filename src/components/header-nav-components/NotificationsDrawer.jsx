@@ -7,13 +7,14 @@ import {
   Portal,
 } from "@chakra-ui/react"
 import NotificationButton from "./NotificationButton"
+import NotificationsPage from "../notification-card/NotificationsPage"
 
 function NotificationsDrawer({ count }) {
   return (
     <HStack wrap="wrap">
       <For each={["end"]}>
         {(placement) => (
-          <Drawer.Root key={placement} placement={placement}>
+          <Drawer.Root key={placement} placement={placement} >
             <Drawer.Trigger asChild>
               <Button variant="ghost" size="md">
                 <NotificationButton count={count} />
@@ -27,19 +28,17 @@ function NotificationsDrawer({ count }) {
                   roundedBottom={placement === "top" ? "l3" : undefined}
                 >
                   <Drawer.Header>
-                    <Drawer.Title>Drawer Title</Drawer.Title>
+                    <Drawer.Title>Notifications</Drawer.Title>
                   </Drawer.Header>
-                  <Drawer.Body>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                  <Drawer.Body p={0}>
+                    <NotificationsPage />
                   </Drawer.Body>
-                  <Drawer.Footer>
+                  {/* <Drawer.Footer>
                     <Drawer.ActionTrigger asChild>
                       <Button variant="outline">Cancel</Button>
                     </Drawer.ActionTrigger>
                     <Button>Save</Button>
-                  </Drawer.Footer>
+                  </Drawer.Footer> */}
                   <Drawer.CloseTrigger asChild>
                     <CloseButton size="sm" />
                   </Drawer.CloseTrigger>
