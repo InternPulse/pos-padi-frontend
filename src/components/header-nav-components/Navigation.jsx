@@ -16,6 +16,20 @@ import { NavLink, useLocation } from "react-router-dom";
 function Navigation({ userRole }) {
   const currentPath = useLocation().pathname;
 
+  const pagesList = [
+    "Dashboard",
+    "Transactions",
+    "Agents",
+    "Customers",
+    "Terminals",
+    "Dispute",
+    "Settings",
+  ];
+
+  const currentPage = (currentPath == '/') ? 'Dashboard' : pagesList.find((page) =>
+    currentPath.includes(page.toLowerCase())
+  );
+
   const navItems = [
     {
       icon: <LuLayoutDashboard />,
@@ -72,7 +86,7 @@ function Navigation({ userRole }) {
                 text={navItem.text}
                 icon={navItem.icon}
                 key={navItem.destination}
-                isSelected={currentPath.includes(navItem.text.toLowerCase())}
+                isSelected={currentPage == navItem.text}
               />
             </NavLink>
           );
