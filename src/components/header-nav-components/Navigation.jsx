@@ -71,7 +71,6 @@ function Navigation({ userRole }) {
               <NavButton
                 text={navItem.text}
                 icon={navItem.icon}
-                key={navItem.destination}
                 isSelected={currentPath.includes(navItem.text.toLowerCase())}
               />
             </NavLink>

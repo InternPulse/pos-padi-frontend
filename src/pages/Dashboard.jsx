@@ -3,6 +3,7 @@ import TopAgentCard from "@/components/TopAgentCard";
 import RevenueCard from "@/components/RevenueCard";
 import Financecharts from "@/components/DashboardComponents/Financecharts";
 import DateRangePicker from "@/components/header-nav-components/DateRangePicker";
+import { useState } from "react";
 
 function PlaceHolderTransactionsCard() {
   return (
@@ -26,14 +27,9 @@ function ButtonGroupContainer() {
   );
 }
 
-function SelectDateContainer() {
-  const handleDateRangeChange = ({ startDate, endDate, transactions }) => {
-    // Handle the date range change and update the dashboard data
-    console.log('Date range changed:', { startDate, endDate, transactions });
-  };
-
+function SelectDateContainer({ onDateRangeChange }) {
   return (
-    <DateRangePicker onDateRangeChange={handleDateRangeChange} />
+    <DateRangePicker onDateRangeChange={onDateRangeChange} />
   );
 }
 
@@ -48,10 +44,11 @@ function ExportButtonContainer() {
   );
 }
 
-function ChartContainer() {
+function ChartContainer({ filteredTransactions }) {
   return (
     <Box
-      width={{ base: "100%", lg: "738px" }}
+      width={{ base: "100%", lg: "100%" }}
+      maxW={{ base: "100%", lg: "738px" }}
       bg="gray.200" 
       height={{ base: "220px", md: "350px", lg: "484px" }}
       rounded="xl"
@@ -59,7 +56,10 @@ function ChartContainer() {
       display="flex" 
       flexDirection="column"
     >
-      <Financecharts />
+      <Financecharts 
+        filteredTransactions={filteredTransactions} 
+        showEmptyState={!filteredTransactions || filteredTransactions.length === 0}
+      />
     </Box>
   );
 }
@@ -96,6 +96,7 @@ function TopAgentContainer() {
 }
 
 function Dashboard() {
+  const [filteredTransactions, setFilteredTransactions] = useState(null);
   const placeholderTransactionSummaries = [
     'data',
     'data',
@@ -105,25 +106,69 @@ function Dashboard() {
     'data',
   ]
 
+  const handleDateRangeChange = ({ startDate, endDate, transactions }) => {
+    if (!startDate && !endDate) {
+      // Clear state
+      setFilteredTransactions([]);
+    } else {
+      // Update with filtered transactions
+      setFilteredTransactions(transactions);
+    }
+  };
+
   return (
-    <Flex p={{ base: 3, md: 5 }} direction={'column'} gap={5}>
-      <Flex width={'100%'} justify={'space-between'} px={{ base: 2, md: 8, xl: 14 }}>
+    <Flex 
+      p={{ base: 3, md: 5 }} 
+      direction={'column'} 
+      gap={5}
+      maxW="100%"
+      overflow="hidden"
+    >
+      <Flex 
+        width={'100%'} 
+        justify={'space-between'} 
+        px={{ base: 2, md: 8, xl: 14 }}
+        wrap="wrap"
+        gap={4}
+      >
         <ButtonGroupContainer />
-        <Flex width={{ base: '200px', md: '360px' }} justify={'space-between'}>
-          <SelectDateContainer />
+        <Flex 
+          width={{ base: '100%', sm: 'auto' }} 
+          justify={'space-between'}
+          gap={4}
+        >
+          <SelectDateContainer onDateRangeChange={handleDateRangeChange} />
           <ExportButtonContainer />
         </Flex>
       </Flex>
-      <Flex width={'100%'} wrap={'wrap'} gap={{ base: 3, md: 5 }} justify={'center'}>
+      <Flex 
+        width={'100%'} 
+        wrap={'wrap'} 
+        gap={{ base: 3, md: 5 }} 
+        justify={'center'}
+      >
         {
           placeholderTransactionSummaries.map((item, index) => (
             <PlaceHolderTransactionsCard key={index} />
           ))
         }
       </Flex>
-      <Flex direction={{ base: 'column', xl: 'row' }} gap={5} justify={'center'} align={{ lg: 'center' }}>
-        <ChartContainer />
-        <Flex direction={{ base: 'column', sm: 'row', xl: 'column' }} gap={5} justify={{ base: 'space-between', md: 'space-around' }} width={{ sm: '100%', xl: 'auto' }}>
+      <Flex 
+        direction={{ base: 'column', xl: 'row' }} 
+        gap={5} 
+        justify={'center'} 
+        align={{ lg: 'center' }}
+        width="100%"
+        maxW="100%"
+      >
+        <ChartContainer filteredTransactions={filteredTransactions} />
+        <Flex 
+          direction={{ base: 'column', sm: 'row', xl: 'column' }} 
+          gap={5} 
+          justify={{ base: 'space-between', md: 'space-around' }} 
+          width={{ sm: '100%', xl: 'auto' }}
+          minW={{ xl: '360px' }}
+        >
           <RevenueCardContainer />
           <TopAgentContainer />
         </Flex>
