@@ -3,6 +3,7 @@
 import { Chart, useChart } from "@chakra-ui/charts"
 import {
   CartesianGrid,
+  Legend,
   Line,
   LineChart,
   Tooltip,
@@ -11,7 +12,7 @@ import {
 } from "recharts"
 
 
-import { Card, HStack, Text } from "@chakra-ui/react"
+import { Card} from "@chakra-ui/react"
 
 const Financechartsdata= () => {
   const chart = useChart({
@@ -36,8 +37,11 @@ const Financechartsdata= () => {
   })
 
   return (
-    <Chart.Root maxH="lg" chart={chart}>
-        <LineChart data={chart.data}>
+    <Chart.Root maxH="lg" h="95%" marginLeft="-35px" paddingTop="10px" chart={chart}>
+        <LineChart
+        width={chart.width}
+        height={chart.height}
+        data={chart.data}>
             <CartesianGrid stroke={chart.color("gray.200")} vertical={false}/>
             <XAxis
             axisLine={false}
@@ -56,6 +60,7 @@ const Financechartsdata= () => {
             content={<Chart.Tooltip />}
             />
             
+            <Legend content={<Chart.Legend interaction="hover" />} />
             {chart.series.map((item) => (
             <Line
                 type="natural"
@@ -75,20 +80,9 @@ const Financechartsdata= () => {
 }
 const Financecharts = () =>{
 return(
-  <Card.Root w="full" h="full" bg="white" borderRadius="lg" p={4} overflow="hidden">
-    <HStack
-      justifyContent="space-between"
-      alignItems="center"
-      w="full"
-      mb={4}>
-         <Card.Header color="black" > Monthly Transaction Trend </Card.Header>
-         <HStack gap="6" pt="1.5rem" >
-            <Text fontSize="xs" color="black">🔵 Successful</Text>
-            <Text fontSize="xs" color="black">🔴 Fail</Text>
-         </HStack>
-      </HStack>
-   
-    <Card.Body p="0">
+  <Card.Root w="full" h="full"  borderRadius="lg" p={4} overflow="hidden">
+    <Card.Header padding="0" color={{base: "#626C7A" , _dark: 'gray.400'}} fontSize={{base: "xs",  md:"sm"}} > Monthly Transaction Trend </Card.Header>
+      <Card.Body p="0" overflow="hidden" h="full" w="full">
       <Financechartsdata />
     </Card.Body>
   </Card.Root>
