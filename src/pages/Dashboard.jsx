@@ -57,7 +57,7 @@ function ChartContainer(){
     <Box
       width={{ base: "100%", lg: "738px" }}
       bg={"gray.200"}
-      height={{ base: "230px", lg: "484px" }}
+      height={{ base: "330px", lg: "484px" }}
       rounded={'xl'}
     >
       <Financecharts />
@@ -69,7 +69,7 @@ function RevenueCardContainer(){
   return (
     <Box
       width={{ base: "100%", sm: '50%', lg: "360px" }}
-      height={{ base: "230px", sm:'284px', xl: "170px" }}
+      height={{ base: "230px", sm:'284px', '2xl': "170px" }}
       rounded={'xl'}
     >
       <RevenueCard />
@@ -147,10 +147,10 @@ function Dashboard() {
           CompanySummaries.map(item => <Card {...item} />)
         }
       </Flex>
-      <Flex direction={{base:'column', xl:'row'}} gap={5} justify={'center'} align={{lg:'center'}}>
+      <Flex direction={{base:'column', '2xl':'row'}} gap={5} justify={'center'} align={{lg:'center'}}>
 
         <ChartContainer />
-        <Flex direction={{base: 'column', sm: 'row', xl: 'column'}} gap={5} justify={{base:'space-between', md:'space-around'}}>
+        <Flex direction={{base: 'column', sm: 'row', '2xl': 'column'}} gap={5} justify={{base:'space-between', md:'space-around'}}>
           <RevenueCardContainer />
           
           <TopAgentContainer />
