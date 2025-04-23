@@ -1,4 +1,4 @@
-import { Button, Box, CloseButton, Dialog, Portal, Image } from "@chakra-ui/react"
+import { Button, Box, CloseButton, Dialog, Portal, Image, Center, VStack, StackSeparator, Container, Flex } from "@chakra-ui/react"
 import TransactionDetailsCard from "../TransactionDetailsCard"
 import logo from "../../../../assets/logo-lg.png"
 
@@ -13,9 +13,16 @@ function TransactionDialog({ children }) {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>
-                <Image src={logo} height="66px" width="100%" />
-              </Dialog.Title>
+              
+                
+                <Flex justify="center">
+
+                <Image src={logo}  height="66px" width="220px" fit="contain"/>
+                </Flex>
+                
+                
+                
+              
             </Dialog.Header>
             <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />
