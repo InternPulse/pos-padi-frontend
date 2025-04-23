@@ -4,17 +4,23 @@ import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./pages/Layout";
 import AltTransactions from "./components/alt/transactions/AltTransactions";
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 import Agents from "./pages/Agents";
 import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
 
-import NotificationsPage from "./pages/NotificationsPage";
+// import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
+  const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
+
   return (
     <BrowserRouter>
+<<<<<<< HEAD
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
@@ -31,6 +37,30 @@ function App() {
           <Route path="notifications" element={<NotificationsPage />} />
         </Route>
       </Routes>
+=======
+
+      {isUserAuthenticated ? (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="transactions" element={<AltTransactions />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="agents" element={<Agents />} />
+            <Route path="customers" element={<Customers />} />
+            <Route path="terminals" element={<Terminals />} />
+            <Route path="disputes" element={<Disputes />} />
+            <Route path="settings" element={<Settings />} />
+            {/* <Route path="notifications" element={<NotificationsPage />} /> */}
+          </Route>
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+        </Routes>
+      )}
+
+>>>>>>> main
     </BrowserRouter>
   );
 }
