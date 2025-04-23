@@ -80,7 +80,7 @@ function RevenueCardContainer(){
 function TopAgentContainer(){
 
   const topAgentDetails = {
-    userFullName: "Biolaluwatito Adubi",
+    userFullName: "Boluwatife Adubi",
     amount: "353560.03",
     clients: 18
   }
