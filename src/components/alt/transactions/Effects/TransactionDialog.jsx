@@ -1,4 +1,4 @@
-import { Button, Box, CloseButton, Dialog, Portal, Image, Center, VStack, StackSeparator, Container, Flex } from "@chakra-ui/react"
+import { Button, Box, CloseButton, Dialog, Portal, Image, Flex } from "@chakra-ui/react"
 import TransactionDetailsCard from "../TransactionDetailsCard"
 import logo from "../../../../assets/logo-lg.png"
 

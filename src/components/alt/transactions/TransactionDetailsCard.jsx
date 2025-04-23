@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Center, Container, Flex, HStack, Image, Stack, Text, VStack } from "@chakra-ui/react"
-import { FaCircleCheck } from "react-icons/fa6";
 import { FaRegCopy } from "react-icons/fa6";
 import logo from "../../../assets/logo-lg.png"
 import check from "../../../assets/transac-check.png"
