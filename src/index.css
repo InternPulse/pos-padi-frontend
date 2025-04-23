@@ -1,1 +1,20 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+* {
+  font-family: "Poppins";
+}
+
+.nothing {
+  background-color: rgb(227, 236, 232);
+}
+
+.inside {
+  position: relative;
+  left: 20px;
+}
+
+.IMG {
+  position: relative;
+  left: 19px;
+  top: 20px;
+}
