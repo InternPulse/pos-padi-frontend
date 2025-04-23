@@ -15,7 +15,7 @@ function TransactionDialog({ children }) {
             <Dialog.Header>
               
                 
-                <Flex justify="center">
+                <Flex justify="center" width="100%">
 
                 <Image src={logo}  height="66px" width="220px" fit="contain"/>
                 </Flex>

@@ -1,7 +1,5 @@
 import React from 'react'
-import { Button, Center, Container, Flex, HStack, Image, Stack, Text, VStack } from "@chakra-ui/react"
-import { FaRegCopy } from "react-icons/fa6";
-import logo from "../../../assets/logo-lg.png"
+import { Button, Center, Container, Flex, HStack, Image, Stack, Text, VStack, Clipboard, Link } from "@chakra-ui/react"
 import check from "../../../assets/transac-check.png"
 import copy from "../../../assets/copy-icon.png"
 
@@ -22,19 +20,18 @@ const TransactionDetailsCard = () => {
   return (
     <VStack>
         <VStack gap="3">
-
             <Image src={check} />
             <Text fontSize="24px" fontWeight="600">₦{data.amount}</Text>
-            <Text fontSize="16px" fontWeight="400" color="gray.600">Transaction Reference</Text>
-            <Text color="gray.600" fontSize="16px" fontWeight="400">
-                <HStack>
-
-                {data.reference}
-                <Button variant="plain">
-                    <FaRegCopy color='#0BA5EC'/>
-                </Button>
-                </HStack>
-            </Text>
+            <Text fontSize="16px" fontWeight="400" color={{base: "gray.600", _dark: "gray.400"
+                        }}>Transaction Reference</Text>
+            <Clipboard.Root value={data.reference}>
+            <Clipboard.Trigger asChild>
+                <Link as="span" color="green.fg" textStyle="sm">
+                <Clipboard.Indicator />
+                <Clipboard.ValueText />
+                </Link>
+            </Clipboard.Trigger>
+            </Clipboard.Root>
         </VStack>
         
         <Container px="24px" py="16px">
@@ -43,22 +40,30 @@ const TransactionDetailsCard = () => {
 
                 <Stack>
                     <Container px="8px" py="2px">
-                        <Text color="gray.600" fontSize="12px">Transaction Date</Text>
-                        <Text fontWeight="500" color="#021230">{data.dateTime}</Text>
+                        <Text color={{base: "gray.600", _dark: "gray.400"
+                        }} fontSize="12px">Transaction Date</Text>
+                        <Text fontWeight="500" color={{base: "#021230", _dark: "white"
+                        }}>{data.dateTime}</Text>
                     </Container>
                     <Container px="8px" py="2px">
-                        <Text color="gray.600" fontSize="12px">Customer's Name</Text>
-                        <Text fontWeight="500" color="#021230">{data.customer}</Text>
+                        <Text color={{base: "gray.600", _dark: "gray.400"
+                        }} fontSize="12px">Customer's Name</Text>
+                        <Text fontWeight="500" color={{base: "#021230", _dark: "white"
+                        }}>{data.customer}</Text>
                     </Container>
                 </Stack>
                 <Stack>
                     <Container px="8px" py="2px">
-                        <Text color="gray.600" fontSize="12px">Transaction Type</Text>
-                        <Text fontWeight="500" color="#021230">{data.type}</Text>
+                        <Text color={{base: "gray.600", _dark: "gray.400"
+                        }}fontSize="12px">Transaction Type</Text>
+                        <Text fontWeight="500" color={{base: "#021230", _dark: "white"
+                        }}>{data.type}</Text>
                     </Container>
                     <Container px="8px" py="2px">
-                        <Text color="gray.600" fontSize="12px">Agent</Text>
-                        <Text fontWeight="500" color="#021230">{data.agent}</Text>
+                        <Text color={{base: "gray.600", _dark: "gray.400"
+                        }} fontSize="12px">Agent</Text>
+                        <Text fontWeight="500" color={{base: "#021230", _dark: "white"
+                        }}>{data.agent}</Text>
                     </Container>
                 </Stack>
         </Flex>
@@ -66,12 +71,13 @@ const TransactionDetailsCard = () => {
         
             <HStack p="10px">
 
-                <Text fontSize="12px" color="gray.600">Status</Text>
+                <Text fontSize="12px" color={{base: "gray.600", _dark: "gray.400"
+                        }}>Status</Text>
                 <Text py="4px" px="10px" bgColor="#0B9D091A" borderRadius="100px" fontSize="10px" fontWeight="400" color="green">Successful</Text>
             </HStack>
         
         <Button width="100%" p="20px" bgColor="#02B14F" rounded="lg">
-            <Text fontSize="14px">
+            <Text fontSize="14px" color="white">
                 Download Receipt
             </Text>
         </Button>
