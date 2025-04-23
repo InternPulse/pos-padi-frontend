@@ -28,7 +28,7 @@ export default function RevenueCard({
   return (
     <Flex justify="center" align="center" width={"100%"} height={"100%"}>
       <Flex
-        bg={{base:'white', _dark: 'black'}}
+        bg={{base:'white', _dark: 'transparent'}}
         borderRadius="md"
         boxShadow={'0 0 3px lightgrey'}
         direction={"column"}

@@ -1,8 +1,9 @@
-import React from 'react'
+import StateDropDown from "@/components/form/inputs/StateDropDown"
 
 function Disputes() {
   return (
-    <div>Disputes</div>
+    // <div>Dispute</div>
+    <StateDropDown size='lg' width='330px' />
   )
 }
 
