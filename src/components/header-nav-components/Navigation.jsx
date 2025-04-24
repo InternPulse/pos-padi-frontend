@@ -55,12 +55,12 @@ function Navigation({ userRole }) {
       destination: "/customers",
       authorizedGroup: ["admin", "agent"],
     },
-    {
-      icon: <GiSwipeCard />,
-      text: "Terminals",
-      destination: "/terminals",
-      authorizedGroup: ["admin"],
-    },
+    // {
+    //   icon: <GiSwipeCard />,
+    //   text: "Terminals",
+    //   destination: "/terminals",
+    //   authorizedGroup: ["admin"],
+    // },
     {
       icon: <RiQuestionnaireLine />,
       text: "Disputes",
