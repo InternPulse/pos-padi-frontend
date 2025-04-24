@@ -364,7 +364,8 @@ const Agents = () => {
       direction={"column"}
       width={"95%"}
       height={"100%"}
-      p={{ base: 2, lg: 4 }}
+      px={{ base: 1, xl: 4 }}
+      pb={8}
       gap={6}
       align={"center"}
     >
@@ -388,9 +389,10 @@ const Agents = () => {
         align={"start"}
         direction={"column"}
         p={4}
-        bg={{ base: "white", _dark: "gray.800" }}
+        bg={{ base: "white", _dark: "gray.900" }}
         gap={4}
         rounded={'xl'}
+
       >
         <Text textStyle={"md"} fontWeight={"semibold"}>
           Agents List

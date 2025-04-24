@@ -9,23 +9,36 @@ function GenericTableCard({ items }) {
     const phoneNo = item6;
 
     return (
-      <HStack
-        height={"60px"}
-        width={"100%"}
-        display={{ base: "flex", md: "none" }}
-      >
-        <Flex direction={'column'} justify={'flex-start'} p={1} width={"100%"}>
-          <Text fontWeight={"semibold"} textTransform={"capitalize"}>
-            {title}
-          </Text>
-          <Text textStyle={"md"} width={"100%"} color={"gray.500"}>
-            {email}
-          </Text>
-        <Text textStyle={"md"} color={"gray.500"}>
+      // <HStack
+      //   height={"60px"}
+      //   width={"100%"}
+      //   display={{ base: "flex", md: "none" }}
+
+      // >
+      //   <Flex my={2} direction={'column'} justify={'flex-start'} p={1} width={"100%"}>
+      //     <Text fontWeight={"semibold"} textTransform={"capitalize"}>
+      //       {title}
+      //     </Text>
+      //     <Text textStyle={"md"} width={"100%"} color={"gray.500"}>
+      //       {email}
+      //     </Text>
+      //   <Text textStyle={"md"} color={"gray.500"}>
+      //     {phoneNo}
+      //   </Text>
+      //   </Flex>
+      // </HStack>
+
+      <Flex padding={2} gap={2} align={'start'} w={'100%'} direction={"column"}>
+        <Text fontWeight={"semibold"} textTransform={"capitalize"}>
+          {title}
+        </Text>
+        <Text textStyle={"md"} width={"100%"} color={{base: "gray.500", _dark: 'gray.300'}}>
+          {email}
+        </Text>
+        <Text textStyle={"md"} width={"100%"} color={{base: "gray.500", _dark: 'gray.300'}}>
           {phoneNo}
         </Text>
-        </Flex>
-      </HStack>
+      </Flex>
     );
   }
 

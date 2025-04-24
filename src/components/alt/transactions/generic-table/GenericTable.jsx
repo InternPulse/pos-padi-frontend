@@ -149,7 +149,7 @@ function GenericTable({ headings, items }) {
       bg={{ base: "white", _dark: "inherit" }}
       // display={{ base: "none", md: "flex" }}
       gap={5}
-      height={`${68 * (PAGE_SIZE + 2)}px`}
+      height={{base: `${107 * (PAGE_SIZE + 2)}px`, md: `${68 * (PAGE_SIZE + 2)}px`}}
       width={'100%'}
     >
       <Box
