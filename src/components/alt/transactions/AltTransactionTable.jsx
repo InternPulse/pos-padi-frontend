@@ -137,15 +137,7 @@ function AltTransactionTable({ transactions }) {
     status: "Status",
   };
 
-  const sampleTransaction = {
-    reference: "NMKJHGFD34",
-    amount: 6600.0,
-    customer: "Grace Walsh",
-    type: "deposit",
-    agent: "Owen Gordon",
-    dateTime: "Feb 16, 2025 11:35:00 AM",
-    status: "successful",
-  };
+
   return (
     <Stack
       borderTopRadius={"2xl"}
