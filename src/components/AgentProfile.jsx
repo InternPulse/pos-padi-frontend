@@ -1,107 +1,184 @@
-// AgentProfile.jsx
+
 import { Copy } from "lucide-react";
 import { useState } from "react";
-import ProfileImage from "../assets/agents/Frame 1618868968.png";
+// import ProfileImage from "../assets/agents/Frame 1618868968.png";
+import { Card, Container, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { Switch, Link, Clipboard } from "@chakra-ui/react"
 
-const AgentProfile = ({
-  firstName,
-  lastName,
-  email,
-  phone,
-  dateCreated,
-  agentId,
-  terminalId,
-  isActive,
-}) => {
-  const [active, setActive] = useState(isActive);
+const AgentProfile = ({firstName, profileImage, lastName, email, phone, dateCreated, agentId, terminalId, isActive}) => {
+  
+  const agentDetails = {
+    firstName, lastName, email, phone, dateCreated, agentId, terminalId,
+  }
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(terminalId);
-  };
+  const tableRow = ["First Name", "Last Name", "Email", "Phone No", "Date Created", "Agent's ID", "Terminal", "Activate Agent"] 
 
+ 
   return (
-    <div className="w-[380px] max-w-full min-h-[475px] bg-white border border-gray-200 rounded-[10px] p-[40px] flex flex-col gap-8 shadow-sm ">
-      {/* Profile Section */}
-      <div className="flex items-start">
-        <img
-          src={ProfileImage}
-          alt="Profile"
-          className="IMG w-[80px] h-[80px] rounded-full border border-gray-300 object-cover"
-        />
-      </div>
+    <Container bgColor="white" p="2" width="360px">
+          <Image src={profileImage} my="7px"/>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              First Name
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+              <Text>{firstName}</Text>
+            </GridItem>
+          </Grid>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              Last Name
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+              <Text>{lastName}</Text>
+            </GridItem>
+          </Grid>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              Email
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+              <Text>{email}</Text>
+            </GridItem>
+          </Grid>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              Phone No
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+              <Text>{phone}</Text>
+            </GridItem>
+          </Grid>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              Date Created
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+              <Text>{dateCreated}</Text>
+            </GridItem>
+          </Grid>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              Agent's ID
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+              <Text>{agentId}</Text>
+            </GridItem>
+          </Grid>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              Terminal
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+              <Text>
+              <Clipboard.Root value={terminalId}>
+      <Clipboard.Trigger asChild>
+        <Link as="span" color="green.fg" textStyle="sm">
+          <Clipboard.Indicator />
+          <Clipboard.ValueText />
+        </Link>
+      </Clipboard.Trigger>
+    </Clipboard.Root>
+              </Text>
+            </GridItem>
+          </Grid>
+          <Grid templateColumns="auto 1fr" p="6px">
+            <GridItem >
+              <Text>
+              Activate Agent
+              </Text>
+            </GridItem>
+            <GridItem textAlign="right">
+            <Switch.Root colorPalette="green">
+              <Switch.HiddenInput />
+              <Switch.Control />
 
-      {/* Content Section */}
-      <div className="inside flex flex-col gap-6 text-[14px] text-gray-700 leading-[1.8] w-[340px] min-h-[334px] ml-6">
-        <InfoRow
-          label="First Name"
-          value={firstName}
-        />
-        <InfoRow
-          label="Last Name"
-          value={lastName}
-        />
-        <InfoRow
-          label="Email"
-          value={email}
-        />
-        <InfoRow
-          label="Phone No"
-          value={phone}
-        />
-        <InfoRow
-          label="Date Created"
-          value={dateCreated}
-        />
-        <InfoRow
-          label="Agent’s ID"
-          value={agentId}
-        />
-
-        {/* Terminal + Copy */}
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">Terminal</span>
-          <span className="flex items-center text-[#02B14F] font-medium">
-            {terminalId}
-            <Copy
-              className="w-4 h-4 ml-2 cursor-pointer"
-              onClick={copyToClipboard}
-            />
-          </span>
-        </div>
-
-        {/* Toggle */}
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">Activate Agent</span>
-          <label className="inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              className="sr-only"
-              checked={active}
-              onChange={() => setActive(!active)}
-            />
-            <div
-              className={`w-10 h-5 rounded-full p-1 duration-300 ${
-                active ? "bg-[#02B14F]" : "bg-gray-300"
-              }`}>
-              <div
-                className={`bg-white w-4 h-4 rounded-full transform duration-300 ${
-                  active ? "translate-x-5" : "translate-x-0"
-                }`}
-              />
-            </div>
-          </label>
-        </div>
-      </div>
-    </div>
+            </Switch.Root>
+            </GridItem>
+          </Grid>
+ 
+      {/* <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem >
+          <Text>
+            First Name
+          </Text>
+        </GridItem>
+        <GridItem textAlign="right">
+          <Text>Quinn</Text>
+        </GridItem>
+      </Grid>
+      <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem>
+        <Text>
+          Last Name
+        </Text>
+        </GridItem>
+        <GridItem textAlign="right">
+        <Text>
+          Darlington
+        </Text>
+          </GridItem>
+      </Grid>
+      <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem>
+        <Text>
+          Email
+        </Text>
+        </GridItem>
+        <GridItem textAlign="right">
+        <Text>
+          meetdarlingono@gmail.com
+        </Text>
+        </GridItem>
+      </Grid>
+      <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem>
+        <Text p="5px">
+          Phone No
+        </Text>
+        </GridItem>
+        <GridItem textAlign="right">Quinn</GridItem>
+      </Grid>
+      <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem>First Name</GridItem>
+        <GridItem textAlign="right">Quinn</GridItem>
+      </Grid>
+      <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem>First Name</GridItem>
+        <GridItem textAlign="right">Quinn</GridItem>
+      </Grid>
+      <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem>First Name</GridItem>
+        <GridItem textAlign="right">Quinn</GridItem>
+      </Grid>
+      <Grid templateColumns="auto 1fr" p="5px">
+        <GridItem>
+          First Name
+          <Text>
+          meetdarlingono@gmail.com
+        </Text>  
+        </GridItem>
+        <GridItem textAlign="right">Quinn</GridItem>
+      </Grid>
+         */}
+      
+    </Container>
   );
 };
 
-// Reusable row
-const InfoRow = ({ label, value }) => (
-  <div className="flex justify-between items-center">
-    <span className="text-gray-600">{label}</span>
-    <span className="text-gray-800 font-medium">{value}</span>
-  </div>
-);
 
 export default AgentProfile;

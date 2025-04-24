@@ -1,11 +1,17 @@
 import AgentProfile from "@/components/AgentProfile";
 import ConfirmationModal from "@/components/ConfirmationModal";
+import { Container } from "@chakra-ui/react";
+import Quin from "@/assets/agents/agent-quin.png"
 
 const Agents = () => {
   return (
-    <div className="p-6">
+    // <Container>
+    //   <AgentProfile />
+    // </Container>
+    <Container>
+      {/* <AgentProfile /> */}
       <AgentProfile
-        profileImage="./../assets/agents/Quin.png"
+        profileImage={Quin}
         firstName="Quin"
         lastName="Darlington"
         email="meetdarlingono@gmail.com"
@@ -16,7 +22,7 @@ const Agents = () => {
         isActive={true}
       />
       <ConfirmationModal />
-    </div>
+    </Container>
   );
 };
 

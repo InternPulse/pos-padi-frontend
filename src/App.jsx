@@ -8,11 +8,24 @@ import Agents from "./pages/Agents";
 import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
+import { createAgent, getUserSummary } from "./server-actions";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
+
+//   console.log(createAgent(
+//     {
+//     "first_name": "Agent",
+//     "last_name": "Agent",
+//     "email": "agent1@test.com",
+//     "phone": "+234000000000",
+//     "nin": "00000000000"
+// }
+// ))
+
+// console.log(getUserSummary("basicAuthUsername", "basicAuthPassword"))
 
   return (
     <BrowserRouter>
