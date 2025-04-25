@@ -11,12 +11,14 @@ import {
 import { useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import GenericTableCard from "./GenericTableCard";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const PAGE_SIZE = 10;
 
-function TableRow({ isHeader, children }) {
+function TableRow({ isHeader, children, onClick }) {
   return (
     <Flex
+      onClick={onClick}
       color={{
         base: isHeader ? "#626C71" : "inherit",
         _dark: isHeader ? "gray.300" : "inherit",
@@ -43,6 +45,8 @@ function TableRow({ isHeader, children }) {
   );
 }
 
+
+
 function TableData({
   isHeader,
   item1,
@@ -53,8 +57,10 @@ function TableData({
   item6,
   status,
 }) {
+
+
   return (
-    <TableRow isHeader={isHeader}>
+    <TableRow  isHeader={isHeader}>
       {item1 && (
         <Box
           display={{ base: "none", xl: "block" }}
@@ -141,7 +147,14 @@ function TableData({
 
 function GenericTable({ headings, items }) {
   const [page, setPage] = useState(1);
+  const navigate = useNavigate()
+  const currentPath = useLocation().pathname
   const paginatedItems = items.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  function handleClick(isHeader, id){
+    if(isHeader){return}
+    navigate(`${currentPath}/${id}`)
+  }
 
   return (
     <Stack
@@ -160,8 +173,8 @@ function GenericTable({ headings, items }) {
         <TableData isHeader={true} {...headings} />
 
         {paginatedItems.map((item) => (
-          // <TransactionDialog><TableData {...item} /></TransactionDialog>
-          <TableData {...item} />
+          <Box onClick={()=>{handleClick(item.isHeader, item.item1)}}><TableData {...item} /></Box>
+          // <TableData {...item} />
         ))}
       </Box>
 

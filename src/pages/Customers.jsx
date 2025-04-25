@@ -1,6 +1,7 @@
 import { customersList } from "@/components/transactions/customersMockData";
 import { GrGroup } from "react-icons/gr";
 import GenericPage from "@/components/alt/transactions/generic-table/GenericPage";
+import { useEffect } from "react";
 
 const customersSummary = [
   {
@@ -33,6 +34,10 @@ const customersSummary = [
 ];
 
 function Customers() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <GenericPage
       pageSummary={customersSummary}

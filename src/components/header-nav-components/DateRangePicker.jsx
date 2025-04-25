@@ -117,7 +117,7 @@ const DateRangePicker = ({ onDateRangeChange = () => {} }) => {
         boxSizing="border-box"
         w="auto"
         minW="fit-content"
-        boxShadow="sm"
+        boxShadow=""
       >
         <Calendar size={16} style={{ color: 'currentColor' }} />
         <Text color={{base: 'gray.800', _dark: 'white'}}>
