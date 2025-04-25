@@ -81,12 +81,11 @@ function Navigation({ userRole }) {
         .filter((navItem) => navItem.authorizedGroup.includes(userRole))
         .map((navItem) => {
           return (
-            <NavLink to={navItem.destination}>
+            <NavLink to={navItem.destination} key={navItem.destination}>
               <NavButton
                 text={navItem.text}
                 icon={navItem.icon}
-                key={navItem.destination}
-                isSelected={currentPage == navItem.text}
+                isSelected={currentPage === navItem.text}
               />
             </NavLink>
           );
