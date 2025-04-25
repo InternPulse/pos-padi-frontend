@@ -8,9 +8,10 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
       direction={"column"}
       width={"95%"}
       height={"100%"}
-      px={{ base: 1, xl: 4 }}
-      pb={8}
-      gap={6}
+      // px={{ base: 1, xl: 4 }}
+      py={5}
+      
+      gap={5}
       align={"center"}
     >
       <Flex
@@ -19,7 +20,7 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
         gap={5}
         wrap={"wrap"}
         width={"100%"}
-        p={2}
+        p={{base:2, md: 3, xl: 6}}
         align={{ base: "center" }}
 
       >
@@ -29,16 +30,16 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
       </Flex>
 
       <Flex
-        width={{base: '100%' , md: "90%"}}
+        width={{base: '100%' , md: "95%"}}
         align={"start"}
         direction={"column"}
-        p={4}
+        px={{ base: 4, md: 5 }}
+        py={5}
         bg={{ base: "white", _dark: "gray.900" }}
-        gap={4}
-        rounded={'xl'}
-
+        gap={5}
+        rounded={'2xl'}
       >
-        <Text textStyle={"md"} fontWeight={"semibold"}>
+        <Text textStyle={"md"} fontWeight={"semibold"} color={{ base: "#626C7A", _dark: "gray.200" }}>
           {pageTitle} List
         </Text>
         <Flex
