@@ -6,7 +6,7 @@ import Card from "../dashboard-components/Card";
 import { LuWallet } from "react-icons/lu";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
 import { useState } from "react";
-
+import { useEffect } from "react";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -48,6 +48,11 @@ export const transactionSummary = [
 ];
 
 function AltTransactions() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const [filters, setFilters] = useState({
     search: '',
     status: '',
@@ -87,18 +92,23 @@ function AltTransactions() {
   };
 
 
+
+
   return (
     <Flex
       direction={"column"}
       gap={5}
       py={5}
+      px={{ base: 0, md: 4 }}
       align={"center"}
+      justify={"center"}
+      width={"95%"}
     >
       <Flex
         wrap={"wrap"}
         gap={5}
-        p={5}
-        justify={{ base: "center", lg: "start" }}
+        p={{ base: 2, md: 5 }}
+        justify={{ base: "center", md: "start" }}
       >
         {transactionSummary.map((item) => (
           <Card {...item} />
@@ -111,7 +121,7 @@ function AltTransactions() {
         py={5}
         bg={{ base: "white", _dark: "inherit" }}
         direction={"column"}
-        width={{ base: "95%", md: "auto" }}
+        width={{ base: "100%", md: "100%" }}
         rounded={"2xl"}
       >
         <Text
