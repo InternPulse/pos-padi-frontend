@@ -18,7 +18,7 @@ function TableRow({ isHeader, children }) {
   return (
     <Flex
       color={{base: isHeader ? "#626C71" : "inherit", _dark: isHeader ? "gray.300" : "inherit" }}
-      width={{ base: "0px", md: "700px", lg: "750px", xl: "1080px" }}
+      width={{ base: "0px", md: '100%'}} //"700px", lg: "750px", xl:'980px', '2xl': "1080px" }}
       height={"60px"}
       bg={{base: isHeader ? "#f2f2f2" : "inherit", _dark:isHeader ? "gray.700" : "inherit"}}
       gap={3}
@@ -48,10 +48,10 @@ function TableData({
   return (
     <TableRow isHeader={isHeader}>
       <Box
-        display={{ base: "none", xl: "block" }}
+        display={{ base: "none", '2xl': "block" }}
         fontSize={isHeader ? "0.875rem" : "0.875rem"}
         fontWeight={isHeader ? "semibold" : "normal"}
-        width={"100px"}
+        width={"90px"}
       >
         {reference}
       </Box>
@@ -139,16 +139,19 @@ function AltTransactionTable({ transactions }) {
 
 
   return (
-    <Stack
+    <Flex
       borderTopRadius={"2xl"}
       bg={{ base: "white", _dark: "inherit" }}
       gap={5}
       height={`${62 * (PAGE_SIZE + 2)}px`}
+      direction={'column'}
     >
       <Box
         borderRadius={"inherit"}
         display={{ base: "none", md: "block" }}
         boxShadow={'0 0 1.5px lightgrey'}
+        width={'100%'}
+      
       >
         <TableData isHeader={true} {...transactionsTableHeader} />
 
@@ -194,7 +197,7 @@ function AltTransactionTable({ transactions }) {
           </Pagination.NextTrigger>
         </ButtonGroup>
       </Pagination.Root>
-    </Stack>
+    </Flex>
   );
 }
 

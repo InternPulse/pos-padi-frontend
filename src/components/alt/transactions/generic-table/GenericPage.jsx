@@ -16,13 +16,12 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
     >
       <Flex
         direction={{ base: "column", sm: "row" }}
-        justify={{ base: "space-around", lg: "space-between" }}
+        justify={{ base: "start", lg: "start" }}
         gap={5}
         wrap={"wrap"}
         width={"100%"}
         p={{base:2, md: 3, xl: 6}}
         align={{ base: "center" }}
-
       >
         {pageSummary.map((item) => (
           <Card {...item} />
@@ -33,13 +32,13 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
         width={{base: '100%' , md: "95%"}}
         align={"start"}
         direction={"column"}
-        px={{ base: 4, md: 5 }}
+        px={{ base: 2, md: 5 }}
         py={5}
         bg={{ base: "white", _dark: "gray.900" }}
         gap={5}
         rounded={'2xl'}
       >
-        <Text textStyle={"md"} fontWeight={"semibold"} color={{ base: "#626C7A", _dark: "gray.200" }}>
+        <Text ml={2} textStyle={"md"} fontWeight={"semibold"} color={{ base: "#626C7A", _dark: "gray.200" }}>
           {pageTitle} List
         </Text>
         <Flex

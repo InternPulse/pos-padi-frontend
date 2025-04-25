@@ -9,6 +9,7 @@ import { GrGroup } from "react-icons/gr";
 import { GiSwipeCard } from "react-icons/gi";
 import { transactionSummary } from "@/components/alt/transactions/AltTransactions";
 import Card from "@/components/alt/dashboard-components/Card";
+import { useEffect } from "react";
 
 function ButtonGroupContainer() {
   return (
@@ -102,6 +103,9 @@ function PlaceHolderTransactionsCard() {
 
 function Dashboard() {
   const [filteredTransactions, setFilteredTransactions] = useState(null);
+  useEffect(() => {
+    window.scrollTo(0,0)
+  },[])
   
   const CompanySummaries = [
     ...transactionSummary,
