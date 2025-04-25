@@ -4,6 +4,9 @@ import { transactions } from "@/components/transactions/transactionsMockData";
 // import { BiDirections } from "react-icons/bi";
 import Card from "../dashboard-components/Card";
 import { LuWallet } from "react-icons/lu";
+import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
+import { useState } from "react";
+
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -45,6 +48,44 @@ export const transactionSummary = [
 ];
 
 function AltTransactions() {
+  const [filters, setFilters] = useState({
+    search: '',
+    status: '',
+    agent: ''
+  });
+
+  // Get unique values for dropdowns
+  const statusOptions = [...new Set(transactions.map(item => item.status))];
+  const agentOptions = [...new Set(transactions.map(item => item.agent))];
+
+  const filterTransactions = (data) => {
+    return data.filter(item => {
+      const matchesSearch = item.reference.toLowerCase().includes(filters.search.toLowerCase());
+      const matchesStatus = !filters.status || item.status === filters.status;
+      const matchesAgent = !filters.agent || item.agent === filters.agent;
+      
+      return matchesSearch && matchesStatus && matchesAgent;
+    });
+  };
+
+  const filteredTransactions = filterTransactions(transactions);
+
+  // Handle input changes
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setFilters(prev => ({...prev, search: value}));
+  };
+
+  const handleStatusChange = (e) => {
+    const value = e.target.value;
+    setFilters(prev => ({...prev, status: value}));
+  };
+
+  const handleAgentChange = (e) => {
+    const value = e.target.value;
+    setFilters(prev => ({...prev, agent: value}));
+  };
+
 
   return (
     <Flex
@@ -79,10 +120,22 @@ function AltTransactions() {
         >
           Transactions List
         </Text>
-        <Flex h={"40px"} bg={"gray.200"}>
+        <Flex h={"40px"} >
           {/* Placeholder for filter input elements */}
+          <TransactionPageFilterButton 
+            statusOptions={statusOptions}
+            agentOptions={agentOptions}
+            searchValue={filters.search}
+            statusValue={filters.search?'' : filters.status}
+            agentValue={filters.search ? '' : filters.agent}
+            onSearchChange={handleSearchChange}
+            onStatusChange={handleStatusChange}
+            onAgentChange={handleAgentChange}
+          />
+
+
         </Flex>
-        <AltTransactionTable transactions={transactions} />
+        <AltTransactionTable transactions={filteredTransactions} />
       </Flex>
     </Flex>
   );
