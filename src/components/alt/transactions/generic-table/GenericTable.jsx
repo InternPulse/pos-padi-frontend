@@ -97,7 +97,7 @@ function TableData({
       {item5 && (
         <Box
           display={{ base: "none", sm: "block" }}
-          textTransform={"lowercase"}
+          textTransform={isHeader? "" : "lowercase"}
           fontSize={isHeader ? "0.875rem" : "0.875rem"}
           fontWeight={isHeader ? "semibold" : "normal"}
           width={"180px"}
