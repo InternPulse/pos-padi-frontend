@@ -2,7 +2,7 @@ import { Button, Box, CloseButton, Dialog, Portal, Image, Flex } from "@chakra-u
 import TransactionDetailsCard from "../TransactionDetailsCard"
 import logo from "../../../../assets/logo-lg.png"
 
-function TransactionDialog({ children }) {
+function TransactionDialog({ children, data }) {
   return (
     <Dialog.Root scrollBehavior="inside" size="sm">
       <Dialog.Trigger asChild>
@@ -25,11 +25,11 @@ function TransactionDialog({ children }) {
               
             </Dialog.Header>
             <Dialog.CloseTrigger asChild>
-              <CloseButton size="sm" />
+              <CloseButton size="sm" variant={'ghost'} />
             </Dialog.CloseTrigger>
             <Dialog.Body>
              
-              <TransactionDetailsCard />
+              <TransactionDetailsCard data={data} />
             </Dialog.Body>
           </Dialog.Content>
         </Dialog.Positioner>

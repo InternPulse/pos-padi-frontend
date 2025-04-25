@@ -153,7 +153,7 @@ function AltTransactionTable({ transactions }) {
         <TableData isHeader={true} {...transactionsTableHeader} />
 
         {paginatedItems.map((item) => (
-          <TransactionDialog><TableData {...item} /></TransactionDialog>
+          <TransactionDialog data={item}><TableData {...item} /></TransactionDialog>
         ))}
       </Box>
 
