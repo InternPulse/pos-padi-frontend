@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, NativeSelect } from '@chakra-ui/react';
 
 export default function TransDashFilterbutton() {
   const [isMobile, setIsMobile] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('12months'); 
 
   useEffect(() => {
-    const checkIfMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkIfMobile = () => setIsMobile(window.innerWidth < 770);
     checkIfMobile();
     window.addEventListener('resize', checkIfMobile);
     return () => window.removeEventListener('resize', checkIfMobile);
@@ -15,31 +16,31 @@ export default function TransDashFilterbutton() {
   if (isMobile) {
     return (
       <Box mb={4}>
-        <Box 
-          as="select"
-          border="1px solid"
-          borderColor="gray.200"
-          borderRadius="md"
-          height="40px"
-          fontSize="13px"
-          px={3}
-          _focus={{ outline: 'none' }}
-          _dark={{
-            borderColor: 'gray.600',
-            bg: 'gray.800',
-            color: 'white'
-          }}
-          _light={{
-            borderColor: 'gray.200',
-            bg: 'white',
-            color: 'gray.800'
-          }}
-        >
-          <option value="12months">12 months</option>
-          <option value="30days">30 days</option>
-          <option value="7days">7 days</option>
-          <option value="24hours">24 hours</option>
-        </Box>
+        <NativeSelect.Root 
+            size="lg" 
+            width="max-content"
+            borderRadius="lg"
+            height="40px"
+            fontSize="8.5rem"
+            pr={2}
+            _focus={{ outline: 'none' }}
+            _dark={{
+              borderColor: 'gray.600',
+              color: 'white'
+            }}
+            _light={{
+              borderColor: 'gray.200',
+              color: 'gray.800',
+            }}
+          >
+  <NativeSelect.Field  >
+    <option value="12months">12 months</option>
+    <option value="30days">30 days</option>
+    <option value="7days">7 days</option>
+    <option value="24hours">24 hours</option>
+  </NativeSelect.Field>
+  <NativeSelect.Indicator />
+</NativeSelect.Root>
       </Box>
     );
   }
@@ -62,6 +63,7 @@ export default function TransDashFilterbutton() {
       }}
     >
       <Button
+        onClick={() => setActiveFilter('12months')}
         borderRight="1px solid"
         borderColor="gray.200"
         borderRadius="none"
@@ -71,19 +73,20 @@ export default function TransDashFilterbutton() {
         _focus={{ outline: 'none' }}
         _dark={{
           borderColor: 'gray.600',
-          bg: 'gray.800',
+          bg: activeFilter === '12months' ? 'gray.700' : 'gray.800',
           color: 'white',
           _hover: { bg: 'gray.700' }
         }}
         _light={{
           borderColor: 'gray.200',
-          bg: 'white',
+          bg: activeFilter === '12months' ? 'green.100' : 'white',
           color: 'gray.800'
         }}
       >
         12 months
       </Button>
       <Button
+        onClick={() => setActiveFilter('30days')}
         borderRight="1px solid"
         borderColor="gray.200"
         borderRadius="none"
@@ -92,19 +95,20 @@ export default function TransDashFilterbutton() {
         _focus={{ outline: 'none' }}
         _dark={{
           borderColor: 'gray.600',
-          bg: 'gray.800',
+          bg: activeFilter === '30days' ? 'gray.700' : 'gray.800',
           color: 'white',
           _hover: { bg: 'gray.700' }
         }}
         _light={{
           borderColor: 'gray.200',
-          bg: 'white',
+          bg: activeFilter === '30days' ? 'green.100' : 'white',
           color: 'gray.800'
         }}
       >
         30 days
       </Button>
       <Button
+        onClick={() => setActiveFilter('7days')}
         borderRight="1px solid"
         borderColor="gray.200"
         borderRadius="none"
@@ -113,34 +117,35 @@ export default function TransDashFilterbutton() {
         _focus={{ outline: 'none' }}
         _dark={{
           borderColor: 'gray.600',
-          bg: 'gray.800',
+          bg: activeFilter === '7days' ? 'gray.700' : 'gray.800',
           color: 'white',
           _hover: { bg: 'gray.700' }
         }}
         _light={{
           borderColor: 'white',
-          bg: 'white',
+          bg: activeFilter === '7days' ? 'green.100' : 'white',
           color: 'gray.800'
         }}
       >
         7 days
       </Button>
       <Button
+        onClick={() => setActiveFilter('24hours')}
         borderRadius="none"
         borderRightRadius="md"
         fontSize="13px"
         height="40px"
         _focus={{ outline: 'none' }}
         _dark={{
-          bg: 'gray.800',
+          bg: activeFilter === '24hours' ? 'gray.700' : 'gray.800',
           color: 'white',
           _hover: { bg: 'gray.700' }
         }}
         _light={{
-            borderColor: 'gray.200',
-            bg: 'white',
-            color: 'gray.800'
-          }}
+          borderColor: 'gray.200',
+          bg: activeFilter === '24hours' ? 'green.100' : 'white',
+          color: 'gray.800'
+        }}
       >
         24 hours
       </Button>
