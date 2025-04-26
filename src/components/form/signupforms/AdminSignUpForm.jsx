@@ -1,3 +1,7 @@
+// $ This is the first form in the series of Admin Signup logic.
+
+// import { useEffect } from "react";
+
 // $ Chakra Components
 import { Box, Button, Flex, Link, Text, Fieldset } from "@chakra-ui/react";
 
@@ -5,7 +9,12 @@ import { Box, Button, Flex, Link, Text, Fieldset } from "@chakra-ui/react";
 import { LuUser, LuMail } from "react-icons/lu";
 import { IoCallOutline } from "react-icons/io5";
 import { MdLockOutline } from "react-icons/md";
+
+// $ Custom form input and header
 import FormInputField from "@/components/customComponents/FormInputField";
+import FormHeader from "./FormHeader";
+
+// $ Global Context
 import { useGlobalContext } from "@/context/useGlobalContext";
 
 // $ Form Input Field Data
@@ -13,23 +22,23 @@ const formFields = [
   {
     name: "firstName",
     label: "First Name",
-    placeholder: "first name",
+    placeholder: "Enter first name",
     icon: LuUser,
-    error: "please enter a name",
+    error: "Please enter a name",
   },
   {
     name: "lastName",
     label: "Last Name",
-    placeholder: "last name",
+    placeholder: "Enter last name",
     icon: LuUser,
-    error: "please enter last name",
+    error: "Please enter last name",
   },
   {
     name: "phone",
     label: "Phone No",
-    placeholder: "phone number",
+    placeholder: "enter phone number",
     icon: IoCallOutline,
-    error: "please enter a phone number",
+    error: "Please enter a phone number",
   },
   {
     name: "email",
@@ -37,7 +46,7 @@ const formFields = [
     type: "email",
     placeholder: "enter email",
     icon: LuMail,
-    error: "please enter a valid email",
+    error: "Please enter a valid email",
   },
   {
     name: "password",
@@ -45,7 +54,7 @@ const formFields = [
     type: "password",
     placeholder: "enter password",
     icon: MdLockOutline,
-    error: "please enter password",
+    error: "Please enter password",
   },
   {
     name: "confirmPassword",
@@ -53,16 +62,39 @@ const formFields = [
     type: "password",
     placeholder: "enter password",
     icon: MdLockOutline,
-    error: "ensure passwords are the same",
+    error: "The passwords must be the same",
   },
 ];
 
 // $ util function for form validation, the location for custom hook /src/utils/useFormValidation.js
 import useFormValidation from "@/utils/useFormValidation";
+import useMultiFormHook from "@/utils/useMultiFormHook";
 
 const AdminSignUpForm = () => {
-  const { setFormData, formData } = useGlobalContext();
-  const { validate, errors } = useFormValidation(formFields);
+  const {
+    setFormData,
+    formData,
+    setCurrentStepIndex,
+    currentStepIndex,
+    setProgressStatus,
+    stepProgress,
+  } = useGlobalContext();
+  const { validate, validateField, errors, isValid, getPasswordRequirements } =
+    useFormValidation(formFields);
+  const { totalSteps } = useMultiFormHook();
+
+  // $ Calculate if the form is complete enough to enable the button
+  const requiredFields = [
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+    "password",
+    "confirmPassword",
+  ];
+  const isFormComplete = requiredFields.every((field) =>
+    formData[field]?.trim?.()
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,54 +108,79 @@ const AdminSignUpForm = () => {
 
     setFormData(payload);
 
-    const isValid = validate(formData);
+    // Final validation before submission
+    const submissionValid = validate(formData);
+
+    if (submissionValid) {
+      const stepProgress = 100 / totalSteps;
+      setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
+      console.log("totalSteps:", totalSteps);
+      console.log("stepProgress:", stepProgress);
+      setCurrentStepIndex(currentStepIndex + 1);
+    }
+
     if (!isValid) {
       console.log("Form validation failed");
       return;
     }
     // $ Move to the next form or handle api call
+    console.log(stepProgress);
   };
 
   // $ Capture the form field data
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+
+    // $ Update form data
+    const updatedFormData = {
+      ...formData,
       [name]: value,
-    }));
+    };
+
+    setFormData(updatedFormData);
+    console.log(formData);
+
+    // $ Validate just the changed field
+    validateField(updatedFormData, name);
   };
 
   return (
     <Fieldset.Root
-      w={{ base: "100%", md: "50%" }}
-      bg="inherit"
-      py={{ base: 12, md: 24 }}
+      width="100%"
+      rounded="md"
+      bg="white"
+      py={{ base: "12 12 0 12", md: "40px" }}
       px={{ base: 8, md: 12 }}
       display="flex"
       alignItems="center"
+      // border="1px dashed green"
     >
-      <Box w="full" maxW="md" mx="auto">
-        {/* <Stack spacing={8}> */}
-        <Flex mb={6} direction="column" gap="2">
-          <Fieldset.Legend fontSize="1.5rem">
-            Create A New Account
-          </Fieldset.Legend>
-          <Fieldset.HelperText color="gray.600">
-            Input your personal details
-          </Fieldset.HelperText>
-        </Flex>
+      <Box
+        width="100%"
+        mx="auto"
+        //   border="1px solid green"
+      >
+        <FormHeader
+          title="Create A New Account"
+          subHeading="Input your personal details"
+        />
 
         <Fieldset.Content spacing={4} align="stretch">
-          <Flex direction="column" gap="4">
+          <Flex direction="column" gap={Object.keys(errors).length > 0 ? 2 : 4}>
             {formFields.map((input) => (
               <FormInputField
                 key={input.name}
                 name={input.name}
                 onChange={handleChange}
+                type={input.type}
                 label={input.label}
                 placeholder={input.placeholder}
                 error={errors[input.name]}
+                value={formData[input.name]}
                 icon={input.icon}
+                checkPasswordRequirements={
+                  input.type === "password" ? getPasswordRequirements : null
+                }
               />
             ))}
           </Flex>
@@ -133,9 +190,18 @@ const AdminSignUpForm = () => {
           type="submit"
           mt={6}
           w="full"
-          colorPalette="green"
+          bgColor={
+            isFormComplete ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"
+          }
           size="lg"
           onClick={handleSubmit}
+          isDisabled={!isValid}
+          _hover={{
+            bgColor: isFormComplete
+              ? "rgba(2, 177, 79, 1)"
+              : `rgba(2, 177, 79, 0.5)`,
+            cursor: isValid ? "pointer" : "not-allowed",
+          }}
         >
           Continue
         </Button>
@@ -147,7 +213,6 @@ const AdminSignUpForm = () => {
             Login
           </Link>
         </Flex>
-        {/* </Stack> */}
       </Box>
     </Fieldset.Root>
   );

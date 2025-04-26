@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Button,
@@ -7,13 +7,14 @@ import {
   Flex,
   Text,
   VStack,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 function OTPVerificationPage() {
   return (
-    <Center minHeight="100vh" bg="gray.50" px={{ base: 4, md: 0 }}>
+    // $ Changed the container height to "100%, the mimHeight of 100vh causes overflow on the Signin Page"
+    <Center minHeight="100%" bg="gray.50" px={{ base: 4, md: 0 }}>
       <Container
-        maxW={{ base: 'full', sm: 'md' }}
+        maxW={{ base: "full", sm: "md" }}
         p={{ base: 6, md: 8 }}
         bg="white"
         borderRadius="lg"
@@ -23,7 +24,7 @@ function OTPVerificationPage() {
           {/* Logo at the top */}
           <Center>
             <Text
-              fontSize={{ base: 'xl', md: '2xl' }}
+              fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="bold"
               color="green.500"
             >
@@ -35,7 +36,7 @@ function OTPVerificationPage() {
           <Button
             bg="green.500"
             color="white"
-            _hover={{ bg: 'green.600' }}
+            _hover={{ bg: "green.600" }}
             size="lg"
             width="full"
           >
@@ -48,14 +49,14 @@ function OTPVerificationPage() {
           </Text>
 
           {/* OTP instruction text */}
-          <Text fontSize={{ base: 'md', md: 'lg' }}>
+          <Text fontSize={{ base: "md", md: "lg" }}>
             Your one-time password for email verification is
           </Text>
 
           {/* OTP display box */}
           <Center bg="gray.100" py={3} borderRadius="md">
             <Text
-              fontSize={{ base: 'lg', md: 'xl' }}
+              fontSize={{ base: "lg", md: "xl" }}
               fontWeight="bold"
               letterSpacing="wider"
             >
@@ -65,14 +66,15 @@ function OTPVerificationPage() {
 
           {/* Additional text lines */}
           <Text fontSize="sm" color="gray.700">
-            Use this code to confirm your email and note that this code is valid for 5 mins.
+            Use this code to confirm your email and note that this code is valid
+            for 5 mins.
           </Text>
 
           <Text fontSize="sm" color="gray.700">
-            If you didn't create account with{' '}
+            If you didn't create account with{" "}
             <Text as="span" color="green.500" fontWeight="medium">
               POS-padi
-            </Text>{' '}
+            </Text>{" "}
             please ignore this message.
           </Text>
 
@@ -87,7 +89,5 @@ function OTPVerificationPage() {
     </Center>
   );
 }
-
-
 
 export default OTPVerificationPage;

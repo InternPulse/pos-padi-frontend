@@ -24,7 +24,8 @@ import Drop from "../ui/drop";
 const BizInfoForm = () => {
   return (
     <Box
-      w={{ base: "100%", md: "50%" }}
+      // $ Changed the value on md to 100%, else form does not fit the parent container
+      w={{ base: "100%", md: "100%" }}
       bg="white"
       py={{ base: 12, md: 24 }}
       px={{ base: 8, md: 12 }}
