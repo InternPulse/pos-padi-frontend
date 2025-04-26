@@ -1,8 +1,10 @@
-import React from 'react'
 
+import TestimonialCard from '../components/LandingpageComponento/TestimonialCard'
 function LandingPage() {
   return (
-    <div>LandingPage</div>
+    <div>
+      <TestimonialCard/>
+    </div>
   )
 }
 
