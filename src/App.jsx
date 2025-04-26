@@ -8,6 +8,7 @@ import Agents from "./pages/Agents";
 import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
+import CreateNotification from "./components/CreateNotification";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
@@ -16,28 +17,61 @@ function App() {
 
   return (
     <BrowserRouter>
-
       {isUserAuthenticated ? (
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="transactions" element={<AltTransactions />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="agents" element={<Agents />} />
-            <Route path="customers" element={<Customers />} />
-            <Route path="terminals" element={<Terminals />} />
-            <Route path="disputes" element={<Disputes />} />
-            <Route path="settings" element={<Settings />} />
+          <Route
+            path="/"
+            element={<Layout />}>
+            <Route
+              index
+              element={<Dashboard />}
+            />
+            <Route
+              path="settings"
+              element={<Settings />}
+            />
+            <Route
+              path="transactions"
+              element={<AltTransactions />}
+            />
+            <Route
+              path="dashboard"
+              element={<Dashboard />}
+            />
+            <Route
+              path="agents"
+              element={<Agents />}
+            />
+            <Route
+              path="customers"
+              element={<Customers />}
+            />
+            <Route
+              path="terminals"
+              element={<Terminals />}
+            />
+            <Route
+              path="disputes"
+              element={<Disputes />}
+            />
+            <Route
+              path="settings"
+              element={<Settings />}
+            />
+            <Route
+              path="notifications/create"
+              element={<CreateNotification />}
+            />
             {/* <Route path="notifications" element={<NotificationsPage />} /> */}
           </Route>
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
+          <Route
+            path="/"
+            element={<HomePage />}></Route>
         </Routes>
       )}
-
     </BrowserRouter>
   );
 }
