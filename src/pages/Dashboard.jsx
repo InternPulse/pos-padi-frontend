@@ -10,15 +10,18 @@ import { GiSwipeCard } from "react-icons/gi";
 import { transactionSummary } from "@/components/alt/transactions/AltTransactions";
 import Card from "@/components/alt/dashboard-components/Card";
 import { useEffect } from "react";
+import TransDashFilterbutton from "@/components/TransFilterButton";
 
 function ButtonGroupContainer() {
   return (
     <Box
       width={{ base: "108px", md: "200px", xl: "344px" }}
-      bg={"gray.200"}
+      
       height={{ base: "40px", md: "40px" }}
       rounded={"xl"}
-    ></Box>
+    >
+      <TransDashFilterbutton/>
+    </Box>
   );
 }
 
