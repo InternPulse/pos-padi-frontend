@@ -5,16 +5,6 @@ import { transactions } from "@/components/transactions/transactionsMockData";
 import Card from "../dashboard-components/Card";
 import { LuWallet } from "react-icons/lu";
 
-function TransactionsCardContainer() {
-  return (
-    <Box
-      width={{ base: "168px", md: "300px", lg: "360px" }}
-      bg={"gray.200"}
-      height={{ base: "68px", md: "145px" }}
-      rounded={"xl"}
-    ></Box>
-  );
-}
 
 export function formatCurrency(num){
   const formattedCurrency = new Intl.NumberFormat('en-US', {
