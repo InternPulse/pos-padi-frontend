@@ -29,7 +29,9 @@ function GenericTableCard({ items }) {
 
   function handleClick(isHeader, id){
     if(isHeader){return}
-    navigate(`${currentPath}/${id}`)
+    if(currentPath == '/agents' || currentPath == '/customers'){
+      navigate(`${currentPath}/${id}`)
+    }
   }
 
   return (
