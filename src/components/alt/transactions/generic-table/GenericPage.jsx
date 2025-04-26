@@ -16,7 +16,7 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
     >
       <Flex
         direction={{ base: "column", sm: "row" }}
-        justify={{ base: "start", lg: "start" }}
+        justify={{ base: "start", '2xl': "center" }}
         gap={5}
         wrap={"wrap"}
         width={"100%"}

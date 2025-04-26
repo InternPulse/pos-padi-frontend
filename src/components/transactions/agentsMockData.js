@@ -1,6 +1,6 @@
 export const rawAgents = [
   {
-    imageURL: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04",
+    imageURL: 'https://i.pravatar.cc/150?u=timiojuromi',
     firstName: "Timi",
     lastName: "Ojuromi",
     email: "Timivibesojuromi@gmail.com",
@@ -12,7 +12,7 @@ export const rawAgents = [
     performanceSummary: [],
   },
   {
-    imageURL: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04",
+    imageURL: 'https://i.pravatar.cc/150?u=amakaokoro',
     firstName: "Amaka",
     lastName: "Okoro",
     email: "amaka.okoro@example.com",
