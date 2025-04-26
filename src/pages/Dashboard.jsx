@@ -11,6 +11,8 @@ import { transactionSummary } from "@/components/alt/transactions/AltTransaction
 import Card from "@/components/alt/dashboard-components/Card";
 import { useEffect } from "react";
 import TransDashFilterbutton from "@/components/TransFilterButton";
+import { rawAgents } from "@/components/transactions/agentsMockData";
+import { transactions } from "@/components/transactions/transactionsMockData";
 
 function ButtonGroupContainer() {
   return (
@@ -114,7 +116,7 @@ function Dashboard() {
     ...transactionSummary,
     {
       title: 'Agents',
-      amount: 8,
+      amount: rawAgents.length,
       icon: <IoPeopleOutline />,
       iconColor: {base: 'orange.600', _dark:'orange.300'},
       iconBgColor: {base: 'orange.50', _dark: 'orange.800'},
@@ -123,7 +125,7 @@ function Dashboard() {
     },
     {
       title: 'Customers',
-      amount: 352,
+      amount: [...(new Set(transactions.map(transaction => transaction.customer)))].length,
       icon: <GrGroup />,
       iconColor: {base: 'yellow.600', _dark:'yellow.300'},
       iconBgColor: {base: 'yellow.50', _dark: 'yellow.800'},
@@ -132,7 +134,7 @@ function Dashboard() {
     },
     {
       title: 'Transaction Count',
-      amount: 7214,
+      amount: transactions.length,
       icon: <GiSwipeCard />,
       iconColor: {base: 'purple.600', _dark:'purple.300'},
       iconBgColor: {base: 'purple.50', _dark: 'purple.800'},

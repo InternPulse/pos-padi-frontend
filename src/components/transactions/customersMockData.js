@@ -14,7 +14,7 @@ export const customersList = {
       item2: "Quin",
       item3: "Darlington",
       item5: "09155334727",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -22,7 +22,7 @@ export const customersList = {
       item2: "Quin",
       item3: "Darlington",
       item5: "09155334727",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -30,7 +30,7 @@ export const customersList = {
       item2: "Timilehin",
       item3: "Ojuromi",
       item5: "07055334567",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -38,7 +38,7 @@ export const customersList = {
       item2: "Amaka",
       item3: "Okafor",
       item5: "08023456789",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -46,7 +46,7 @@ export const customersList = {
       item2: "Tunde",
       item3: "Bakare",
       item5: "08011223344",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -54,7 +54,7 @@ export const customersList = {
       item2: "Fatima",
       item3: "Mohammed",
       item5: "09087654321",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -62,7 +62,7 @@ export const customersList = {
       item2: "Uche",
       item3: "Nwankwo",
       item5: "07099887766",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -70,7 +70,7 @@ export const customersList = {
       item2: "Grace",
       item3: "Odeyemi",
       item5: "08122334455",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -78,7 +78,7 @@ export const customersList = {
       item2: "Ibrahim",
       item3: "Suleiman",
       item5: "08066778899",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -86,7 +86,7 @@ export const customersList = {
       item2: "Ngozi",
       item3: "Eze",
       item5: "09044556677",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -94,7 +94,7 @@ export const customersList = {
       item2: "David",
       item3: "Agbaje",
       item5: "07055667788",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -102,7 +102,7 @@ export const customersList = {
       item2: "Rita",
       item3: "Abang",
       item5: "08178889900",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -110,7 +110,7 @@ export const customersList = {
       item2: "Kelechi",
       item3: "Okorie",
       item5: "09033221144",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -118,7 +118,7 @@ export const customersList = {
       item2: "Chinedu",
       item3: "Okonkwo",
       item5: "08012121212",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -126,7 +126,7 @@ export const customersList = {
       item2: "Zainab",
       item3: "Balogun",
       item5: "09098989898",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -134,7 +134,7 @@ export const customersList = {
       item2: "Aisha",
       item3: "Yusuf",
       item5: "08167676767",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -142,7 +142,7 @@ export const customersList = {
       item2: "Emmanuel",
       item3: "Etim",
       item5: "07070707070",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -150,7 +150,7 @@ export const customersList = {
       item2: "Joy",
       item3: "Umeh",
       item5: "08050505050",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -158,7 +158,7 @@ export const customersList = {
       item2: "Desmond",
       item3: "Ighalo",
       item5: "09067676767",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -166,7 +166,7 @@ export const customersList = {
       item2: "Linda",
       item3: "Opara",
       item5: "08134567890",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -174,7 +174,7 @@ export const customersList = {
       item2: "Victor",
       item3: "Chukwu",
       item5: "09011223344",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -182,7 +182,7 @@ export const customersList = {
       item2: "Chisom",
       item3: "Ike",
       item5: "08187654321",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -190,7 +190,7 @@ export const customersList = {
       item2: "Ayo",
       item3: "Fagbemi",
       item5: "09033445566",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -198,7 +198,7 @@ export const customersList = {
       item2: "Tolu",
       item3: "Oyekan",
       item5: "08199887766",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -206,7 +206,7 @@ export const customersList = {
       item2: "Isioma",
       item3: "Nwosu",
       item5: "09076543210",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -214,7 +214,7 @@ export const customersList = {
       item2: "Samuel",
       item3: "Ajayi",
       item5: "08122331144",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -222,7 +222,7 @@ export const customersList = {
       item2: "Lilian",
       item3: "Danjuma",
       item5: "09033332222",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -230,7 +230,7 @@ export const customersList = {
       item2: "Ada",
       item3: "Igwe",
       item5: "08029998877",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -238,7 +238,7 @@ export const customersList = {
       item2: "Kunle",
       item3: "Lawal",
       item5: "08144443322",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -246,7 +246,7 @@ export const customersList = {
       item2: "Yetunde",
       item3: "Sanni",
       item5: "09066554433",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -254,7 +254,7 @@ export const customersList = {
       item2: "Nnamdi",
       item3: "Okeke",
       item5: "08133445566",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -262,7 +262,7 @@ export const customersList = {
       item2: "Omolara",
       item3: "Adetunji",
       item5: "09044332211",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -270,7 +270,7 @@ export const customersList = {
       item2: "Bola",
       item3: "Akin",
       item5: "08088887777",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -278,7 +278,7 @@ export const customersList = {
       item2: "Salihu",
       item3: "Bello",
       item5: "08133335555",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -286,7 +286,7 @@ export const customersList = {
       item2: "Damilola",
       item3: "Adegoke",
       item5: "08066665555",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -294,7 +294,7 @@ export const customersList = {
       item2: "Efe",
       item3: "Abuja",
       item5: "08155556666",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -302,7 +302,7 @@ export const customersList = {
       item2: "Tina",
       item3: "Onwudiwe",
       item5: "09022221111",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -310,7 +310,7 @@ export const customersList = {
       item2: "Gabriel",
       item3: "Ekaette",
       item5: "08177778888",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
     {
       isHeader: false,
@@ -318,7 +318,7 @@ export const customersList = {
       item2: "Nkechi",
       item3: "Okoro",
       item5: "08044443333",
-      item6: "Chudi Ofoma",
+      item6: "Amaka Okoro",
     },
     {
       isHeader: false,
@@ -326,7 +326,7 @@ export const customersList = {
       item2: "Seyi",
       item3: "Owolabi",
       item5: "09022223333",
-      item6: "Tana Ofik",
+      item6: "Timi Ojuromi",
     },
   ],
 };
