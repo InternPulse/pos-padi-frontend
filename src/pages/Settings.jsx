@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Tabs, Flex, Box, Heading, Text, IconButton, Input, Grid, Button, Table, Switch, Popover, VStack, HStack, Badge, Progress, Dialog, Portal } from '@chakra-ui/react'
 import { FaUserEdit, FaTrash, FaDesktop, FaMobile, FaTablet, FaInfoCircle, FaStar, FaBan, FaHistory } from 'react-icons/fa'
 import { LuUsers, LuUpload } from "react-icons/lu"
@@ -26,6 +26,10 @@ function Settings() {
   const [primaryDevice, setPrimaryDevice] = useState('MacBook Pro') // Default primary device
   const [showNotification, setShowNotification] = useState(false)
   const [notification, setNotification] = useState({ title: '', description: '', type: 'success' })
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing)
