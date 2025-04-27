@@ -1,9 +1,11 @@
 import AgentCard from "@/components/agent-details/AgentCard";
+import CustomerCard from "./CustomerCard";
 import Card from "@/components/alt/dashboard-components/Card";
 import { Flex, Button, Tabs } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
 import { GrGroup } from "react-icons/gr";
 import { LuWallet } from "react-icons/lu";
+import { FaRegStar } from "react-icons/fa";
 import { GiSwipeCard } from "react-icons/gi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
@@ -50,7 +52,7 @@ function EntityDetails({ entity, entityType }) {
 
   const pageEntity = {
     ...entity,
-    performanceSummary: [
+    performanceSummary: entityType == 'agent' ? [
       {
         title: "Total Transaction",
         amount: formatCurrency(
@@ -112,67 +114,70 @@ function EntityDetails({ entity, entityType }) {
         percent: -5,
         period: "month",
       },
+    ] : [
+      {
+        title: "Total Transaction",
+        amount: formatCurrency(
+          pageTransactions.reduce((acc, item) => {
+            return acc + item.amount;
+          }, 0)
+        ),
+        icon: <LuWallet />,
+        iconColor: { base: "blue.600", _dark: "blue.300" },
+        iconBgColor: { base: "blue.50", _dark: "blue.800" },
+        percent: -30,
+        period: "month",
+      },
+      {
+        title: "Transaction Count",
+        amount: pageTransactions.length,
+        icon: <GiSwipeCard />,
+        iconColor: { base: "purple.600", _dark: "purple.300" },
+        iconBgColor: { base: "purple.50", _dark: "purple.800" },
+        percent: 23,
+        period: "month",
+      },
+      {
+        title: "Successful",
+        amount: formatCurrency(
+          pageTransactions
+            .filter((item) => item.status == "successful")
+            .reduce((acc, item) => {
+              return acc + item.amount;
+            }, 0)
+        ),
+        icon: <LuWallet />,
+        iconColor: { base: "green.600", _dark: "green.300" },
+        iconBgColor: { base: "green.50", _dark: "green.800" },
+        percent: 30,
+        period: "month",
+      },
+      {
+        title: "Failed",
+        amount: formatCurrency(
+          pageTransactions
+            .filter((item) => item.status == "failed")
+            .reduce((acc, item) => {
+              return acc + item.amount;
+            }, 0)
+        ),
+        icon: <LuWallet />,
+        iconColor: { base: "red.600", _dark: "red.300" },
+        iconBgColor: { base: "red.50", _dark: "red.800" },
+        percent: 10,
+        period: "month",
+      },
+      {
+        title: "Loyalty Points Earned",
+        amount: rawCustomers.filter(item => item.agent == `${entity.firstName} ${entity.lastName}`).length,
+        icon: <FaRegStar />,
+        iconColor: { base: "yellow.600", _dark: "yellow.300" },
+        iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
+        percent: -5,
+        period: "month",
+      },
     ],
   };
-
-  // const agent = {
-  //   imageURL: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04",
-  //   firstName: "Tana",
-  //   lastName: "Ofik",
-  //   email: "meetdarlingono@gmail.com",
-  //   phone: "09155334727",
-  //   dateCreated: "April 18, 2025",
-  //   agentId: "PADI48305",
-  //   terminalId: "VDKJNKR12",
-  //   isActive: true,
-  //   performanceSummary: [
-  //     {
-  //       title: "Total Transaction",
-  //       amount: formatCurrency(536000),
-  //       icon: <LuWallet />,
-  //       iconColor: { base: "blue.600", _dark: "blue.300" },
-  //       iconBgColor: { base: "blue.50", _dark: "blue.800" },
-  //       percent: -30,
-  //       period: "month",
-  //     },
-  //     {
-  //       title: "Transaction Count",
-  //       amount: 7214,
-  //       icon: <GiSwipeCard />,
-  //       iconColor: { base: "purple.600", _dark: "purple.300" },
-  //       iconBgColor: { base: "purple.50", _dark: "purple.800" },
-  //       percent: 23,
-  //       period: "month",
-  //     },
-  //     {
-  //       title: "Successful",
-  //       amount: formatCurrency(132394.05),
-  //       icon: <LuWallet />,
-  //       iconColor: { base: "green.600", _dark: "green.300" },
-  //       iconBgColor: { base: "green.50", _dark: "green.800" },
-  //       percent: 30,
-  //       period: "month",
-  //     },
-  //     {
-  //       title: "Failed",
-  //       amount: formatCurrency(357304.26),
-  //       icon: <LuWallet />,
-  //       iconColor: { base: "red.600", _dark: "red.300" },
-  //       iconBgColor: { base: "red.50", _dark: "red.800" },
-  //       percent: 10,
-  //       period: "month",
-  //     },
-  //     {
-  //       title: "Customers",
-  //       amount: 352,
-  //       icon: <GrGroup />,
-  //       iconColor: { base: "yellow.600", _dark: "yellow.300" },
-  //       iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
-  //       percent: -5,
-  //       period: "month",
-  //     },
-  //   ],
-  // };
 
   const pageCustomersTable =
     entityType == "agent"
@@ -244,7 +249,8 @@ function EntityDetails({ entity, entityType }) {
         direction={{ base: "column", "2xl": "row" }}
         align={{ base: "start" }}
       >
-        <AgentCard agent={pageEntity} />
+        {entityType == 'agent' && <AgentCard agent={pageEntity} />}
+        {entityType == 'customer' && <CustomerCard customer={pageEntity} />}
         <Flex
           width={"100%"}
           wrap={"wrap"}
