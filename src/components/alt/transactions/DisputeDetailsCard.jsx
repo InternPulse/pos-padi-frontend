@@ -136,7 +136,8 @@ const DisputeDetailsCard = ({ data }) => {
           px={4}
           py={1}
           rounded={"xl"}
-          colorPalette={data.status == "resolved" ? "green" : "red"}
+          colorPalette={data.disputeStatus == "resolved" ? "green" : "red"}
+   
         >
           {data.disputeStatus}
         </Badge>
