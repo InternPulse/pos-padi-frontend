@@ -4,8 +4,8 @@ import { Chart, useChart } from "@chakra-ui/charts"
 import {
   CartesianGrid,
   Legend,
-  Line,
-  LineChart,
+  Bar,
+  BarChart,
   Tooltip,
   XAxis,
   YAxis,
@@ -31,7 +31,7 @@ const CustomTooltip = ({ active, payload, label }) => {
       >
         <Text fontWeight="bold" mb={1}>{label}</Text>
         <HStack color="blue.500" mb={1}>
-          <Box w={2} h={2} borderRadius="full" bg="blue.500" />
+          <Box w={2} h={2} borderRadius="full" bg="green.500" />
           <Text>Successful: {Math.floor(payload[0].value)}</Text>
         </HStack>
         <HStack color="red.500">
@@ -94,7 +94,7 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
   const chart = useChart({
     data: chartData,
     series: [
-      { name: "Successful", color: "blue.500" },
+      { name: "Successful", color: "green.500" },
       { name: "failed", color: "red.500" },
     ],
   });
@@ -105,11 +105,11 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
   return (
     <Chart.Root chart={chart} width="100%" height="100%">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart 
+        <BarChart 
           data={chart.data} 
           margin={{ top: 5, right: 5, left: 5, bottom: 30 }}
         >
-          <CartesianGrid stroke="var(--chakra-colors-gray-200, #E2E8F0)" vertical={false} />
+          <CartesianGrid stroke="var(--chakra-colors-gray-200, #E2E7E7)" strokeDasharray="4 4" vertical={false} />
           <XAxis
             axisLine={false}
             tickLine={false}
@@ -130,13 +130,13 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
           />
           <Tooltip 
             content={<CustomTooltip />}
-            cursor={{ stroke: "var(--chakra-colors-gray-200, #E2E8F0)", strokeDasharray: "3 3" }}
+            cursor={{ fill: "transparent", strokeDasharray: "3 3" }}
           />
           
           {chart.series.map((item) => (
-            <Line
+            <Bar
               key={item.name}
-              type="monotone"
+              fill={chart.color(item.color)}
               dataKey={chart.key(item.name)}
               stroke={chart.color(item.color)}
               strokeWidth={strokeWidth}
@@ -147,7 +147,7 @@ const Financechartsdata = ({ filteredTransactions, showEmptyState }) => {
               }}
             />
           ))}
-        </LineChart>
+        </BarChart>
       </ResponsiveContainer>
     </Chart.Root>
   );
@@ -160,7 +160,7 @@ const Financecharts = ({ filteredTransactions, showEmptyState }) => {
   const padding = useBreakpointValue({ base: 2, sm: 3, md: 4 })
   
   // Responsive layout direction
-  const headerDirection = useBreakpointValue({ base: "column", sm: "row" })
+  // const headerDirection = useBreakpointValue({ base: "column", sm: "row" })
   const legendSpacing = useBreakpointValue({ base: 2, md: 4 })
 
   return (
@@ -173,11 +173,11 @@ const Financecharts = ({ filteredTransactions, showEmptyState }) => {
       position="relative"
       zIndex={10}
       bg={{base: 'white', _dark: 'gray.900'}}
-      boxShadow={{base: "xs", _dark: '0 0 3px white'}}
+      boxShadow={{base: "xs", _dark: '0 0 px white'}}
     >
       <Box 
         display="flex"
-        flexDirection={headerDirection}
+        flexDirection="row"
         justifyContent="space-between"
         alignItems={{ base: "flex-start", sm: "center" }}
         w="full"
@@ -206,7 +206,7 @@ const Financecharts = ({ filteredTransactions, showEmptyState }) => {
           position="relative"
           zIndex={10}
         >
-          <Text fontSize={legendSize}>🔵 Successful</Text>
+          <Text fontSize={legendSize}>🟢 Successful</Text>
           <Text fontSize={legendSize}>🔴 Failed</Text>
         </HStack>
       </Box>
