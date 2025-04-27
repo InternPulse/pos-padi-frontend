@@ -1,6 +1,10 @@
-import { Flex, HStack, VStack, StackSeparator, Text } from "@chakra-ui/react";
+import { Flex, Box, VStack, StackSeparator, Text } from "@chakra-ui/react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function GenericTableCard({ items }) {
+  const navigate = useNavigate()
+  const currentPath = useLocation().pathname
+
   function TableCard({ item }) {
     const { item1, item2, item3, item5, item6, isHeader } = item;
 
@@ -9,25 +13,6 @@ function GenericTableCard({ items }) {
     const phoneNo = item6;
 
     return (
-      // <HStack
-      //   height={"60px"}
-      //   width={"100%"}
-      //   display={{ base: "flex", md: "none" }}
-
-      // >
-      //   <Flex my={2} direction={'column'} justify={'flex-start'} p={1} width={"100%"}>
-      //     <Text fontWeight={"semibold"} textTransform={"capitalize"}>
-      //       {title}
-      //     </Text>
-      //     <Text textStyle={"md"} width={"100%"} color={"gray.500"}>
-      //       {email}
-      //     </Text>
-      //   <Text textStyle={"md"} color={"gray.500"}>
-      //     {phoneNo}
-      //   </Text>
-      //   </Flex>
-      // </HStack>
-
       <Flex padding={2} gap={2} align={'start'} w={'100%'} direction={"column"}>
         <Text fontWeight={"semibold"} textTransform={"capitalize"}>
           {title}
@@ -42,10 +27,17 @@ function GenericTableCard({ items }) {
     );
   }
 
+  function handleClick(isHeader, id){
+    if(isHeader){return}
+    if(currentPath == '/agents' || currentPath == '/customers'){
+      navigate(`${currentPath}/${id}`)
+    }
+  }
+
   return (
     <VStack separator={<StackSeparator />}>
-      {items.map((item) => (
-        <TableCard item={item} />
+      {items?.map((item) => (
+        <Box width={'100%'} onClick={()=>{handleClick(item.isHeader, item.item1)}}><TableCard item={item} /></Box>
       ))}
     </VStack>
   );

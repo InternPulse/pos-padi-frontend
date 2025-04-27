@@ -8,12 +8,13 @@ import {
   Text, 
   Input
 } from '@chakra-ui/react';
+import { transactions } from '@/components/transactions/transactionsMockData';
 
 /**
  * DateRangePicker Component
  * 
  * A reusable component that provides a date range selection interface with a dropdown.
- * It fetches transaction data from an API based on the selected date range.
+ * It filters transaction data from mock data based on the selected date range.
  * 
  * @component
  * @example
@@ -40,28 +41,16 @@ const DateRangePicker = ({ onDateRangeChange = () => {} }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   /**
-   * Fetches transactions from the API based on the selected date range
+   * Filters transactions based on the selected date range
    */
-  const fetchTransactions = async (startDate, endDate) => {
-    try {
-      const response = await fetch(`/api/transactions?startDate=${startDate}&endDate=${endDate}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch transactions');
-      }
-      const data = await response.json();
-      return data.map(transaction => ({
-        reference: transaction.reference,
-        amount: transaction.amount,
-        customer: transaction.customer,
-        type: transaction.type,
-        agent: transaction.agent,
-        dateTime: transaction.dateTime,
-        status: transaction.status
-      }));
-    } catch (error) {
-      console.error('Error fetching transactions:', error);
-      return [];
-    }
+  const filterTransactions = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    return transactions.filter(transaction => {
+      const transactionDate = new Date(transaction.dateTime);
+      return transactionDate >= start && transactionDate <= end;
+    });
   };
 
   const handleApply = async () => {
@@ -72,12 +61,12 @@ const DateRangePicker = ({ onDateRangeChange = () => {} }) => {
         const formattedEnd = new Date(endDate).toLocaleDateString();
         setDisplayText(`${formattedStart} - ${formattedEnd}`);
         
-        const transactions = await fetchTransactions(startDate, endDate);
+        const filteredTransactions = filterTransactions(startDate, endDate);
         
         onDateRangeChange({ 
           startDate: new Date(startDate), 
           endDate: new Date(endDate),
-          transactions
+          transactions: filteredTransactions
         });
         
         setIsOpen(false);
@@ -93,7 +82,11 @@ const DateRangePicker = ({ onDateRangeChange = () => {} }) => {
     setStartDate('');
     setEndDate('');
     setDisplayText('Select Date Range');
-    onDateRangeChange(null);
+    onDateRangeChange({ 
+      startDate: null, 
+      endDate: null,
+      transactions: []
+    });
   };
 
   return (
@@ -104,14 +97,27 @@ const DateRangePicker = ({ onDateRangeChange = () => {} }) => {
         px={4}
         py={2.5}
         fontSize="sm"
-        border="1px"
-        borderColor={{base: 'gray.200', _dark: 'gray.600'}}
+        border="1px solid"
+        borderColor={{base: 'gray.300', _dark: 'gray.600'}}
         borderRadius="md"
-        bg="transparent"
+        bg={{base: 'white', _dark: 'gray.800'}}
         cursor="pointer"
         gap={3}
         onClick={() => setIsOpen(!isOpen)}
         opacity={isLoading ? 0.7 : 1}
+        _hover={{ 
+          bg: {base: 'gray.50', _dark: 'gray.700'},
+          borderColor: {base: 'gray.400', _dark: 'gray.500'}
+        }}
+        _active={{
+          bg: {base: 'gray.100', _dark: 'gray.600'},
+          borderColor: {base: 'gray.500', _dark: 'gray.400'}
+        }}
+        transition="all 0.2s"
+        boxSizing="border-box"
+        w="auto"
+        minW="fit-content"
+        boxShadow=""
       >
         <Calendar size={16} style={{ color: 'currentColor' }} />
         <Text color={{base: 'gray.800', _dark: 'white'}}>

@@ -9,6 +9,9 @@ import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
 import AdminSignUpPage from "./pages/AdminSignUpPage";
+import AgentDetails from "./pages/AgentDetails";
+import CustomerDetails from "./pages/CustomerDetails";
+import LandingPage from "./pages/LandingPage";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
@@ -25,7 +28,9 @@ function App() {
             <Route path="transactions" element={<AltTransactions />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="agents" element={<Agents />} />
+            <Route path="agents/:id" element={<AgentDetails />} />
             <Route path="customers" element={<Customers />} />
+            <Route path="customers/:id" element={<CustomerDetails />} />
             <Route path="terminals" element={<Terminals />} />
             <Route path="disputes" element={<Disputes />} />
             <Route path="settings" element={<Settings />} />
@@ -34,8 +39,9 @@ function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="admin-signup" element={<AdminSignUpPage />}></Route>
+          <Route path="/" element={<LandingPage />}></Route>
+          <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
+          <Route path="/auth" element={<HomePage />}></Route>
         </Routes>
       )}
     </BrowserRouter>
