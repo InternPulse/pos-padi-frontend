@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import AltTransactionTable from "@/components/alt/transactions/AltTransactionTable";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
 import GenericTable from "@/components/alt/transactions/generic-table/GenericTable";
-import { customersList } from "@/components/transactions/customersMockData";
+import { rawCustomers, customersList } from "@/components/transactions/customersMockData";
 import { transactions } from "@/components/transactions/transactionsMockData";
 
 function EntityDetails({ entity, entityType }) {
@@ -105,8 +105,7 @@ function EntityDetails({ entity, entityType }) {
       },
       {
         title: "Customers",
-        amount: [...new Set(pageTransactions.map((item) => item.customer))]
-          .length,
+        amount: rawCustomers.filter(item => item.agent == `${entity.firstName} ${entity.lastName}`).length,
         icon: <GrGroup />,
         iconColor: { base: "yellow.600", _dark: "yellow.300" },
         iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
