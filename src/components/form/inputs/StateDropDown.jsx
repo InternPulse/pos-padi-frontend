@@ -21,8 +21,9 @@ function StateDropDown({ size, width }) {
     lgaLocations.find((item) => item.value == lga)?.locations || [];
 
   useEffect(() => {
-
-    {/* Reset LGA and Axis if State variable changes */}
+    {
+      /* Reset LGA and Axis if State variable changes */
+    }
 
     setLga(
       (prev) => stateLocations.find((item) => item.value == state).lgas[0].value
@@ -35,8 +36,9 @@ function StateDropDown({ size, width }) {
   }, [state]);
 
   useEffect(() => {
-
-    {/* Reset Axis if LGA variable changes */}
+    {
+      /* Reset Axis if LGA variable changes */
+    }
 
     setAxis(
       (prev) =>
@@ -70,21 +72,33 @@ function StateDropDown({ size, width }) {
   }
 
   return (
-    <VStack gap={5} bg={{base: 'white', _dark: 'inherit'}} p={5} width={width} border={'1px solid red'} mt={'300px'}>
+    // $ Remove margin top of 300px, this creates a gap between the input fields on the AdminSignUpBizInfoform. The padding is hard coded and prevent the width of 100%. Gap must be consistant with the rest of the for i.e. 4 on larger screens.
+    <VStack bg={{ base: "white", _dark: "inherit" }} width={width}>
       {/* <Text>{state}</Text>
       <Text>{lga}</Text>
       <Text>{axis}</Text> */}
       <Location
         frameworks={states}
         label="State"
-        setValue={handleStateChange} size={size} 
+        setValue={handleStateChange}
+        size={size}
       />
 
       {lgaVisible && (
-        <Location frameworks={lgas} label="LGA" setValue={handleLgaChange}  size={size} />
+        <Location
+          frameworks={lgas}
+          label="LGA"
+          setValue={handleLgaChange}
+          size={size}
+        />
       )}
       {axisVisible && (
-        <Location frameworks={axes} label="Axis" setValue={setAxis}  size={size} />
+        <Location
+          frameworks={axes}
+          label="Axis"
+          setValue={setAxis}
+          size={size}
+        />
       )}
     </VStack>
   );

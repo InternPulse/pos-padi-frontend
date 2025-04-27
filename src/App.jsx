@@ -8,6 +8,7 @@ import Agents from "./pages/Agents";
 import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
+import AdminSignUpPage from "./pages/AdminSignUpPage";
 import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
@@ -15,7 +16,7 @@ import LandingPage from "./pages/LandingPage";
 // import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
-  const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
+  const isUserAuthenticated = false; // This is a placeholder for now and eventually will be derived from user authentication flow.
 
   return (
     <BrowserRouter>
@@ -39,6 +40,7 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
+          <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
           <Route path="/auth" element={<HomePage />}></Route>
         </Routes>
       )}
