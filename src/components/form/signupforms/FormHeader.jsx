@@ -3,7 +3,7 @@
 import useMultiFormHook from "@/utils/useMultiFormHook";
 import { Flex, Fieldset, Box } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { LeftControlButton, RightControlButton } from "../FormControlButtons";
+import { LeftControlButton, RightControlButton } from "./FormControlButtons";
 import { useGlobalContext } from "@/context/useGlobalContext";
 
 function FormHeader({ title, subHeading }) {
@@ -15,7 +15,7 @@ function FormHeader({ title, subHeading }) {
       direction="column"
       gap="0.625rem"
       position="relative"
-      // border="1px dashed red"
+      // border="1px dashed red" //debug:
     >
       <Box
         position="absolute"
@@ -27,13 +27,16 @@ function FormHeader({ title, subHeading }) {
         <LeftControlButton step={step} Back={Back} />
       </Box>
       <Fieldset.Legend
-        fontSize="1.75rem"
+        fontSize={{ base: "1.375rem", lg: "1.75rem" }}
         fontWeight={"600"}
         color="rgba(0, 0, 0, 1)"
       >
         {title}
       </Fieldset.Legend>
-      <Fieldset.HelperText fontSize="1rem" color="rgba(98, 108, 122, 1)">
+      <Fieldset.HelperText
+        fontSize={{ base: "0.875rem", lg: "1rem" }}
+        color="rgba(98, 108, 122, 1)"
+      >
         {subHeading}
       </Fieldset.HelperText>
       <Box

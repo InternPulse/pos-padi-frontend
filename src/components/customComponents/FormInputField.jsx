@@ -46,8 +46,8 @@ const FormInputField = ({
         return prev; // No change, don't update
       });
     }
-    // console.log("Input Value: ", value);
-    // console.log("CheckPasswordRequirements: ", checkPasswordRequirements);
+    // console.log("Input Value: ", value); //debug:
+    // console.log("CheckPasswordRequirements: ", checkPasswordRequirements); //debug:
   }, [value, type, checkPasswordRequirements]);
 
   return (
@@ -77,6 +77,7 @@ const FormInputField = ({
           />
         ) : (
           <Input
+            fontSize={{ base: "0.75rem" }}
             name={name}
             placeholder={placeholder}
             onChange={onChange}
@@ -90,9 +91,16 @@ const FormInputField = ({
         )}
       </InputGroup>
       {name === "password" && (
-        <Flex gap="0.625rem" color="#626C7A" mt="0.625rem">
+        <Flex
+          gap={{ base: "0.5rem", md: "0.625rem" }}
+          color="#626C7A"
+          mt="0.625rem"
+          fontSize={{ base: "0.5rem" }}
+        >
           <Badge
-            p="5 10 5 10"
+            p="5px 10px 5px 10px"
+            fontSize="inherit"
+            rounded="8px"
             border={
               passwordRequirements.minLength
                 ? "1px solid rgba(2, 177, 79, 1)"
@@ -106,12 +114,13 @@ const FormInputField = ({
                 ? "white"
                 : "rgba(196, 196, 196, 0.2)"
             }
-            rounded="8px"
           >
             Min 8 characters
           </Badge>
           <Badge
-            p="5 10 5 10"
+            p="5px 10px 5px 10px"
+            fontSize="inherit"
+            rounded="8px"
             border={
               passwordRequirements.hasNumber
                 ? "1px solid rgba(2, 177, 79, 1)"
@@ -125,12 +134,13 @@ const FormInputField = ({
                 ? "white"
                 : "rgba(196, 196, 196, 0.2)"
             }
-            rounded="8px"
           >
             1 Number
           </Badge>
           <Badge
-            p="5 10 5 10"
+            p="5px 10px 5px 10px"
+            fontSize="inherit"
+            rounded="8px"
             border={
               passwordRequirements.hasSpecial
                 ? "1px solid rgba(2, 177, 79, 1)"
@@ -146,7 +156,6 @@ const FormInputField = ({
                 ? "white"
                 : "rgba(196, 196, 196, 0.2)"
             }
-            rounded="8px"
           >
             Special Character
           </Badge>

@@ -175,13 +175,14 @@ const AdminSignUpForm = () => {
   return (
     <Fieldset.Root
       width="100%"
-      rounded="md"
+      rounded={{ base: "0", md: "md" }}
       bg="white"
-      py={{ base: "12 12 0 12", md: "40px" }}
-      px={{ base: 8, md: 12 }}
+      py={{ base: 2, md: "2.5rem" }}
+      px={{ base: "1rem", md: 12 }}
       display="flex"
       alignItems="center"
-      // border="1px dashed green"
+      height="auto"
+      // border="1px dashed green" // debug:
     >
       <Box
         width="100%"
@@ -194,7 +195,14 @@ const AdminSignUpForm = () => {
         />
 
         <Fieldset.Content spacing={4} align="stretch">
-          <Flex direction="column" gap={Object.keys(errors).length > 0 ? 2 : 4}>
+          <Flex
+            direction="column"
+            gap={
+              Object.keys(errors).length > 0
+                ? { base: 1, md: 2 }
+                : { base: 2, md: 4 }
+            }
+          >
             {formFields.map((input) => (
               <FormInputField
                 key={input.name}
@@ -233,10 +241,15 @@ const AdminSignUpForm = () => {
           Continue
         </Button>
         <Flex justify="center" mt={4}>
-          <Text color="gray.600" mr={1}>
+          <Text color="gray.600" mr={1} fontSize={{ base: "0.875rem" }}>
             Do you have an account?
           </Text>
-          <Link color="green.500" fontWeight="bold" href="/login">
+          <Link
+            color="rgba(2, 177,79,1)"
+            fontWeight="bold"
+            href="/login"
+            fontSize={{ base: "0.875rem" }}
+          >
             Login
           </Link>
         </Flex>

@@ -123,14 +123,14 @@ const AdminSignUpBizInfoForm = () => {
 
   return (
     <Fieldset.Root
-      w={{ base: "100%", md: "100%" }}
-      rounded="md"
+      w="100%"
+      rounded={{ base: "0", md: "md" }}
       bg="white"
-      py={{ base: "12 12 0 12", md: "40px" }}
+      py={{ base: 2, md: "2.5rem" }}
       px={{ base: 8, md: 12 }}
       display="flex"
       alignItems="center"
-      // border="1px dashed blue"
+      // border="1px dashed blue" // debug:
       height="100%"
     >
       <Box
@@ -143,7 +143,14 @@ const AdminSignUpBizInfoForm = () => {
           subHeading=" Input your business details"
         />
         <Fieldset.Content spacing={4} align="stretch">
-          <Flex direction="column" gap={Object.keys(errors).length > 0 ? 2 : 4}>
+          <Flex
+            direction="column"
+            gap={
+              Object.keys(errors).length > 0
+                ? { base: 1, md: 2 }
+                : { base: 2, md: 4 }
+            }
+          >
             {formFields.map((input) => (
               <FormInputField
                 key={input.name}
