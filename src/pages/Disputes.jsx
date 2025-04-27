@@ -83,7 +83,7 @@ function Disputes() {
 
   const handleStatusChange = (e) => {
     const value = e.target.value;
-    setFilters(prev => ({...prev, status: value}));
+    setFilters(prev => ({...prev, disputeStatus: value}));
   };
 
   const handleAgentChange = (e) => {
