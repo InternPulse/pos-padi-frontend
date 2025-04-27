@@ -16,7 +16,7 @@ import LandingPage from "./pages/LandingPage";
 // import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
-  const isUserAuthenticated = false; // This is a placeholder for now and eventually will be derived from user authentication flow.
+  const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
 
   return (
     <BrowserRouter>
@@ -34,7 +34,6 @@ function App() {
             <Route path="terminals" element={<Terminals />} />
             <Route path="disputes" element={<Disputes />} />
             <Route path="settings" element={<Settings />} />
-            {/* <Route path="notifications" element={<NotificationsPage />} /> */}
           </Route>
         </Routes>
       ) : (

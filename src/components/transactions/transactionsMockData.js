@@ -111,3 +111,6 @@ export const transactionTableHeaders = [
   { name: "dateTime" },
   { name: "status" },
 ];
+
+
+console.log(transactions.filter(tx => tx.status == 'failed'))
