@@ -1,15 +1,15 @@
-import { useParams } from "react-router-dom"
-import { useEffect } from "react"
+import EntityDetails from "@/components/agent-details/EntityDetails";
+import { transactions } from "@/components/transactions/transactionsMockData";
+import { rawCustomers } from "@/components/transactions/customersMockData";
+import { processCustomers } from "./Customers";
+import { useParams } from "react-router-dom";
 
 function CustomerDetails() {
-  useEffect(() => {
-    window.scrollTo(0,0)
-  },[])
-
-  const {id} = useParams()
+  const customerID = useParams().id
+  const customer = processCustomers(rawCustomers, transactions).find(customer => customer.customerId == customerID);
 
   return (
-    <div>{id}</div>
+    <EntityDetails entity={customer} entityType={'customer'} />
   )
 }
 
