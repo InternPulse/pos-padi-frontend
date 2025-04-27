@@ -1,6 +1,6 @@
 // $ This is the first form in the series of Admin Signup logic.
 
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 // $ Chakra Components
 import { Box, Button, Flex, Link, Text, Fieldset } from "@chakra-ui/react";
@@ -77,7 +77,9 @@ const AdminSignUpForm = () => {
     setCurrentStepIndex,
     currentStepIndex,
     setProgressStatus,
-    stepProgress,
+    // stepProgress,
+    setFormStepsValidity,
+    setFormStepsSubmitted,
   } = useGlobalContext();
   const { validate, validateField, errors, isValid, getPasswordRequirements } =
     useFormValidation(formFields);
@@ -96,6 +98,19 @@ const AdminSignUpForm = () => {
     formData[field]?.trim?.()
   );
 
+  // $ Update global form validity state when validation state changes
+  useEffect(() => {
+    setFormStepsValidity((prev) => ({
+      ...prev,
+      [currentStepIndex]: isValid,
+    }));
+
+    // $ Validate form on initial load and when form data changes
+    if (Object.keys(formData).length > 0) {
+      validate(formData);
+    }
+  }, [isValid, currentStepIndex, setFormStepsValidity, formData, validate]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     Object.entries(formData).forEach(([key, value]) => {
@@ -108,23 +123,36 @@ const AdminSignUpForm = () => {
 
     setFormData(payload);
 
-    // Final validation before submission
-    const submissionValid = validate(formData);
+    // $ Final validation before submission
+    const isValid = validate(formData);
 
-    if (submissionValid) {
+    if (isValid) {
+      // $ Mark this form step as successfully submitted (Right button will only be active once this state changes)
+      setFormStepsSubmitted((prev) => ({
+        ...prev,
+        [currentStepIndex]: true,
+      }));
+
       const stepProgress = 100 / totalSteps;
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
-      console.log("totalSteps:", totalSteps);
-      console.log("stepProgress:", stepProgress);
       setCurrentStepIndex(currentStepIndex + 1);
+
+      // console.log("totalSteps:", totalSteps);      // debug:
+      // console.log("stepProgress:", stepProgress); // debug:
     }
 
     if (!isValid) {
       console.log("Form validation failed");
+      // $ Set submitted state to false for invalid submissions, Right button will not work
+      setFormStepsSubmitted((prev) => ({
+        ...prev,
+        [currentStepIndex]: false,
+      }));
       return;
     }
+
     // $ Move to the next form or handle api call
-    console.log(stepProgress);
+    // console.log(stepProgress); // debug:
   };
 
   // $ Capture the form field data
@@ -138,7 +166,7 @@ const AdminSignUpForm = () => {
     };
 
     setFormData(updatedFormData);
-    console.log(formData);
+    // console.log(formData); // debug:
 
     // $ Validate just the changed field
     validateField(updatedFormData, name);
@@ -195,7 +223,6 @@ const AdminSignUpForm = () => {
           }
           size="lg"
           onClick={handleSubmit}
-          isDisabled={!isValid}
           _hover={{
             bgColor: isFormComplete
               ? "rgba(2, 177, 79, 1)"

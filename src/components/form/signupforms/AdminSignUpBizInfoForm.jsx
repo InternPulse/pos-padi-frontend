@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 // $ Chakra Components
 import { Box, Button, Flex, Fieldset } from "@chakra-ui/react";
 
@@ -30,10 +32,33 @@ import useFormValidation from "@/utils/useFormValidation";
 import useMultiFormHook from "@/utils/useMultiFormHook";
 
 const AdminSignUpBizInfoForm = () => {
-  const { setFormData, formData, setProgressStatus } = useGlobalContext();
+  const {
+    setFormData,
+    formData,
+    setProgressStatus,
+    setCurrentStepIndex,
+    currentStepIndex,
+    // stepProgress,
+    setFormStepsValidity,
+    setFormStepsSubmitted,
+  } = useGlobalContext();
   const { totalSteps } = useMultiFormHook();
+
   const { validate, errors, validateField, isValid } =
     useFormValidation(formFields);
+
+  // $ Update global form validity state when validation state changes
+  useEffect(() => {
+    setFormStepsValidity((prev) => ({
+      ...prev,
+      [currentStepIndex]: isValid,
+    }));
+
+    // $ Validate form on initial load and when form data changes
+    if (Object.keys(formData).length > 0) {
+      validate(formData);
+    }
+  }, [isValid, currentStepIndex, setFormStepsValidity, formData, validate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,18 +71,32 @@ const AdminSignUpBizInfoForm = () => {
     );
 
     setFormData(payload);
-    console.log(payload);
+    // console.log(payload);  //debug::
 
     const isValid = validate(formData);
 
     if (isValid) {
+      // $ Mark this form step as successfully submitted (Right button will only be active once this state changes)
+      setFormStepsSubmitted((prev) => ({
+        ...prev,
+        [currentStepIndex]: true,
+      }));
+
       const stepProgress = 100 / totalSteps;
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
-      alert("Signup Complete");
+      setCurrentStepIndex(currentStepIndex + 1);
+
+      // console.log("totalSteps:", totalSteps);      // debug:
+      // console.log("stepProgress:", stepProgress); // debug:
     }
 
     if (!isValid) {
       console.log("Form validation failed");
+      // $ Set submitted state to false for invalid submissions, Right button will not work
+      setFormStepsSubmitted((prev) => ({
+        ...prev,
+        [currentStepIndex]: false,
+      }));
       return;
     }
     // $ Move to the next form or handle api call

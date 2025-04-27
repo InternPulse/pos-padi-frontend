@@ -113,6 +113,15 @@ const useFormValidation = (formFields) => {
     };
   }, []);
 
+  // $ PIN helper function to check if a pin was added to the form
+  const isPinComplete = useCallback((value) => {
+    if (!value || !Array.isArray(value)) {
+      return false;
+    }
+
+    return value.length === 6 && !value.some((digit) => digit === "");
+  }, []);
+
   // $ Function to mark a field as dirty (touched)
   const markFieldAsDirty = useCallback((fieldName) => {
     setIsDirty((prev) => ({ ...prev, [fieldName]: true }));
@@ -146,6 +155,7 @@ const useFormValidation = (formFields) => {
     isValid, // % Overall form validity status
     isDirty, // % Which fields have been interacted with
     getPasswordRequirements, // % Function to check if a specific password requirement is met
+    isPinComplete, // % Check if a pin was added to the form without triggering the validation
   };
 };
 

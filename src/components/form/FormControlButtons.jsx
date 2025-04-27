@@ -20,13 +20,25 @@ LeftControlButton.propTypes = {
 // $ Button Controlling the form next page
 
 export const RightControlButton = ({ Next, steps }) => {
-  const { currentStepIndex } = useGlobalContext();
+  const { currentStepIndex, formStepsValidity, formStepsSubmitted } =
+    useGlobalContext();
+
+  const handleRightClick = () => {
+    // $ Check if current step is both valid AND has been submitted
+    const isCurrentStepValid = formStepsValidity[currentStepIndex];
+    const isCurrentStepSubmitted = formStepsSubmitted[currentStepIndex];
+
+    if (isCurrentStepValid && isCurrentStepSubmitted) {
+      Next();
+    }
+  };
+
   const isLastStep = currentStepIndex === steps.length - 1;
 
   return (
     <button
       type="button"
-      onClick={Next}
+      onClick={handleRightClick}
       className={`${currentStepIndex === isLastStep && { display: "none" }}`}
     >
       <ChevronRight />

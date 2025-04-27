@@ -6,13 +6,7 @@ function SignUpMultiStepFormManager() {
   const { step } = useMultiFormHook();
 
   return (
-    <Container
-      //   border="2px dashed red"
-      position="relative"
-      width="100%"
-      height="100%"
-      p="0"
-    >
+    <Container position="relative" width="100%" height="100%" p="0">
       {/* // $ ============== Form Rendered based on the step provided ============= */}
       {step}
     </Container>

@@ -9,7 +9,7 @@ export const useMultiFormHook = () => {
   const { currentStepIndex, setCurrentStepIndex } = useGlobalContext();
   const { errors } = useFormValidation();
 
-  const steps = [AdminSignUpForm, PinInputForm, AdminSignUpBizInfoForm];
+  const steps = [AdminSignUpForm, AdminSignUpBizInfoForm, PinInputForm];
 
   const totalSteps = steps.length;
 

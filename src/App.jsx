@@ -8,7 +8,7 @@ import Agents from "./pages/Agents";
 import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
-import AdminSignUp from "./pages/AdminSignUp";
+import AdminSignUpPage from "./pages/AdminSignUpPage";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
@@ -35,7 +35,7 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
-          <Route path="admin-signup" element={<AdminSignUp />}></Route>
+          <Route path="admin-signup" element={<AdminSignUpPage />}></Route>
         </Routes>
       )}
     </BrowserRouter>

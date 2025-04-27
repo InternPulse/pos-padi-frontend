@@ -1,5 +1,3 @@
-// import React from "react";
-// import AdminSignUpForm from "@/components/form/AdminSignUpForm";
 import SignUpMultiStepFormManager from "@/components/form/SignUpMultiStepFormManager";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import {
@@ -12,7 +10,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-function AdminSignUp() {
+function AdminSignUpPage() {
   const { progressStatus } = useGlobalContext();
   return (
     <Grid
@@ -69,4 +67,4 @@ function AdminSignUp() {
   );
 }
 
-export default AdminSignUp;
+export default AdminSignUpPage;

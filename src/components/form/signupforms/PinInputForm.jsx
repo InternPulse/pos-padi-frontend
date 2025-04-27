@@ -13,15 +13,19 @@ import FormHeader from "./FormHeader";
 import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 
 export const PinInputForm = () => {
   // $ Number of Pin Boxes
   const numberOfInputs = 6;
 
   const { totalSteps } = useMultiFormHook();
+
+  // $ Initial state for the pin data array
   const [value, setValue] = useState(["", "", "", "", "", ""]);
-  const { validate, errors, isValid, validateField } = useFormValidation([
+
+  // $ Hook to validate the pin once submitted
+  const { validate, errors, isPinComplete } = useFormValidation([
     {
       name: "OTP",
       type: "pin",
@@ -32,35 +36,29 @@ export const PinInputForm = () => {
   const { setProgressStatus, setCurrentStepIndex, currentStepIndex } =
     useGlobalContext();
 
-  const pinData = useMemo(
-    () => ({
-      OTP: value,
-    }),
-    [value]
-  );
-
-  useEffect(() => {
-    // $ Skip initial validation when the component first mounts and validate only when the value is non-empty
-    if (value.some((v) => v !== "")) {
-      validateField(pinData, "OTP");
-    }
-  }, [value, validateField]); // Only use `value`, `validateField`, and `pinData` here
-
+  // $ Form Submit Function handling the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("pin value", value);
+    // console.log("pin value", value); // debug: console.log
 
-    // Check submission validity
-    const submissionValid = validate(pinData);
+    // $ Create the data object for validation
+    const pinData = { OTP: value };
 
-    if (submissionValid) {
+    // $ Check submission validity using the validate hook function
+    const isValid = validate(pinData);
+
+    if (isValid) {
       const stepProgress = 100 / totalSteps;
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
       setCurrentStepIndex(currentStepIndex + 1);
+      alert("Signup Complete");
     } else {
       console.log("Form validation failed");
     }
   };
+
+  // $ Check if all 6 digits was entered to change the button color
+  const pinComplete = isPinComplete(value);
 
   return (
     <Fieldset.Root
@@ -132,7 +130,9 @@ export const PinInputForm = () => {
           type="submit"
           mt={6}
           w="full"
-          bgColor={isValid ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"}
+          bgColor={
+            pinComplete ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"
+          }
           size="lg"
           onClick={handleSubmit}
         >
