@@ -55,7 +55,7 @@ function Disputes() {
   
   const [filters, setFilters] = useState({
     search: '',
-    status: '',
+    disputeStatus: '',
     agent: ''
   });
 
@@ -66,7 +66,7 @@ function Disputes() {
   const filterTransactions = (data) => {
     return data.filter(item => {
       const matchesSearch = item.reference.toLowerCase().includes(filters.search.toLowerCase());
-      const matchesStatus = !filters.status || item.status === filters.status;
+      const matchesStatus = !filters.disputeStatus || item.disputeStatus === filters.disputeStatus;
       const matchesAgent = !filters.agent || item.agent === filters.agent;
       
       return matchesSearch && matchesStatus && matchesAgent;
