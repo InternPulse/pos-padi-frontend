@@ -11,7 +11,7 @@ function TransactionTableMobile({ transactions }) {
     >
       {/* Container for the Search Functionality */}
       {transactions.map((item) => (
-        <TransactionDialog>
+        <TransactionDialog data={item}>
         <Flex
           width="100%"
           height="4.315rem"

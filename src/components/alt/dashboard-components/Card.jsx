@@ -5,7 +5,7 @@ import { LuTrendingUp, LuTrendingDown } from "react-icons/lu";
 function TransactionsCardContainer({ children }) {
   return (
     <Box
-      width={{ base: "95%", md: "340px", lg: "360px" }}
+      width={{ base: "95%", md: "340px", lg: "360px", xl: '340px' }}
       bg={{base: 'white', _dark: 'inherit'}}
       height={{ base: "130px", md: "145px" }}
       boxShadow={'0 0 2px lightgrey'}
