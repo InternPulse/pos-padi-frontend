@@ -195,7 +195,7 @@ function GenericTable({ headings, items }) {
         onPageChange={(details) => setPage(details.page)}
         align="end"
       >
-        <ButtonGroup variant="ghost" size="sm" wrap="wrap">
+        <ButtonGroup variant="ghost" size={{base: "xs", md: 'sm'}} wrap="wrap">
           <Pagination.PrevTrigger asChild>
             <IconButton>
               <LuChevronLeft />
