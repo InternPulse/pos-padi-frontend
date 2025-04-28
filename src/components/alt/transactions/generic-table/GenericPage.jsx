@@ -69,6 +69,7 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
           direction={{ base: "column", md: "row" }}
           px={2}
         >
+          {/**Filter buttons here */}
           <Flex width={{ base: "100%", md: "280px" }}>
             <SearchByText
               searchText={searchText}
