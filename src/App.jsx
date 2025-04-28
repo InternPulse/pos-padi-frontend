@@ -12,17 +12,19 @@ import AdminSignUpPage from "./pages/AdminSignUpPage";
 import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
-import { loginUser } from "./backend-functions/user-functions";
+import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
 
-  loginUser({
-    "email": "sheriff@gmail.com",
-    "password": "test@agent1"
-  })
+  // loginUser({
+  //   "email": "owner1@test.com",
+  //   "password": "Jonathan1@"
+  // })
+
+  getUserSummary()
 
   return (
     <BrowserRouter>

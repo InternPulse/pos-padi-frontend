@@ -1,4 +1,4 @@
-const token = import.meta.env.BEARER_TOKEN
+const token = import.meta.env.VITE_BEARER_TOKEN
 
 export async function createCompany(companyData) {
   const myHeaders = new Headers();
