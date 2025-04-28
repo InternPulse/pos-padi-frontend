@@ -17,8 +17,8 @@ const HeroSection = () => {
       >
         <Button
           bg="green.100"  
-          _hover={{ bg: "green.300" }}
-          color="green.400"
+          _hover={{ bg: "green.400", color: 'white' }}
+          color="green.600"
           size="sm"
           rounded="full"
           variant="ghost"
@@ -65,11 +65,11 @@ const HeroSection = () => {
             colorPalette="green" 
             variant="outline" 
             size="lg" 
-            color="green.400"
+            color="green.600"
             rounded="full"
             minW="140px" 
             bg="green.50"
-            _hover={{ bg: "green.300" }}
+            _hover={{ bg: "green.400", color: 'white' }}
             borderWidth="3px"
           >
             Book a Demo
