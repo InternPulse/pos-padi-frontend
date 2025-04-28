@@ -11,11 +11,17 @@ import Disputes from "./pages/Disputes";
 import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
+import { loginUser } from "./backend-functions";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
+
+  loginUser({
+    "email": "sheriff@gmail.com",
+    "password": "test@agent1"
+  })
 
   return (
     <BrowserRouter>
