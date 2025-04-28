@@ -11,7 +11,7 @@ import Disputes from "./pages/Disputes";
 import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
-import { loginUser } from "./backend-functions";
+import { loginUser } from "./backend-functions/user-functions";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
