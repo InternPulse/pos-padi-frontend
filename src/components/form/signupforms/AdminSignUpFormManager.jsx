@@ -1,7 +1,7 @@
 import useMultiFormHook from "@/utils/useMultiFormHook";
 import { Container } from "@chakra-ui/react";
 
-function SignUpMultiStepFormManager() {
+function SignUpFormManager() {
   // $ Destructure the returned values from the custom hook
   const { step } = useMultiFormHook();
 
@@ -13,4 +13,4 @@ function SignUpMultiStepFormManager() {
   );
 }
 
-export default SignUpMultiStepFormManager;
+export default SignUpFormManager;

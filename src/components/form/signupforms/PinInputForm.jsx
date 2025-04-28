@@ -2,12 +2,13 @@
 
 // $ Chakra Components
 import { PinInput, Flex, Fieldset, Box, Button, Field } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
 
 // $ Icons
 import { IoMailOutline } from "react-icons/io5";
 
 // $ Custom form header
-import FormHeader from "./FormHeader";
+import FormHeader from "../FormHeader";
 
 // $ util function for form validation, the location for custom hook /src/utils/useFormValidation.js
 import useFormValidation from "@/utils/useFormValidation";
@@ -33,7 +34,7 @@ export const PinInputForm = () => {
     },
   ]);
 
-  const { setProgressStatus, setCurrentStepIndex, currentStepIndex } =
+  const { setProgressStatus, setCurrentStepIndex, currentStepIndex, formData } =
     useGlobalContext();
 
   // $ Form Submit Function handling the form submission
@@ -51,7 +52,16 @@ export const PinInputForm = () => {
       const stepProgress = 100 / totalSteps;
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
       setCurrentStepIndex(currentStepIndex + 1);
-      alert("Signup Complete");
+      console.log(formData);
+      alert("Signup Complete:", formData);
+
+      // $ Success toast
+      toaster.create({
+        title: "Account created succsfully",
+        type: "success",
+      });
+
+      // $ redirect to login page/dashboard with token.
     } else {
       console.log("Form validation failed");
     }
@@ -70,12 +80,12 @@ export const PinInputForm = () => {
       px={{ base: 8, md: 12 }}
       display="flex"
       alignItems="center"
-      // border="1px dashed green"
+      // border="1px dashed green" //debug:
     >
       <Box
         width="100%"
         mx="auto"
-        //   border="1px solid green"
+        //   border="1px solid green" //debug:
       >
         <FormHeader
           title="Verify Your Email"

@@ -10,7 +10,7 @@ import { MdLockOutline } from "react-icons/md";
 
 // $ Custom form input and header
 import FormInputField from "@/components/customComponents/FormInputField";
-import FormHeader from "./FormHeader";
+import FormHeader from "../FormHeader";
 
 // $ Global Context
 import { useGlobalContext } from "@/context/useGlobalContext";
@@ -20,8 +20,9 @@ import { adminSchema } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// $ Custom hooks
+// $ Custom hooks & Functions
 import useMultiFormHook from "@/utils/useMultiFormHook";
+import { getPasswordRequirements } from "@/utils/getPasswordRequirements";
 
 const AdminSignUpForm = () => {
   const {
@@ -81,23 +82,6 @@ const AdminSignUpForm = () => {
 
   // Watch password value for requirement checks
   // const watchedPassword = watch("password");
-
-  // $ Password requirement check function
-  const getPasswordRequirements = (value) => {
-    if (!value)
-      return {
-        minLength: false,
-        hasNumber: false,
-        hasSpecial: false,
-      };
-
-    return {
-      minLength: value.length >= 8,
-      hasNumber: /\d/.test(value),
-      hasSpecial: /[!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?]/.test(value),
-      hasUppercase: /[A-Z]/.test(value),
-    };
-  };
 
   // Form field definitions
   const formFields = [
