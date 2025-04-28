@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import TransDashFilterbutton from "@/components/TransFilterButton";
 import { rawAgents } from "@/components/transactions/agentsMockData";
 import { transactions } from "@/components/transactions/transactionsMockData";
+import ExportButton from "@/components/alt/dashboard-components/ExportButton";
 
 function ButtonGroupContainer() {
   return (
@@ -37,10 +38,9 @@ function ExportButtonContainer() {
   return (
     <Box
       width={{ base: "40px", md: "140px" }}
-      bg={"gray.200"}
       height={{ base: "40px", md: "40px" }}
       rounded={"xl"}
-    ></Box>
+    ><ExportButton /></Box>
   );
 }
 
