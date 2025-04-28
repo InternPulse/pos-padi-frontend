@@ -1,6 +1,6 @@
 
 
-const token = import.meta.env.BEARER_TOKEN
+const token = import.meta.env.VITE_BEARER_TOKEN
 
 // Authentication
 
@@ -229,7 +229,7 @@ export async function generateOTP(email) {
   };
 
   try {
-    const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/verify/", requestOptions);
+    const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/verify/otp/", requestOptions);
 
     // console.log(response)
     
@@ -250,7 +250,6 @@ export async function generateOTP(email) {
 
 export async function getUserSummary() {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -260,7 +259,7 @@ export async function getUserSummary() {
   };
 
   try {
-    const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/verify/", requestOptions);
+    const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/summary/", requestOptions);
 
     // console.log(response)
     

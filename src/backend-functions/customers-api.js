@@ -1,3 +1,5 @@
+const token = import.meta.env.VITE_BEARER_TOKEN
+
 export async function createCustomer(customerData) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
