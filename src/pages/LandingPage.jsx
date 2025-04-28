@@ -1,6 +1,6 @@
 
 import TestimonialCard from '../components/landing-page-components/TestimonialCard'
-import Footer from '@/components/Footer'
+import Footer from '@/components/landing-page-components/Footer'
 import HeroSection from '@/components/landing-page-components/HeroSection'
 import { VStack } from '@chakra-ui/react'
 
