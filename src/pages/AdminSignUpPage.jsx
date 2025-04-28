@@ -1,4 +1,4 @@
-import SignUpMultiStepFormManager from "@/components/form/signupforms/SignUpMultiStepFormManager";
+import AdminSignUpFormManager from "@/components/form/signupforms/AdminSignUpFormManager";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import {
   Grid,
@@ -92,7 +92,7 @@ function AdminSignUpPage() {
               transition="left 0.3s ease"
             />
           </Stack>
-          <SignUpMultiStepFormManager />
+          <AdminSignUpFormManager />
         </Flex>
       </GridItem>
     </Grid>

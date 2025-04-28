@@ -1,3 +1,5 @@
+// $ This hook manages the logic for the multiStep form back and forth navigation
+
 import { useGlobalContext } from "@/context/useGlobalContext";
 import React from "react";
 import useFormValidation from "./useFormValidation";
@@ -5,18 +7,22 @@ import AdminSignUpForm from "@/components/form/signupforms/AdminSignUpForm";
 import { PinInputForm } from "@/components/form/signupforms/PinInputForm";
 import AdminSignUpBizInfoForm from "@/components/form/signupforms/AdminSignUpBizInfoForm";
 
-export const useMultiFormHook = () => {
+export const useMultiFormHook = (formType) => {
   const { currentStepIndex, setCurrentStepIndex } = useGlobalContext();
   const { errors } = useFormValidation();
 
-  const steps = [AdminSignUpForm, AdminSignUpBizInfoForm, PinInputForm];
+  // $ multiform steps
+  const adminSteps = [AdminSignUpForm, AdminSignUpBizInfoForm, PinInputForm];
+  // const forgotPasswordSteps = [ForgotPasswordForm, PinInputForm];
 
-  const totalSteps = steps.length;
+  const formSteps = formType === "forgotPassword" ? "" : adminSteps;
+
+  const totalSteps = formSteps.length;
 
   const Next = () => {
     if (Object.keys(errors).length > 0) return;
     setCurrentStepIndex((i) => {
-      if (i >= steps.length - 1) return i;
+      if (i >= totalSteps - 1) return i;
       return i + 1;
     });
   };
@@ -29,14 +35,13 @@ export const useMultiFormHook = () => {
   };
 
   return {
-    step: steps[currentStepIndex]
-      ? React.createElement(steps[currentStepIndex])
+    step: formSteps[currentStepIndex]
+      ? React.createElement(formSteps[currentStepIndex])
       : null,
-    steps,
     Next,
     Back,
     totalSteps,
-    isLastStep: currentStepIndex === steps.length - 1,
+    isLastStep: currentStepIndex === totalSteps - 1,
   };
 };
 

@@ -27,7 +27,8 @@ export const RightControlButton = ({ Next, steps }) => {
     // $ Check if current step is both valid AND has been submitted
     const isCurrentStepValid = formStepsValidity[currentStepIndex];
     const isCurrentStepSubmitted = formStepsSubmitted[currentStepIndex];
-
+    console.log("formStepsSubmitted:", formStepsSubmitted); //debug:
+    console.log("isCurrentStepValid:", formStepsValidity); //debug:
     if (isCurrentStepValid && isCurrentStepSubmitted) {
       Next();
     }

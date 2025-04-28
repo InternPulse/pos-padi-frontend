@@ -3,11 +3,14 @@
 import useMultiFormHook from "@/utils/useMultiFormHook";
 import { Flex, Fieldset, Box } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { LeftControlButton, RightControlButton } from "./FormControlButtons";
+import {
+  LeftControlButton,
+  RightControlButton,
+} from "./signupforms/FormControlButtons";
 import { useGlobalContext } from "@/context/useGlobalContext";
 
 function FormHeader({ title, subHeading }) {
-  const { Next, Back, step, isLastStep, steps } = useMultiFormHook();
+  const { Next, Back, step, isLastStep, totalSteps } = useMultiFormHook();
   const { currentStepIndex } = useGlobalContext();
   return (
     <Flex
@@ -46,7 +49,7 @@ function FormHeader({ title, subHeading }) {
         _hover={{ cursor: "pointer" }}
         visibility={isLastStep && "hidden"}
       >
-        <RightControlButton steps={steps} Next={Next} />
+        <RightControlButton steps={totalSteps} Next={Next} />
       </Box>
     </Flex>
   );

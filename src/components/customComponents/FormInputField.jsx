@@ -1,8 +1,8 @@
-// $ Custom Component to render form fields by passing in the propes for each field
+// $ Custom Component to render form fields by passing in the props for each field
 import { useState, useEffect } from "react";
 import { Field, Input, InputGroup, Flex, Badge } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { PasswordInput } from "../ui/password-input";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const FormInputField = ({
   label,
@@ -12,8 +12,8 @@ const FormInputField = ({
   disabled,
   type,
   icon: Icon,
-  onChange,
   value,
+  registerField,
   checkPasswordRequirements = null,
 }) => {
   // $ Track individual password requirements
@@ -21,19 +21,17 @@ const FormInputField = ({
     minLength: false,
     hasNumber: false,
     hasSpecial: false,
+    hasUppercase: false,
   });
 
   // $ Check password requirements when the value changes
-  // Check password requirements when the value changes
   useEffect(() => {
-    // Only run for password fields and when the function is provided
     if (
       type === "password" &&
-      typeof checkPasswordRequirements === "function"
+      typeof checkPasswordRequirements === "function" &&
+      value
     ) {
       const requirements = checkPasswordRequirements(value);
-      // console.log("Password Requirements: ", requirements);
-      // $ Ensure this function only runs when the state actually changed to avoid infinite loop using the useEffect hook.
       setPasswordRequirements((prev) => {
         if (
           prev.minLength !== requirements.minLength ||
@@ -46,10 +44,11 @@ const FormInputField = ({
         return prev; // No change, don't update
       });
     }
-    // console.log("Input Value: ", value); //debug:
-    // console.log("CheckPasswordRequirements: ", checkPasswordRequirements); //debug:
   }, [value, type, checkPasswordRequirements]);
 
+  // Get the register props only if registerField is a function
+  const registerProps =
+    typeof registerField === "function" ? registerField(name) : {};
   return (
     <Field.Root invalid={!!error}>
       <Field.Label
@@ -61,32 +60,23 @@ const FormInputField = ({
         {label}
       </Field.Label>
       <InputGroup startElement={Icon && <Icon style={{ color: "#C4C4C4" }} />}>
-        {name === "password" ? (
+        {type === "password" ? (
           <PasswordInput
-            placeholder="Enter Password"
-            onChange={onChange}
-            name={name}
-            value={value ?? ""}
-          />
-        ) : name === "confirmPassword" ? (
-          <PasswordInput
-            placeholder="Confirm Password"
-            onChange={onChange}
-            name={name}
-            value={value ?? ""}
+            id={name}
+            placeholder={placeholder}
+            {...registerProps}
           />
         ) : (
           <Input
             fontSize={{ base: "0.75rem" }}
-            name={name}
+            id={name}
             placeholder={placeholder}
-            onChange={onChange}
-            type={type || "text"}
+            type={type ?? "text"}
             disabled={disabled}
             _placeholder={{ color: "#C4C4C4" }}
-            value={value ?? ""}
             p={1}
             textTransform={name === "email" ? "normal" : "capitalize"}
+            {...registerProps}
           />
         )}
       </InputGroup>
@@ -104,7 +94,7 @@ const FormInputField = ({
             border={
               passwordRequirements.minLength
                 ? "1px solid rgba(2, 177, 79, 1)"
-                : "inherit"
+                : "1px solid gray.300"
             }
             color={
               passwordRequirements.minLength ? "rgba(2, 177, 79, 1)" : "inherit"
@@ -162,8 +152,12 @@ const FormInputField = ({
         </Flex>
       )}
       {error && (
-        <Field.ErrorText color={"red.500"} py="0">
-          {error}
+        <Field.ErrorText
+          visibility={error ? "visible" : "hidden"}
+          color={"red.500"}
+          py="0"
+        >
+          {error.message}
         </Field.ErrorText>
       )}
     </Field.Root>
@@ -178,9 +172,9 @@ FormInputField.propTypes = {
   type: PropTypes.string,
   icon: PropTypes.elementType,
   disabled: PropTypes.bool,
-  error: PropTypes.string,
-  onChange: PropTypes.func,
+  error: PropTypes.object,
   checkPasswordRequirements: PropTypes.func,
+  registerField: PropTypes.func,
 };
 
 export default FormInputField;

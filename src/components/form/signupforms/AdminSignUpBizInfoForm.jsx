@@ -5,11 +5,16 @@ import { Box, Button, Flex, Fieldset } from "@chakra-ui/react";
 
 // $ Custom form input, header and drop down
 import FormInputField from "@/components/customComponents/FormInputField";
-import FormHeader from "./FormHeader";
+import FormHeader from "../FormHeader";
 import StateDropDown from "../inputs/StateDropDown";
 
 // $ Global Context
 import { useGlobalContext } from "@/context/useGlobalContext";
+
+// $ Form Schema and State Management
+import { bizInfoSchema } from "../schemas";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 // $ Form Input Field Data
 const formFields = [
@@ -27,25 +32,63 @@ const formFields = [
   },
 ];
 
-// $ util function for form validation, the location for custom hook /src/utils/useFormValidation.js
-import useFormValidation from "@/utils/useFormValidation";
+// $ util function to manage form logic /src/utils/useMultiFormHook.js
 import useMultiFormHook from "@/utils/useMultiFormHook";
 
 const AdminSignUpBizInfoForm = () => {
   const {
     setFormData,
     formData,
-    setProgressStatus,
     setCurrentStepIndex,
     currentStepIndex,
-    // stepProgress,
-    setFormStepsValidity,
+    setProgressStatus,
     setFormStepsSubmitted,
+    formStepsSubmitted,
+    setFormStepsValidity,
   } = useGlobalContext();
+
   const { totalSteps } = useMultiFormHook();
 
-  const { validate, errors, validateField, isValid } =
-    useFormValidation(formFields);
+  // $ Initialize react-hook-form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    watch,
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      businessName: formData?.businessName || "",
+      address: formData?.address || "",
+      state: formData?.state || "",
+      lga: formData?.lga || "",
+      axis: formData?.axis || "",
+    },
+    resolver: zodResolver(bizInfoSchema),
+  });
+
+  // $ Handle form submission
+  const onSubmit = (data) => {
+    // $ Update global form data
+    setFormData((prevData) => ({
+      ...prevData,
+      ...data,
+    }));
+
+    // $ Mark this step as submitted
+    setFormStepsSubmitted((prev) => ({
+      ...prev,
+      [currentStepIndex]: true,
+    }));
+
+    // $ Update progress and move to next step
+    const stepProgress = 100 / totalSteps;
+    setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
+    setCurrentStepIndex(currentStepIndex + 1);
+
+    console.log("formData:", formData); // debug:
+    console.log("form submitted:", formStepsSubmitted); // debug:
+  };
 
   // $ Update global form validity state when validation state changes
   useEffect(() => {
@@ -53,132 +96,66 @@ const AdminSignUpBizInfoForm = () => {
       ...prev,
       [currentStepIndex]: isValid,
     }));
-
-    // $ Validate form on initial load and when form data changes
-    if (Object.keys(formData).length > 0) {
-      validate(formData);
-    }
-  }, [isValid, currentStepIndex, setFormStepsValidity, formData, validate]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    Object.entries(formData).forEach(([key, value]) => {
-      console.log(`${key}: ${value}`);
-    });
-
-    const payload = Object.fromEntries(
-      Object.entries(formData).map(([key, value]) => [key, value.trim()])
-    );
-
-    setFormData(payload);
-    // console.log(payload);  //debug::
-
-    const isValid = validate(formData);
-
-    if (isValid) {
-      // $ Mark this form step as successfully submitted (Right button will only be active once this state changes)
-      setFormStepsSubmitted((prev) => ({
-        ...prev,
-        [currentStepIndex]: true,
-      }));
-
-      const stepProgress = 100 / totalSteps;
-      setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
-      setCurrentStepIndex(currentStepIndex + 1);
-
-      // console.log("totalSteps:", totalSteps);      // debug:
-      // console.log("stepProgress:", stepProgress); // debug:
-    }
-
-    if (!isValid) {
-      console.log("Form validation failed");
-      // $ Set submitted state to false for invalid submissions, Right button will not work
-      setFormStepsSubmitted((prev) => ({
-        ...prev,
-        [currentStepIndex]: false,
-      }));
-      return;
-    }
-    // $ Move to the next form or handle api call
-
-    // setProgressStatus(0);
-    // $ Route to the Login Page or redirect to the dashbaord
-  };
-
-  // $ Capture the form field data
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    // $ Update form data
-    const updatedFormData = {
-      ...formData,
-      [name]: value,
-    };
-
-    setFormData(updatedFormData);
-
-    // $ Validate just the changed field
-    validateField(updatedFormData, name);
-  };
+  }, [isValid, currentStepIndex, setFormStepsValidity]);
 
   return (
-    <Fieldset.Root
-      w="100%"
-      rounded={{ base: "0", md: "md" }}
-      bg="white"
-      py={{ base: 2, md: "2.5rem" }}
-      px={{ base: 8, md: 12 }}
-      display="flex"
-      alignItems="center"
-      // border="1px dashed blue" // debug:
-      height="100%"
-    >
-      <Box
-        width="100%"
-        mx="auto"
-        //   border="1px solid green"
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Fieldset.Root
+        w="100%"
+        rounded={{ base: "0", md: "md" }}
+        bg="white"
+        py={{ base: 2, md: "2.5rem" }}
+        px={{ base: 8, md: 12 }}
+        display="flex"
+        alignItems="center"
+        // border="1px dashed blue" //debug:
+        height="100%"
       >
-        <FormHeader
-          title="Business Information"
-          subHeading=" Input your business details"
-        />
-        <Fieldset.Content spacing={4} align="stretch">
-          <Flex
-            direction="column"
-            gap={
-              Object.keys(errors).length > 0
-                ? { base: 1, md: 2 }
-                : { base: 2, md: 4 }
-            }
-          >
-            {formFields.map((input) => (
-              <FormInputField
-                key={input.name}
-                name={input.name}
-                onChange={handleChange}
-                label={input.label}
-                placeholder={input.placeholder}
-                error={errors[input.name]}
-                icon={input.icon}
-                value={formData[input.name]}
-                type={input.type}
-              />
-            ))}
-            <StateDropDown width="100%" onChange={handleChange} />
-          </Flex>
-        </Fieldset.Content>
-        <Button
-          type="submit"
-          mt={6}
-          w="full"
-          bgColor={isValid ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"}
-          size="lg"
-          onClick={handleSubmit}
+        <Box
+          width="100%"
+          mx="auto"
+          //   border="1px solid green" //debug:
         >
-          Continue
-        </Button>
-      </Box>
-    </Fieldset.Root>
+          <FormHeader
+            title="Business Information"
+            subHeading=" Input your business details"
+          />
+          <Fieldset.Content spacing={4} align="stretch">
+            <Flex
+              direction="column"
+              gap={
+                Object.keys(errors).length > 0
+                  ? { base: 1, md: 2 }
+                  : { base: 2, md: 4 }
+              }
+            >
+              {formFields.map((input) => (
+                <FormInputField
+                  key={input.name}
+                  name={input.name}
+                  type={input.type}
+                  label={input.label}
+                  placeholder={input.placeholder}
+                  error={errors[input.name]}
+                  value={watch(input.name) || ""}
+                  registerField={register}
+                />
+              ))}
+              <StateDropDown width="100%" />
+            </Flex>
+          </Fieldset.Content>
+          <Button
+            type="submit"
+            mt={6}
+            w="full"
+            bgColor={isValid ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"}
+            size="lg"
+          >
+            Continue
+          </Button>
+        </Box>
+      </Fieldset.Root>
+    </form>
   );
 };
 
