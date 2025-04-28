@@ -16,7 +16,7 @@ import LandingPage from "./pages/LandingPage";
 // import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
-  const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
+  const isUserAuthenticated = false; // This is a placeholder for now and eventually will be derived from user authentication flow.
 
   return (
     <BrowserRouter>
