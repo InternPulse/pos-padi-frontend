@@ -153,7 +153,7 @@ function Settings() {
   ]
 
   return (
-      <Tabs.Root defaultValue="Personal Information" width="100%" css={{
+      <Tabs.Root p={{base: 0, '2xl': 6}} defaultValue="Personal Information" width="100%" css={{
         '& [data-state="active"]': {
           borderBottom: '2px solid',
           borderColor: {base: 'green.500', _dark: 'green.300'},
