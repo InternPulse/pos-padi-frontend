@@ -12,8 +12,18 @@ import Card from "@/components/alt/dashboard-components/Card";
 import { useEffect } from "react";
 import TransDashFilterbutton from "@/components/TransFilterButton";
 import { rawAgents } from "@/components/transactions/agentsMockData";
+import { rawCustomers } from "@/components/transactions/customersMockData";
 import { transactions } from "@/components/transactions/transactionsMockData";
 import ExportButton from "@/components/alt/dashboard-components/ExportButton";
+import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
+
+const totalRevenue = formatCurrency(transactions.reduce((acc, tx) => acc + tx.fee, 0))
+const processedAgents = rawAgents.map(agent => {
+  const agentRevenue = transactions.filter(tx => tx.agent == `${agent.firstName} ${agent.lastName}`).reduce((acc, tx) => acc + tx.fee, 0)
+  return {...agent, revenue: agentRevenue}
+})
+
+const topAgent = processedAgents.sort(function(a,b){return b.revenue - a.revenue})[0]
 
 function ButtonGroupContainer() {
   return (
@@ -71,16 +81,17 @@ function RevenueCardContainer() {
       height={{ base: "230px", sm: '284px', xl: "170px" }}
       rounded={"xl"}
     >
-      <RevenueCard />
+      <RevenueCard amount={totalRevenue} />
     </Box>
   );
 }
 
 function TopAgentContainer() {
   const topAgentDetails = {
-    userFullName: "Biolaluwatito Adubi",
-    amount: "353560.03",
-    clients: 18
+    userFullName: `${topAgent.firstName} ${topAgent.lastName}`,
+    userImageURL: topAgent.imageURL,
+    amount: formatCurrency(topAgent.revenue),
+    clients: rawCustomers.filter(customer => customer.agent == `${topAgent.firstName} ${topAgent.lastName}`).length
   }
 
   return (

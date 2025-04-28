@@ -18,7 +18,7 @@ import {
   FaPhoneAlt,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import pospadilogo from "../assets/logo-lg.png";
+import pospadilogo from "../../assets/logo-lg.png";
 
 function FooterLink({ text, destination }) {
   return (

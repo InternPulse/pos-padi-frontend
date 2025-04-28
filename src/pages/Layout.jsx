@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Flex, Box, Stack, IconButton } from "@chakra-ui/react";
-import NotificationButton from "@/components/header-nav-components/NotificationButton";
-import MenuButton from "@/components/header-nav-components/MenuButton";
+// import NotificationButton from "@/components/header-nav-components/NotificationButton";
+// import MenuButton from "@/components/header-nav-components/MenuButton";
 import Logo from "@/components/header-nav-components/Logo";
 import PageTitle from "@/components/header-nav-components/PageTitle";
 import Navigation from "@/components/header-nav-components/Navigation";
@@ -24,7 +24,7 @@ function Layout() {
 
   return (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
-    <Flex width={"100vw"} height={"100vh"}>
+    <Flex width={"100%"} height={"100%"} >
       <Flex
         width={{ lg: "200px", xl: "260px" }}
         display={{ base: "none", lg: "flex" }}

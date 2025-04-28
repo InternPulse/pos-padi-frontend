@@ -323,4 +323,3 @@ export const customersList = {
   })
 };
 
-console.log(rawCustomers.map(customer => `${customer.firstName} ${customer.lastName}`))

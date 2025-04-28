@@ -169,7 +169,7 @@ function EntityDetails({ entity, entityType }) {
       },
       {
         title: "Loyalty Points Earned",
-        amount: rawCustomers.filter(item => item.agent == `${entity.firstName} ${entity.lastName}`).length,
+        amount: entity.loyaltyPoints,
         icon: <FaRegStar />,
         iconColor: { base: "yellow.600", _dark: "yellow.300" },
         iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
