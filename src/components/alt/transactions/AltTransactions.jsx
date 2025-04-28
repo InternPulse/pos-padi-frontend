@@ -5,8 +5,7 @@ import { transactions } from "@/components/transactions/transactionsMockData";
 import Card from "../dashboard-components/Card";
 import { LuWallet } from "react-icons/lu";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
