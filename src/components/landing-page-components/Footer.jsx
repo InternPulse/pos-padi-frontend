@@ -18,7 +18,7 @@ import {
   FaPhoneAlt,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import pospadilogo from "../assets/logo-lg.png";
+// import pospadilogo from "../assets/logo-lg.png";
 
 function FooterLink({ text, destination }) {
   return (
@@ -79,12 +79,11 @@ const Footer = () => {
     <Flex width={"100%"} p={4} bg="black" color="white">
       <VStack separator={<StackSeparator />} width={"100%"} gap={4}>
         <Flex
-          py={{base: 4, lg: 8}}
+          py={{ base: 4, lg: 8 }}
           width={"100%"}
           px={5}
           direction={{ base: "column", lg: "row" }}
           gap={{ base: 12, lg: 6 }}
-    
         >
           <Flex width={{ base: "100%", lg: "25%" }}>
             <Flex direction={"column"} textAlign={{ base: "left", lg: "left" }}>
@@ -145,10 +144,7 @@ const Footer = () => {
             </Flex>
           </Flex>
           <Flex width={{ base: "100%", lg: "25%" }}>
-            <Flex
-              direction={"column"}
-              textAlign={{ base: "left", md: "left" }}
-            >
+            <Flex direction={"column"} textAlign={{ base: "left", md: "left" }}>
               <Text fontSize="md" fontWeight="medium" mb={2}>
                 Contact Us
               </Text>
@@ -183,10 +179,16 @@ const Footer = () => {
             </Flex>
           </Flex>
         </Flex>
-        <Flex width={"100%"} justify={"space-between"} px={4} gap={4} direction={{base: 'column', md: 'row'}}>
+        <Flex
+          width={"100%"}
+          justify={"space-between"}
+          px={4}
+          gap={4}
+          direction={{ base: "column", md: "row" }}
+        >
           <Text textStyle={"sm"}>© 2025 POS-Padi. All rights reserved.</Text>
           <Flex>
-            <Stack direction={{base: 'column', md: 'row'}} gap={3}>
+            <Stack direction={{ base: "column", md: "row" }} gap={3}>
               <Link color={"white"} textStyle={"sm"} href="#">
                 Privacy Policy
               </Link>

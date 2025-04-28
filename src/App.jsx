@@ -12,6 +12,7 @@ import AdminSignUpPage from "./pages/AdminSignUpPage";
 import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
@@ -40,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/auth" element={<HomePage />}></Route>
         </Routes>
       )}
