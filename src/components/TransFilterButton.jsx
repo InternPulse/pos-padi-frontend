@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, NativeSelect } from '@chakra-ui/react';
 
-export default function TransDashFilterbutton() {
+export default function TransDashFilterbutton({ onFilterChange }) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeFilter, setActiveFilter] = useState('12months'); 
 
@@ -11,6 +11,13 @@ export default function TransDashFilterbutton() {
     window.addEventListener('resize', checkIfMobile);
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
+
+  // Handle filter change and notify parent component
+const handleFilterChange = (filter) => {
+  setActiveFilter(filter);
+  onFilterChange(filter);
+};
+
 
   // Mobile dropdown
   if (isMobile) {
@@ -32,6 +39,8 @@ export default function TransDashFilterbutton() {
               borderColor: 'gray.200',
               color: 'gray.800',
             }}
+            value={activeFilter}
+            onChange={(e) => handleFilterChange(e.target.value)}
           >
   <NativeSelect.Field  >
     <option value="12months">12 months</option>
@@ -63,7 +72,7 @@ export default function TransDashFilterbutton() {
       }}
     >
       <Button
-        onClick={() => setActiveFilter('12months')}
+         onClick={() => handleFilterChange('12months')}
         borderRight="1px solid"
         borderColor="gray.200"
         borderRadius="none"
@@ -86,7 +95,7 @@ export default function TransDashFilterbutton() {
         12 months
       </Button>
       <Button
-        onClick={() => setActiveFilter('30days')}
+        onClick={() => handleFilterChange('30days')}
         borderRight="1px solid"
         borderColor="gray.200"
         borderRadius="none"
@@ -108,7 +117,7 @@ export default function TransDashFilterbutton() {
         30 days
       </Button>
       <Button
-        onClick={() => setActiveFilter('7days')}
+        onClick={() => handleFilterChange('7days')}
         borderRight="1px solid"
         borderColor="gray.200"
         borderRadius="none"
@@ -130,7 +139,7 @@ export default function TransDashFilterbutton() {
         7 days
       </Button>
       <Button
-        onClick={() => setActiveFilter('24hours')}
+        onClick={() => handleFilterChange('24hours')}
         borderRadius="none"
         borderRightRadius="md"
         fontSize="13px"
