@@ -12,19 +12,13 @@ import AdminSignUpPage from "./pages/AdminSignUpPage";
 import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
 import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
-  const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
-
-  // loginUser({
-  //   "email": "owner1@test.com",
-  //   "password": "Jonathan1@"
-  // })
-
-  getUserSummary()
+  const isUserAuthenticated = false; // This is a placeholder for now and eventually will be derived from user authentication flow.
 
   return (
     <BrowserRouter>
@@ -48,6 +42,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/auth" element={<HomePage />}></Route>
         </Routes>
       )}
