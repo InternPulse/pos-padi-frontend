@@ -57,7 +57,7 @@ export const PinInputForm = () => {
 
       // $ Success toast
       toaster.create({
-        title: "Account created succsfully",
+        title: "Account created successfully",
         type: "success",
       });
 
