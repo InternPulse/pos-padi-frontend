@@ -19,7 +19,6 @@ import FormInputField from "@/components/customComponents/FormInputField";
 import FormHeader from "../FormHeader";
 
 // $ Global Context
-import { useGlobalContext } from "@/context/useGlobalContext";
 
 // $ Form Schema and State Management
 import { loginSchema } from "../schemas";
@@ -27,39 +26,31 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginForm = () => {
-  const { setFormData, formData } = useGlobalContext();
-
   // $ Initialize react-hook-form
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isValid },
-    watch,
   } = useForm({
-    mode: "onChange",
     defaultValues: {
-      email: formData?.email ?? "",
-      password: formData?.password ?? "",
+      email: "",
+      password: "",
     },
     resolver: zodResolver(loginSchema),
   });
 
   // $ Handle form submission
   const onSubmit = (data) => {
-    // $ Update global form data
-    setFormData((prevData) => ({
-      ...prevData,
-      ...data,
-    }));
+    // todo: api call POST request
 
     toaster.create({
       title: "Login Successful",
       type: "success",
     });
 
-    console.log("formData:", formData); // debug:
-    reset();
+    console.log("formData:", data); // debug:
+    reset(); // todo: Reset the form after successfull api call using this function
   };
 
   // $ Form field definitions
@@ -125,14 +116,14 @@ const LoginForm = () => {
                   label={input.label}
                   placeholder={input.placeholder}
                   error={errors[input.name]}
-                  value={watch(input.name) || ""}
+                  value={input.name || ""}
                   icon={input.icon}
                   registerField={register}
                 />
               ))}
             </Flex>
           </Fieldset.Content>
-          <Flex justify="end" width="100%" mt={{ lg: "0.625rem" }}>
+          <Flex justify="end" width="100%" mt={{ base: "0.625rem" }}>
             <Link
               color="rgba(2, 177, 79, 1)"
               href="/forgot-password"
