@@ -25,15 +25,17 @@ function FormHeader({ title, subHeading }) {
       position="relative"
       // border="1px dashed red" //debug:
     >
-      <Box
-        position="absolute"
-        top="0"
-        left="-8%"
-        visibility={currentStepIndex === 0 && "hidden"}
-        _hover={{ cursor: "pointer" }}
-      >
-        <LeftControlButton step={step} Back={Back} />
-      </Box>
+      {location === "/login" ? null : (
+        <Box
+          position="absolute"
+          top="0"
+          left="-8%"
+          visibility={currentStepIndex === 0 && "hidden"}
+          _hover={{ cursor: "pointer" }}
+        >
+          <LeftControlButton step={step} Back={Back} />
+        </Box>
+      )}
       <Flex
         direction="column"
         gap={location === "/login" ? "1rem" : "0.625rem"}

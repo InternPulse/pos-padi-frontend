@@ -5,7 +5,10 @@ import React from "react";
 import useFormValidation from "./useFormValidation";
 import AdminSignUpForm from "@/components/form/signupforms/AdminSignUpForm";
 import { PinInputForm } from "@/components/form/signupforms/PinInputForm";
+import { ForgotPasswordPinInputForm } from "@/components/form/forgot-password-forms/ForgotPasswordPinInputForm";
 import AdminSignUpBizInfoForm from "@/components/form/signupforms/AdminSignUpBizInfoForm";
+import ForgotPasswordForm from "@/components/form/forgot-password-forms/ForgotPasswordForm";
+import NewPasswordForm from "@/components/form/forgot-password-forms/NewPasswordForm";
 
 export const useMultiFormHook = (formType) => {
   const { currentStepIndex, setCurrentStepIndex } = useGlobalContext();
@@ -13,9 +16,14 @@ export const useMultiFormHook = (formType) => {
 
   // $ multiform steps
   const adminSteps = [AdminSignUpForm, AdminSignUpBizInfoForm, PinInputForm];
-  // const forgotPasswordSteps = [ForgotPasswordForm, PinInputForm];
+  const forgotPasswordSteps = [
+    ForgotPasswordForm,
+    ForgotPasswordPinInputForm,
+    NewPasswordForm,
+  ];
 
-  const formSteps = formType === "forgotPassword" ? "" : adminSteps;
+  const formSteps =
+    formType === "forgotPassword" ? forgotPasswordSteps : adminSteps;
 
   const totalSteps = formSteps.length;
 
