@@ -13,6 +13,7 @@ import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
+import AgentCompleteSignUpPage from "./pages/AgentCompleteSignUp";
 import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 
 // import NotificationsPage from "./pages/NotificationsPage";
@@ -44,6 +45,10 @@ function App() {
           <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/auth" element={<HomePage />}></Route>
+          <Route
+            path="/agent-complete-signup"
+            element={<AgentCompleteSignUpPage />}
+          ></Route>
         </Routes>
       )}
     </BrowserRouter>
