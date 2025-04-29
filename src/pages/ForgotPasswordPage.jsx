@@ -35,9 +35,9 @@ function ForgotPasswordPage() {
         width="100%"
         mx={{ base: "auto", md: "0" }}
         px={{ base: "0", md: "0px" }}
-        maxHeight={{ base: "100%" }}
+        height={{ base: "100%", lg: "100vh" }}
         maxWidth={"500px"}
-        border="1px dotted blue" // debug:
+        // border="1px dotted blue" // debug:
       >
         <Flex
           gap="1.5rem"

@@ -102,6 +102,7 @@ const AdminSignUpBizInfoForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Fieldset.Root
         w="100%"
+        height="100%"
         rounded={{ base: "0", md: "md" }}
         bg="white"
         py={{ base: 2, md: "2.5rem" }}
@@ -109,7 +110,6 @@ const AdminSignUpBizInfoForm = () => {
         display="flex"
         alignItems="center"
         // border="1px dashed blue" //debug:
-        height="100%"
       >
         <Box
           width="100%"

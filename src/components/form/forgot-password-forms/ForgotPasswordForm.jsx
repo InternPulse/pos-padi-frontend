@@ -41,9 +41,7 @@ const ForgotPasswordForm = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
   } = useForm({
-    mode: "onChange",
     defaultValues: {
       email: formData?.email || "",
     },
@@ -101,14 +99,14 @@ const ForgotPasswordForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Fieldset.Root
         width="100%"
+        height="100%"
         rounded={{ base: "0", md: "md" }}
         bg="white"
         py={{ base: 2, md: "2.5rem" }}
-        px={{ base: "1rem", md: 12 }}
+        px={{ base: 8, md: 12 }}
         display="flex"
         alignItems="center"
-        height="100%"
-        border="1px solid red"
+        // border="1px solid red" //debug:
       >
         <Box width="100%" mx="auto">
           <FormHeader
@@ -126,7 +124,7 @@ const ForgotPasswordForm = () => {
                   label={input.label}
                   placeholder={input.placeholder}
                   error={errors[input.name]}
-                  value={watch(input.name) || ""}
+                  value={input.name || ""}
                   icon={input.icon}
                   registerField={register}
                 />
