@@ -8,12 +8,7 @@ import Agents from "./pages/Agents";
 import Customers from "./pages/Customers";
 import Terminals from "./pages/Terminals";
 import Disputes from "./pages/Disputes";
-import AdminSignUpPage from "./pages/AdminSignUpPage";
-import AgentDetails from "./pages/AgentDetails";
-import CustomerDetails from "./pages/CustomerDetails";
-import LandingPage from "./pages/LandingPage";
-import LoginPage from "./pages/LoginPage";
-import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
+import CreateNotification from "./components/CreateNotification";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
@@ -70,6 +65,10 @@ function App() {
             <Route
               path="settings"
               element={<Settings />}
+            />
+            <Route
+              path="notifications/create"
+              element={<CreateNotification />}
             />
           </Route>
         </Routes>
