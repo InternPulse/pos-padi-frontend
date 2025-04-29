@@ -23,7 +23,7 @@ function App() {
   //   "password": "Jonathan1@"
   // })
 
-  getUserSummary()
+  // getUserSummary()
 
   return (
     <BrowserRouter>
