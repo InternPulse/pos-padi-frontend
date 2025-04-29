@@ -6,11 +6,7 @@ import { useEffect } from "react";
 const agentsSummary = [
   {
     title: "Total Agents",
-<<<<<<< HEAD
-    // amount: rawAgents.length,
-=======
     amount: 47,
->>>>>>> ed37a39ad8ac6482b9d28734047b2298530309fd
     icon: <IoPeopleOutline />,
     iconColor: { base: "blue.600", _dark: "blue.300" },
     iconBgColor: { base: "blue.50", _dark: "blue.800" },
