@@ -48,6 +48,7 @@ export const ForgotPasswordPinInputForm = () => {
     const isValid = validate(pinData);
 
     if (isValid) {
+      // todo: submit to api if pin is valid
       const stepProgress = 100 / totalSteps;
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
       setCurrentStepIndex(currentStepIndex + 1);

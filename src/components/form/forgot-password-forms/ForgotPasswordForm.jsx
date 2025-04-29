@@ -42,6 +42,7 @@ const ForgotPasswordForm = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
+    mode: "onSubmit",
     defaultValues: {
       email: formData?.email || "",
     },
@@ -50,7 +51,9 @@ const ForgotPasswordForm = () => {
 
   // $ Handle form submission
   const onSubmit = (data) => {
-    // $ Update global form data
+    // todo: api call POST request use data directly, will contain only email in this step
+
+    // $ Update global form data.
     setFormData((prevData) => ({
       ...prevData,
       ...data,
@@ -72,8 +75,8 @@ const ForgotPasswordForm = () => {
     setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
     setCurrentStepIndex(currentStepIndex + 1);
 
-    console.log("formData:", formData); // debug:
-    console.log("form submitted:", formStepsSubmitted); // debug:
+    // console.log("formData:", data); // debug:
+    // console.log("form submitted:", formStepsSubmitted); // debug:
   };
 
   // Form field definitions
@@ -96,14 +99,14 @@ const ForgotPasswordForm = () => {
   }, [isValid, currentStepIndex, setFormStepsValidity]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%" }}>
       <Fieldset.Root
         width="100%"
         height="100%"
         rounded={{ base: "0", md: "md" }}
         bg="white"
         py={{ base: 2, md: "2.5rem" }}
-        px={{ base: 8, md: 12 }}
+        px={{ base: "1rem", md: 12 }}
         display="flex"
         alignItems="center"
         // border="1px solid red" //debug:
@@ -115,7 +118,7 @@ const ForgotPasswordForm = () => {
           />
 
           <Fieldset.Content>
-            <Flex direction="column" gap={4}>
+            <Flex direction="column" gap={4} mt={{ lg: "2.5rem" }}>
               {formFields.map((input) => (
                 <FormInputField
                   key={input.name}
@@ -134,7 +137,7 @@ const ForgotPasswordForm = () => {
 
           <Button
             type="submit"
-            disabled={!isValid || formStepsSubmitted[currentStepIndex]}
+            disabled={formStepsSubmitted[currentStepIndex]}
             mt={6}
             w="full"
             bgColor={
