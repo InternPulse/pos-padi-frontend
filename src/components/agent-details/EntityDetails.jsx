@@ -1,7 +1,7 @@
 import AgentCard from "@/components/agent-details/AgentCard";
 import CustomerCard from "./CustomerCard";
 import Card from "@/components/alt/dashboard-components/Card";
-import { Flex, Button, Tabs } from "@chakra-ui/react";
+import { Flex, Box, Button, Tabs } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
 import { GrGroup } from "react-icons/gr";
 import { LuWallet } from "react-icons/lu";
@@ -13,13 +13,20 @@ import { useState, useEffect } from "react";
 import AltTransactionTable from "@/components/alt/transactions/AltTransactionTable";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
 import GenericTable from "@/components/alt/transactions/generic-table/GenericTable";
-import { rawCustomers, customersList } from "@/components/transactions/customersMockData";
+import {
+  rawCustomers,
+  customersList,
+} from "@/components/transactions/customersMockData";
 import { transactions } from "@/components/transactions/transactionsMockData";
+import { filterRow } from "../Others/data-filters/SearchByText";
+import SearchByText from "../Others/data-filters/SearchByText";
+import ExportButton from "../alt/dashboard-components/ExportButton";
 
 function EntityDetails({ entity, entityType }) {
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState("customers");
+  const [searchText, setSearchText] = useState("");
 
   const previousPage = currentPath.includes("agent") ? "/agents" : "/customers";
 
@@ -52,140 +59,148 @@ function EntityDetails({ entity, entityType }) {
 
   const pageEntity = {
     ...entity,
-    performanceSummary: entityType == 'agent' ? [
-      {
-        title: "Total Transaction",
-        amount: formatCurrency(
-          pageTransactions.reduce((acc, item) => {
-            return acc + item.amount;
-          }, 0)
-        ),
-        icon: <LuWallet />,
-        iconColor: { base: "blue.600", _dark: "blue.300" },
-        iconBgColor: { base: "blue.50", _dark: "blue.800" },
-        percent: -30,
-        period: "month",
-      },
-      {
-        title: "Transaction Count",
-        amount: pageTransactions.length,
-        icon: <GiSwipeCard />,
-        iconColor: { base: "purple.600", _dark: "purple.300" },
-        iconBgColor: { base: "purple.50", _dark: "purple.800" },
-        percent: 23,
-        period: "month",
-      },
-      {
-        title: "Successful",
-        amount: formatCurrency(
-          pageTransactions
-            .filter((item) => item.status == "successful")
-            .reduce((acc, item) => {
-              return acc + item.amount;
-            }, 0)
-        ),
-        icon: <LuWallet />,
-        iconColor: { base: "green.600", _dark: "green.300" },
-        iconBgColor: { base: "green.50", _dark: "green.800" },
-        percent: 30,
-        period: "month",
-      },
-      {
-        title: "Failed",
-        amount: formatCurrency(
-          pageTransactions
-            .filter((item) => item.status == "failed")
-            .reduce((acc, item) => {
-              return acc + item.amount;
-            }, 0)
-        ),
-        icon: <LuWallet />,
-        iconColor: { base: "red.600", _dark: "red.300" },
-        iconBgColor: { base: "red.50", _dark: "red.800" },
-        percent: 10,
-        period: "month",
-      },
-      {
-        title: "Customers",
-        amount: rawCustomers.filter(item => item.agent == `${entity.firstName} ${entity.lastName}`).length,
-        icon: <GrGroup />,
-        iconColor: { base: "yellow.600", _dark: "yellow.300" },
-        iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
-        percent: -5,
-        period: "month",
-      },
-    ] : [
-      {
-        title: "Total Transaction",
-        amount: formatCurrency(
-          pageTransactions.reduce((acc, item) => {
-            return acc + item.amount;
-          }, 0)
-        ),
-        icon: <LuWallet />,
-        iconColor: { base: "blue.600", _dark: "blue.300" },
-        iconBgColor: { base: "blue.50", _dark: "blue.800" },
-        percent: -30,
-        period: "month",
-      },
-      {
-        title: "Transaction Count",
-        amount: pageTransactions.length,
-        icon: <GiSwipeCard />,
-        iconColor: { base: "purple.600", _dark: "purple.300" },
-        iconBgColor: { base: "purple.50", _dark: "purple.800" },
-        percent: 23,
-        period: "month",
-      },
-      {
-        title: "Successful",
-        amount: formatCurrency(
-          pageTransactions
-            .filter((item) => item.status == "successful")
-            .reduce((acc, item) => {
-              return acc + item.amount;
-            }, 0)
-        ),
-        icon: <LuWallet />,
-        iconColor: { base: "green.600", _dark: "green.300" },
-        iconBgColor: { base: "green.50", _dark: "green.800" },
-        percent: 30,
-        period: "month",
-      },
-      {
-        title: "Failed",
-        amount: formatCurrency(
-          pageTransactions
-            .filter((item) => item.status == "failed")
-            .reduce((acc, item) => {
-              return acc + item.amount;
-            }, 0)
-        ),
-        icon: <LuWallet />,
-        iconColor: { base: "red.600", _dark: "red.300" },
-        iconBgColor: { base: "red.50", _dark: "red.800" },
-        percent: 10,
-        period: "month",
-      },
-      {
-        title: "Loyalty Points Earned",
-        amount: rawCustomers.filter(item => item.agent == `${entity.firstName} ${entity.lastName}`).length,
-        icon: <FaRegStar />,
-        iconColor: { base: "yellow.600", _dark: "yellow.300" },
-        iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
-        percent: -5,
-        period: "month",
-      },
-    ],
+    performanceSummary:
+      entityType == "agent"
+        ? [
+            {
+              title: "Total Transaction",
+              amount: formatCurrency(
+                pageTransactions.reduce((acc, item) => {
+                  return acc + item.amount;
+                }, 0)
+              ),
+              icon: <LuWallet />,
+              iconColor: { base: "blue.600", _dark: "blue.300" },
+              iconBgColor: { base: "blue.50", _dark: "blue.800" },
+              percent: -30,
+              period: "month",
+            },
+            {
+              title: "Transaction Count",
+              amount: pageTransactions.length,
+              icon: <GiSwipeCard />,
+              iconColor: { base: "purple.600", _dark: "purple.300" },
+              iconBgColor: { base: "purple.50", _dark: "purple.800" },
+              percent: 23,
+              period: "month",
+            },
+            {
+              title: "Successful",
+              amount: formatCurrency(
+                pageTransactions
+                  .filter((item) => item.status == "successful")
+                  .reduce((acc, item) => {
+                    return acc + item.amount;
+                  }, 0)
+              ),
+              icon: <LuWallet />,
+              iconColor: { base: "green.600", _dark: "green.300" },
+              iconBgColor: { base: "green.50", _dark: "green.800" },
+              percent: 30,
+              period: "month",
+            },
+            {
+              title: "Failed",
+              amount: formatCurrency(
+                pageTransactions
+                  .filter((item) => item.status == "failed")
+                  .reduce((acc, item) => {
+                    return acc + item.amount;
+                  }, 0)
+              ),
+              icon: <LuWallet />,
+              iconColor: { base: "red.600", _dark: "red.300" },
+              iconBgColor: { base: "red.50", _dark: "red.800" },
+              percent: 10,
+              period: "month",
+            },
+            {
+              title: "Customers",
+              amount: rawCustomers.filter(
+                (item) => item.agent == `${entity.firstName} ${entity.lastName}`
+              ).length,
+              icon: <GrGroup />,
+              iconColor: { base: "yellow.600", _dark: "yellow.300" },
+              iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
+              percent: -5,
+              period: "month",
+            },
+          ]
+        : [
+            {
+              title: "Total Transaction",
+              amount: formatCurrency(
+                pageTransactions.reduce((acc, item) => {
+                  return acc + item.amount;
+                }, 0)
+              ),
+              icon: <LuWallet />,
+              iconColor: { base: "blue.600", _dark: "blue.300" },
+              iconBgColor: { base: "blue.50", _dark: "blue.800" },
+              percent: -30,
+              period: "month",
+            },
+            {
+              title: "Transaction Count",
+              amount: pageTransactions.length,
+              icon: <GiSwipeCard />,
+              iconColor: { base: "purple.600", _dark: "purple.300" },
+              iconBgColor: { base: "purple.50", _dark: "purple.800" },
+              percent: 23,
+              period: "month",
+            },
+            {
+              title: "Successful",
+              amount: formatCurrency(
+                pageTransactions
+                  .filter((item) => item.status == "successful")
+                  .reduce((acc, item) => {
+                    return acc + item.amount;
+                  }, 0)
+              ),
+              icon: <LuWallet />,
+              iconColor: { base: "green.600", _dark: "green.300" },
+              iconBgColor: { base: "green.50", _dark: "green.800" },
+              percent: 30,
+              period: "month",
+            },
+            {
+              title: "Failed",
+              amount: formatCurrency(
+                pageTransactions
+                  .filter((item) => item.status == "failed")
+                  .reduce((acc, item) => {
+                    return acc + item.amount;
+                  }, 0)
+              ),
+              icon: <LuWallet />,
+              iconColor: { base: "red.600", _dark: "red.300" },
+              iconBgColor: { base: "red.50", _dark: "red.800" },
+              percent: 10,
+              period: "month",
+            },
+            {
+              title: "Loyalty Points Earned",
+              amount: entity.loyaltyPoints,
+              icon: <FaRegStar />,
+              iconColor: { base: "yellow.600", _dark: "yellow.300" },
+              iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
+              percent: -5,
+              period: "month",
+            },
+          ],
   };
 
   const pageCustomersTable =
     entityType == "agent"
       ? {
           ...customersList,
-          items: customersList.items.filter(
-            (item) => item.item6 == `${pageEntity.firstName} ${pageEntity.lastName}`
-          ),
+          items: customersList.items
+            .filter(
+              (item) =>
+                item.item6 == `${pageEntity.firstName} ${pageEntity.lastName}`
+            )
+            .filter((item) => filterRow(item, searchText)),
         }
       : {};
 
@@ -249,8 +264,8 @@ function EntityDetails({ entity, entityType }) {
         direction={{ base: "column", "2xl": "row" }}
         align={{ base: "start" }}
       >
-        {entityType == 'agent' && <AgentCard agent={pageEntity} />}
-        {entityType == 'customer' && <CustomerCard customer={pageEntity} />}
+        {entityType == "agent" && <AgentCard agent={pageEntity} />}
+        {entityType == "customer" && <CustomerCard customer={pageEntity} />}
         <Flex
           width={"100%"}
           wrap={"wrap"}
@@ -302,12 +317,18 @@ function EntityDetails({ entity, entityType }) {
             gap={5}
             rounded={"2xl"}
           >
-            <Flex
-              width={"100%"}
-              bg={"gray.200"}
-              rounded="xl"
-              height={"60px"}
-            ></Flex>
+            <Flex width={"100%"} rounded="xl" height={"60px"} px={2} align={'center'} justify={'space-between'}>
+              {/**Filter buttons here */}
+              <Flex width={{ base: "80%", md: "280px" }} colorPalette={'gray'} >
+                <SearchByText
+                  searchText={searchText}
+                  setSearchText={setSearchText}
+                />
+              </Flex>
+              <Box width={{ base: "50px", md: "150px" }} height={'40px'} colorPalette={'gray'}>
+                <ExportButton />
+              </Box>
+            </Flex>
             <GenericTable {...pageCustomersTable} />
           </Flex>
         </Tabs.Content>

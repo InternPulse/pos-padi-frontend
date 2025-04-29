@@ -12,7 +12,8 @@ import AdminSignUpPage from "./pages/AdminSignUpPage";
 import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import LoginPage from "./pages/LoginPage";
+import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
@@ -45,6 +46,7 @@ function App() {
             path="/forgot-password"
             element={<ForgotPasswordPage />}
           ></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/auth" element={<HomePage />}></Route>
         </Routes>
       )}

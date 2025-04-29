@@ -153,7 +153,7 @@ function Settings() {
   ]
 
   return (
-      <Tabs.Root defaultValue="Personal Information" width="100%" css={{
+      <Tabs.Root p={{base: 0, '2xl': 6}} defaultValue="Personal Information" width="100%" css={{
         '& [data-state="active"]': {
           borderBottom: '2px solid',
           borderColor: {base: 'green.500', _dark: 'green.300'},
@@ -179,21 +179,42 @@ function Settings() {
           border="1px solid" 
           borderColor={{base: 'gray.200', _dark: 'gray.600'}}
           borderRadius="md" 
-          p={{ base: 2, md: 4 }}
+          p={{ base: 6, md: 4 }}
           display="flex" 
-          flexWrap="wrap"
-          justifyContent={{ base: "center", md: "space-between" }}
+          flexWrap="nowrap"
+          justifyContent={{ base: "flex-start", md: "space-between" }}
           width="100%"
           mb={4}
           mt={8}
           bg={{base: 'white', _dark: 'inherit'}}
-          gap={{ base: 2, md: 0 }}
+          gap={{ base: 8, md: 0 }}
+          overflowX="auto"
+          css={{
+            '&::-webkit-scrollbar': {
+              height: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: {base: 'gray.100', _dark: 'gray.700'},
+              borderRadius: '2px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: {base: 'gray.300', _dark: 'gray.500'},
+              borderRadius: '2px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              background: {base: 'gray.400', _dark: 'gray.400'},
+            },
+          }}
         >
           <Tabs.Trigger 
             value="Personal Information"
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
+            px={{ base: 4, md: 4 }}
+            py={{ base: 2, md: 2 }}
+            whiteSpace="nowrap"
+            minW="fit-content"
           >
             Personal Information
           </Tabs.Trigger>
@@ -202,6 +223,10 @@ function Settings() {
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
+            px={{ base: 4, md: 4 }}
+            py={{ base: 2, md: 2 }}
+            whiteSpace="nowrap"
+            minW="fit-content"
           >
             Business Information
           </Tabs.Trigger>
@@ -210,6 +235,10 @@ function Settings() {
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
+            px={{ base: 4, md: 4 }}
+            py={{ base: 2, md: 2 }}
+            whiteSpace="nowrap"
+            minW="fit-content"
           >
             Notifications
           </Tabs.Trigger>
@@ -218,6 +247,10 @@ function Settings() {
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
+            px={{ base: 4, md: 4 }}
+            py={{ base: 2, md: 2 }}
+            whiteSpace="nowrap"
+            minW="fit-content"
           >
             KYC
           </Tabs.Trigger>
@@ -226,6 +259,10 @@ function Settings() {
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
+            px={{ base: 4, md: 4 }}
+            py={{ base: 2, md: 2 }}
+            whiteSpace="nowrap"
+            minW="fit-content"
           >
             Security
           </Tabs.Trigger>
