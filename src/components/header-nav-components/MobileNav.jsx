@@ -14,8 +14,12 @@ import { LuLogOut } from "react-icons/lu";
 import MenuButton from "./MenuButton";
 import Navigation from "./Navigation";
 import UserAvatar from "./UserAvatar";
+import { useAuth } from "@/Authentication/AuthProvider";
 
 function MobileNav() {
+
+  const {setAuth} = useAuth();
+
   const user = {
     id: "1",
     name: "John Mason",
@@ -23,6 +27,12 @@ function MobileNav() {
     avatar: "https://i.pravatar.cc/300?u=iu",
     role: "admin",
   };
+
+  const handleLogout = (e) => {
+    // console.log("Hi")
+    e.preventDefault()
+    setAuth(false)
+  }
 
   return (
     <HStack wrap="wrap">
@@ -58,7 +68,7 @@ function MobileNav() {
                   <Drawer.Footer>
                     <Flex justify={"center"} align={"center"} gap={3}>
                       <Box width={"180px"} height={"40px"}><UserAvatar user={user} /></Box>
-                      <IconButton variant={"ghost"}>
+                      <IconButton variant={"ghost"} onClick={handleLogout}>
                         <LuLogOut />
                       </IconButton>
                     </Flex>
