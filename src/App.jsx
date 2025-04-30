@@ -21,6 +21,15 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 function App() {
   const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
 
+
+  // loginUser({
+  //   "email": "owner1@test.com",
+  //   "password": "Jonathan1@"
+  // })
+
+  // getUserSummary()
+
+
   return (
     <BrowserRouter>
       {isUserAuthenticated ? (

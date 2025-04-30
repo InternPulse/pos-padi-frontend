@@ -24,7 +24,7 @@ export async function createAgent(agentData) {
 
     const agent = await response.json();
     console.log("Agent created:", agent);
-    return agent;
+    
   } catch (error) {
     console.error("Error creating agent:", error);
     throw error;
@@ -87,6 +87,7 @@ export async function getAllAgents(search = "", ordering = "", page = 1) {
   
       const agents = await response.json(); 
       console.log("Agents:", agents);
+      return agents
     } catch (error) {
       console.error("Error fetching agents:", error);
     }
@@ -110,7 +111,8 @@ export async function getAllAgents(search = "", ordering = "", page = 1) {
       }
   
       const agent = await response.json(); 
-      console.log("Agents:", result);
+      console.log("Agent:", result);
+      return agent
     } catch (error) {
       console.error("Error fetching agents:", error);
     }
