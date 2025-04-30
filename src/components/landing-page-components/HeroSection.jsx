@@ -6,7 +6,8 @@ import POSPadiMobile from "../../assets/POSpadiMobileView.png";
 
 const HeroSection = () => {
   return (
-    <Box bg="gray.50" py={{ base: 10, md: 20 }} px={{ base: 4, md: 10 }}>
+    <Box bg="gray.50" w="full">
+    <Box py={{ base: 20, md: 40 }} px={{ base: 4, md: 10 }}>
       <Flex
         direction="column"
         align="center"
@@ -106,6 +107,7 @@ const HeroSection = () => {
           </Box>
         </Flex>
       </Flex>
+    </Box>
     </Box>
   );
 };

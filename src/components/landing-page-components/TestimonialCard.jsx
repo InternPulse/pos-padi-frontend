@@ -49,9 +49,10 @@ export default function TestimonialCard() {
     },
   ];
   return (
+    <Box bg="gray.100" w="full">
     <VStack
       p={4}
-      bg={{ base: "gray.100", _dark: "black" }}
+      // bg={{ base: "gray.100", _dark: "black" }}
       align={"center"}
       gap={4}
     >
@@ -65,14 +66,22 @@ export default function TestimonialCard() {
         Testimonials
       </Badge>
 
-      <HStack gap={1} fontWeight={"semibold"} textStyle={"2xl"} justify={'center'}>
-        <Text textAlign={'center'}>Direct Stories From POS-Padi <span style={{color: '#02B14F'}}>Users</span> </Text>
+      <HStack
+        gap={1}
+        fontWeight={"semibold"}
+        textStyle={"2xl"}
+        justify={"center"}
+      >
+        <Text textAlign={"center"}>
+          Direct Stories From POS-Padi{" "}
+          <span style={{ color: "#02B14F" }}>Users</span>{" "}
+        </Text>
       </HStack>
       <Text
         fontStyle={"italic"}
         textStyle={"xs"}
         color={{ base: "gray.500", _dark: "gray.300" }}
-        textAlign={'center'}
+        textAlign={"center"}
       >
         Don't just take our word for it. Here's what people who use our services
         have to say.
@@ -113,5 +122,6 @@ export default function TestimonialCard() {
         ))}
       </SimpleGrid>
     </VStack>
+    </Box>
   );
 }
