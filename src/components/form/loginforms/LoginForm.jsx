@@ -41,7 +41,7 @@ const LoginForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     defaultValues: {
       email: "",
@@ -173,7 +173,8 @@ const LoginForm = () => {
           </Flex>
           <Button
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
+            isLoading={isSubmitting}
             mt={{ base: "2rem", lg: "2.5rem" }}
             w="full"
             bgColor={isValid ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"}
@@ -184,7 +185,7 @@ const LoginForm = () => {
                 : "rgba(2, 177, 79, 0.5)",
             }}
           >
-            Login
+            {isSubmitting ? "Submitting..." : "Login"}
           </Button>
           <Flex justify="center" mt={{ base: 4, lg: "1.875rem" }}>
             <Text color="gray.600" mr={1} fontSize={{ base: "0.875rem" }}>
