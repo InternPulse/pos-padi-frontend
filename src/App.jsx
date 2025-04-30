@@ -59,9 +59,9 @@ function App() {
     // </BrowserRouter>
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<RequireAuth />}>
           {/* protected routes */}
-            <Route element={<RequireAuth />}>
+            <Route element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="settings" element={<Settings />} />
               <Route path="transactions" element={<AltTransactions />} />
