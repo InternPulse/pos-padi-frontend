@@ -149,11 +149,13 @@ function GenericTable({ headings, items }) {
   const [page, setPage] = useState(1);
   const navigate = useNavigate()
   const currentPath = useLocation().pathname
-  const paginatedItems = items.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const paginatedItems = items?.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   function handleClick(isHeader, id){
     if(isHeader){return}
-    navigate(`${currentPath}/${id}`)
+    if(currentPath == '/agents' || currentPath == '/customers'){
+      navigate(`${currentPath}/${id}`)
+    }
   }
 
   return (
@@ -172,7 +174,7 @@ function GenericTable({ headings, items }) {
       >
         <TableData isHeader={true} {...headings} />
 
-        {paginatedItems.map((item) => (
+        {paginatedItems?.map((item) => (
           <Box onClick={()=>{handleClick(item.isHeader, item.item1)}}><TableData {...item} /></Box>
           // <TableData {...item} />
         ))}
@@ -187,13 +189,13 @@ function GenericTable({ headings, items }) {
      
 
       <Pagination.Root
-        count={items.length}
+        count={items?.length}
         pageSize={PAGE_SIZE}
         page={page}
         onPageChange={(details) => setPage(details.page)}
         align="end"
       >
-        <ButtonGroup variant="ghost" size="sm" wrap="wrap">
+        <ButtonGroup variant="ghost" size={{base: "xs", md: 'sm'}} wrap="wrap">
           <Pagination.PrevTrigger asChild>
             <IconButton>
               <LuChevronLeft />

@@ -10,15 +10,60 @@ import { GiSwipeCard } from "react-icons/gi";
 import { transactionSummary } from "@/components/alt/transactions/AltTransactions";
 import Card from "@/components/alt/dashboard-components/Card";
 import { useEffect } from "react";
+import TransDashFilterbutton from "@/components/TransFilterButton";
+import { rawAgents } from "@/components/transactions/agentsMockData";
+import { rawCustomers } from "@/components/transactions/customersMockData";
+import { transactions } from "@/components/transactions/transactionsMockData";
+import ExportButton from "@/components/alt/dashboard-components/ExportButton";
+import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
+import { LuWallet } from "react-icons/lu";
 
-function ButtonGroupContainer() {
+const totalRevenue = formatCurrency(transactions.reduce((acc, tx) => acc + tx.fee, 0))
+const processedAgents = rawAgents.map(agent => {
+  const agentRevenue = transactions.filter(tx => tx.agent == `${agent.firstName} ${agent.lastName}`).reduce((acc, tx) => acc + tx.fee, 0)
+  return {...agent, revenue: agentRevenue}
+})
+
+const topAgent = processedAgents.sort(function(a,b){return b.revenue - a.revenue})[0]
+
+// Function to filter transactions by date period
+function filterTransactionsByPeriod(transactions, period) {
+  const now = new Date();
+  let startDate = new Date();
+
+  switch (period) {
+    case '24hours':
+      startDate.setHours(now.getHours() - 24);
+      break;
+    case '7days':
+      startDate.setDate(now.getDate() - 7);
+      break;
+    case '30days':
+      startDate.setDate(now.getDate() - 30);
+      break;
+    case '12months':
+      startDate.setFullYear(now.getFullYear() - 1);
+      break;
+    default:
+      return transactions;
+  }
+
+  return transactions.filter(transaction => {
+    const transactionDate = new Date(transaction.dateTime);
+    return transactionDate >= startDate && transactionDate <= now;
+  });
+}
+
+function ButtonGroupContainer({onFilterChange}) {
   return (
     <Box
       width={{ base: "108px", md: "200px", xl: "344px" }}
-      bg={"gray.200"}
+      
       height={{ base: "40px", md: "40px" }}
       rounded={"xl"}
-    ></Box>
+    >
+      <TransDashFilterbutton onFilterChange={onFilterChange}/>
+    </Box>
   );
 }
 
@@ -32,10 +77,9 @@ function ExportButtonContainer() {
   return (
     <Box
       width={{ base: "40px", md: "140px" }}
-      bg={"gray.200"}
       height={{ base: "40px", md: "40px" }}
       rounded={"xl"}
-    ></Box>
+    ><ExportButton /></Box>
   );
 }
 
@@ -66,16 +110,17 @@ function RevenueCardContainer() {
       height={{ base: "230px", sm: '284px', xl: "170px" }}
       rounded={"xl"}
     >
-      <RevenueCard />
+      <RevenueCard amount={totalRevenue} />
     </Box>
   );
 }
 
 function TopAgentContainer() {
   const topAgentDetails = {
-    userFullName: "Biolaluwatito Adubi",
-    amount: "353560.03",
-    clients: 18
+    userFullName: `${topAgent.firstName} ${topAgent.lastName}`,
+    userImageURL: topAgent.imageURL,
+    amount: formatCurrency(topAgent.revenue),
+    clients: rawCustomers.filter(customer => customer.agent == `${topAgent.firstName} ${topAgent.lastName}`).length
   }
 
   return (
@@ -103,15 +148,57 @@ function PlaceHolderTransactionsCard() {
 
 function Dashboard() {
   const [filteredTransactions, setFilteredTransactions] = useState(null);
+  const [activePeriod, setActivePeriod] = useState('');
   useEffect(() => {
     window.scrollTo(0,0)
   },[])
   
-  const CompanySummaries = [
-    ...transactionSummary,
+ // Get filtered transactions based on active period
+ const periodFilteredTransactions = filterTransactionsByPeriod(transactions, activePeriod);
+  
+ 
+ // Calculate summary data based on filtered transactions
+ 
+ const CompanySummaries = () => {
+  const totalAmount = periodFilteredTransactions.reduce((acc, trans) => acc + trans.amount, 0);
+  const successfulAmount = periodFilteredTransactions
+    .filter(trans => trans.status === 'successful')
+    .reduce((acc, trans) => acc + trans.amount, 0);
+  const failedAmount = periodFilteredTransactions
+    .filter(trans => trans.status === 'failed')
+    .reduce((acc, trans) => acc + trans.amount, 0);
+  
+  return [
+    {
+      title: 'Total Transaction',
+      amount: formatCurrency(totalAmount),
+      icon: <LuWallet />,
+      iconColor: { base: "blue.600", _dark: "blue.300" },
+      iconBgColor: { base: "blue.50", _dark: "blue.800" },
+      percent: -30,
+      period: 'month'
+    },
+    {
+      title: 'Successful',
+      amount: formatCurrency(successfulAmount),
+      icon: <LuWallet />,
+      iconColor: { base: "green.600", _dark: "green.300" },
+      iconBgColor: { base: "green.50", _dark: "green.800" },
+      percent: 30,
+      period: 'month'
+    },
+    {
+      title: 'Failed',
+      amount: formatCurrency(failedAmount),
+      icon: <LuWallet />,
+      iconColor: { base: "red.600", _dark: "red.300" },
+      iconBgColor: { base: "red.50", _dark: "red.800" },
+      percent: 10,
+      period: 'month'
+    },
     {
       title: 'Agents',
-      amount: 8,
+      amount: rawAgents.length,
       icon: <IoPeopleOutline />,
       iconColor: {base: 'orange.600', _dark:'orange.300'},
       iconBgColor: {base: 'orange.50', _dark: 'orange.800'},
@@ -120,7 +207,7 @@ function Dashboard() {
     },
     {
       title: 'Customers',
-      amount: 352,
+      amount: [...new Set(periodFilteredTransactions.map(t => t.customer))].length,
       icon: <GrGroup />,
       iconColor: {base: 'yellow.600', _dark:'yellow.300'},
       iconBgColor: {base: 'yellow.50', _dark: 'yellow.800'},
@@ -129,7 +216,7 @@ function Dashboard() {
     },
     {
       title: 'Transaction Count',
-      amount: 7214,
+      amount: periodFilteredTransactions.length,
       icon: <GiSwipeCard />,
       iconColor: {base: 'purple.600', _dark:'purple.300'},
       iconBgColor: {base: 'purple.50', _dark: 'purple.800'},
@@ -137,6 +224,8 @@ function Dashboard() {
       period: 'month'
     },
   ];
+};
+
 
   const handleDateRangeChange = ({ startDate, endDate, transactions }) => {
     if (!startDate && !endDate) {
@@ -147,6 +236,10 @@ function Dashboard() {
       setFilteredTransactions(transactions);
     }
   };
+  const handleFilterChange = (period) => {
+    setActivePeriod(period);
+  };
+
 
   return (
     <Flex 
@@ -163,7 +256,7 @@ function Dashboard() {
         wrap="wrap"
         gap={4}
       >
-        <ButtonGroupContainer />
+        <ButtonGroupContainer onFilterChange={handleFilterChange}/>
         <Flex 
           width={{ base: '100%', sm: 'auto' }} 
           justify={'space-between'}
@@ -179,7 +272,7 @@ function Dashboard() {
         gap={{ base: 3, md: 5 }} 
         justify={'center'}
       >
-        {CompanySummaries.map((item, index) => (
+        {CompanySummaries().map((item, index) => (
           <Card key={index} {...item} />
         ))}
       </Flex>
@@ -191,7 +284,7 @@ function Dashboard() {
         width="100%"
         maxW="100%"
       >
-        <ChartContainer filteredTransactions={filteredTransactions} />
+        <ChartContainer filteredTransactions={periodFilteredTransactions} />
         <Flex 
           direction={{ base: 'column', sm: 'row', xl: 'column' }} 
           gap={5} 

@@ -29,12 +29,14 @@ function GenericTableCard({ items }) {
 
   function handleClick(isHeader, id){
     if(isHeader){return}
-    navigate(`${currentPath}/${id}`)
+    if(currentPath == '/agents' || currentPath == '/customers'){
+      navigate(`${currentPath}/${id}`)
+    }
   }
 
   return (
     <VStack separator={<StackSeparator />}>
-      {items.map((item) => (
+      {items?.map((item) => (
         <Box width={'100%'} onClick={()=>{handleClick(item.isHeader, item.item1)}}><TableCard item={item} /></Box>
       ))}
     </VStack>

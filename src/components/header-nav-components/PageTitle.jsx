@@ -10,7 +10,7 @@ function PageTitle() {
     "Agents",
     "Customers",
     "Terminals",
-    "Dispute",
+    "Disputes",
     "Settings",
   ];
 
