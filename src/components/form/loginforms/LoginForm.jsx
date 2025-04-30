@@ -1,6 +1,5 @@
 // $ This is the first form in the series of Admin Signup logic.
 
-
 import {
   Box,
   Button,
@@ -30,10 +29,8 @@ import { useAuth } from "@/Authentication/AuthProvider";
 import { loginUser } from "@/backend-functions/useractions-api";
 import { useNavigate } from "react-router-dom";
 
-
 const LoginForm = () => {
-
-  const {setAuth} = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
 
   // $ Initialize react-hook-form
@@ -62,17 +59,20 @@ const LoginForm = () => {
     console.log("formData:", data); // debug:
     // reset(); // todo: Reset the form after successfull api call using this function
     const response = await loginUser({
-            "email": "owner1@test.com",
-            "password": "Jonathan1@"
-          });
-          console.log(response)
-          if (response.ok) {
-            setAuth(true)
-          }
-          
-          navigate("/")
-          
-    
+      email: "owner1@test.com",
+      password: "Jonathan1@",
+    });
+    // console.log(response);
+    if (response.ok) {
+      const data = await response.json()
+
+      // Data contains access tokens that should be stored to Local storage and pulled for next login
+
+      console.log(data)
+      setAuth(true);
+    }
+
+    navigate("/");
   };
 
   // $ Form field definitions
@@ -93,13 +93,11 @@ const LoginForm = () => {
     },
   ];
 
-  
-  
   //   const handleLogin = async (e) => {
   //     e.preventDefault();
-  
+
   //     console.log("Hi")
-  
+
   //     const response = await loginUser({
   //       "email": "owner1@test.com",
   //       "password": "Jonathan1@"

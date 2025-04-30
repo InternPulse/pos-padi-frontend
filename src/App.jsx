@@ -76,7 +76,7 @@ function App() {
             </Route>
           </Route>
           {/* public routes */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<LandingPage />} />
           <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
           <Route
             path="/forgot-password"
