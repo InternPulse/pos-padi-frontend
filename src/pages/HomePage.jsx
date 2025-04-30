@@ -9,7 +9,12 @@ import logoImage from "../../src/assets/logo.svg";
 // import Forgot from "@/components/form/Forgot";
 import CompleteSignUp from "@/components/form/CompleteSignUp";
 
+
+
 export default function HomePage() {
+
+ 
+
   return (
     <Box maxW="100%" p={0}>
       <Flex direction={{ base: "column", md: "row" }} minH="100vh">

@@ -1,4 +1,6 @@
 // $ This is the first form in the series of Admin Signup logic.
+
+
 import {
   Box,
   Button,
@@ -24,8 +26,16 @@ import FormHeader from "../FormHeader";
 import { loginSchema } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/Authentication/AuthProvider";
+import { loginUser } from "@/backend-functions/useractions-api";
+import { useNavigate } from "react-router-dom";
+
 
 const LoginForm = () => {
+
+  const {setAuth} = useAuth();
+  const navigate = useNavigate();
+
   // $ Initialize react-hook-form
   const {
     register,
@@ -35,13 +45,13 @@ const LoginForm = () => {
   } = useForm({
     defaultValues: {
       email: "",
-      password: "",
+      loginPassword: "",
     },
     resolver: zodResolver(loginSchema),
   });
 
   // $ Handle form submission
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // todo: api call POST request
 
     toaster.create({
@@ -50,7 +60,19 @@ const LoginForm = () => {
     });
 
     console.log("formData:", data); // debug:
-    reset(); // todo: Reset the form after successfull api call using this function
+    // reset(); // todo: Reset the form after successfull api call using this function
+    const response = await loginUser({
+            "email": "owner1@test.com",
+            "password": "Jonathan1@"
+          });
+          console.log(response)
+          if (response.ok) {
+            setAuth(true)
+          }
+          
+          navigate("/")
+          
+    
   };
 
   // $ Form field definitions
@@ -70,6 +92,23 @@ const LoginForm = () => {
       icon: MdLockOutline,
     },
   ];
+
+  
+  
+  //   const handleLogin = async (e) => {
+  //     e.preventDefault();
+  
+  //     console.log("Hi")
+  
+  //     const response = await loginUser({
+  //       "email": "owner1@test.com",
+  //       "password": "Jonathan1@"
+  //     });
+  //     console.log(response)
+  //     if (response.ok) {
+  //       setAuth(true)
+  //     }
+  //   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

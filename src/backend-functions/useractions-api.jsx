@@ -1,4 +1,4 @@
-
+import AuthContext from "@/Authentication/AuthProvider";
 
 const token = import.meta.env.VITE_BEARER_TOKEN
 
@@ -48,16 +48,14 @@ export async function loginUser(userData) {
 
   try {
     const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/login/", requestOptions);
-
-    // console.log(response)
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const newUser = await response.json();
-    console.log("Login successful:", newUser);
-    return newUser;
+    // const newUser = await response.json();
+    // console.log("Login successful:", newUser);
+    return response;
   } catch (error) {
     console.error("Error logging in", error);
     throw error;
