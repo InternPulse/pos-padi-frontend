@@ -3,10 +3,10 @@
 import { Box, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import podImage from "../../src/assets/POD.png";
 import logoImage from "../../src/assets/logo.svg";
-import AdminSignUp from "@/components/form/AdminSignUp";
-import BizInfoForm from "@/components/form/BizInfoForm";
-import Login from "@/components/form/Login";
-import Forgot from "@/components/form/Forgot";
+// import AdminSignUp from "@/components/form/AdminSignUp";
+// import BizInfoForm from "@/components/form/BizInfoForm";
+// import Login from "@/components/form/Login";
+// import Forgot from "@/components/form/Forgot";
 import CompleteSignUp from "@/components/form/CompleteSignUp";
 
 

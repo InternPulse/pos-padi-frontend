@@ -5,8 +5,7 @@ import { transactions } from "@/components/transactions/transactionsMockData";
 import Card from "../dashboard-components/Card";
 import { LuWallet } from "react-icons/lu";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -20,7 +19,9 @@ export function formatCurrency(num) {
 export const transactionSummary = [
   {
     title: "Total Transaction",
-    amount: formatCurrency(536000),
+    amount: formatCurrency(transactions.reduce((acc, trans) => {
+      return acc + trans.amount
+    },0)),
     icon: <LuWallet />,
     iconColor: { base: "blue.600", _dark: "blue.300" },
     iconBgColor: { base: "blue.50", _dark: "blue.800" },
@@ -29,7 +30,9 @@ export const transactionSummary = [
   },
   {
     title: "Successful",
-    amount: formatCurrency(132394.05),
+    amount: formatCurrency(transactions.filter(trans => trans.status == 'successful').reduce((acc, trans) => {
+      return acc + trans.amount
+    },0)),
     icon: <LuWallet />,
     iconColor: { base: "green.600", _dark: "green.300" },
     iconBgColor: { base: "green.50", _dark: "green.800" },
@@ -38,7 +41,9 @@ export const transactionSummary = [
   },
   {
     title: "Failed",
-    amount: formatCurrency(357304.26),
+    amount: formatCurrency(transactions.filter(trans => trans.status == 'failed').reduce((acc, trans) => {
+      return acc + trans.amount
+    },0)),
     icon: <LuWallet />,
     iconColor: { base: "red.600", _dark: "red.300" },
     iconBgColor: { base: "red.50", _dark: "red.800" },

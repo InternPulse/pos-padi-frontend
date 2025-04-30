@@ -22,7 +22,7 @@ function Navigation({ userRole }) {
     "Agents",
     "Customers",
     "Terminals",
-    "Dispute",
+    "Disputes",
     "Settings",
   ];
 
