@@ -16,8 +16,28 @@ import {
 import { MdLockOutline } from "react-icons/md";
 
 import { PasswordInput } from "@/components/ui/password-input";
+import { loginUser } from "@/backend-functions/useractions-api";
+import { useAuth } from "@/Authentication/AuthProvider";
 
 const CompleteSignUp = () => {
+
+  const {setAuth} = useAuth();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    // console.log("Hi")
+
+    const response = await loginUser({
+      "email": "owner1@test.com",
+      "password": "Jonathan1@"
+    });
+    console.log(response)
+    if (response.ok) {
+      setAuth(true)
+    }
+  }
+
   return (
     <Box
       w={{ base: "100%", md: "50%" }}
@@ -57,7 +77,7 @@ const CompleteSignUp = () => {
               </InputGroup>
             </Stack>
 
-            <Button mt={6} w="full" colorPalette="green" size="lg">
+            <Button mt={6} w="full" colorPalette="green" size="lg" onClick={handleLogin}>
               Continue
             </Button>
 
