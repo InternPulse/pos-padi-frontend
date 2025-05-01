@@ -1,5 +1,9 @@
 // $ This is the second form in the series of Admin Signup logic. The form is used to confirm the email address of the user trying to signup.
 
+// $ React Hooks
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 // $ Chakra Components
 import { PinInput, Flex, Fieldset, Box, Button, Field } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
@@ -14,11 +18,12 @@ import FormHeader from "../FormHeader";
 import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
-import { useState } from "react";
 
 export const PinInputForm = () => {
   // $ Number of Pin Boxes
   const numberOfInputs = 6;
+
+  const navigate = useNavigate();
 
   const { totalSteps } = useMultiFormHook();
 
@@ -53,7 +58,9 @@ export const PinInputForm = () => {
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
       setCurrentStepIndex(currentStepIndex + 1);
       console.log(formData);
-      alert("Signup Complete:", formData);
+
+      // $ redirect to login page/dashboard with token.
+      navigate("/login");
 
       // $ Success toast
       toaster.create({
@@ -61,7 +68,7 @@ export const PinInputForm = () => {
         type: "success",
       });
 
-      // $ redirect to login page/dashboard with token.
+      //todo: call api with email and OTP to register email.
     } else {
       console.log("Form validation failed");
     }

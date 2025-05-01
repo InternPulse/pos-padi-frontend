@@ -75,8 +75,8 @@ const AdminSignUpForm = () => {
     setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
     setCurrentStepIndex(currentStepIndex + 1);
 
-    console.log("formData:", formData); // debug:
-    console.log("form submitted:", formStepsSubmitted); // debug:
+    // console.log("formData:", formData); // debug:
+    // console.log("form submitted:", formStepsSubmitted); // debug:
   };
 
   // $ Form field definitions to rendeer the input fields
@@ -130,8 +130,9 @@ const AdminSignUpForm = () => {
     }));
   }, [isValid, currentStepIndex, setFormStepsValidity]);
 
+  // console.log("formData:", formData); //log:
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%" }}>
       <Fieldset.Root
         width="100%"
         rounded={{ base: "0", md: "md" }}
@@ -140,7 +141,7 @@ const AdminSignUpForm = () => {
         px={{ base: "1rem", md: 12 }}
         display="flex"
         alignItems="center"
-        height="auto"
+        height="100%"
       >
         <Box width="100%" mx="auto">
           <FormHeader
@@ -161,7 +162,7 @@ const AdminSignUpForm = () => {
                   value={input.name || ""}
                   icon={input.icon}
                   checkPasswordRequirements={
-                    input.type === "password" ? getPasswordRequirements : null
+                    input.name === "password" ? getPasswordRequirements : null
                   }
                   registerField={register}
                 />

@@ -1,5 +1,5 @@
 // $ Custom Component to render form fields by passing in the props for each field
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Field, Input, InputGroup, Flex, Badge } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { PasswordInput } from "@/components/ui/password-input";
@@ -12,7 +12,6 @@ const FormInputField = ({
   disabled,
   type,
   icon: Icon,
-  value,
   registerField,
   checkPasswordRequirements = null,
 }) => {
@@ -21,35 +20,25 @@ const FormInputField = ({
     minLength: false,
     hasNumber: false,
     hasSpecial: false,
-    hasUppercase: false,
   });
 
-  // $ Check password requirements when the value changes
-  useEffect(() => {
-    if (
-      type === "password" &&
-      typeof checkPasswordRequirements === "function" &&
-      value
-    ) {
-      const requirements = checkPasswordRequirements(value);
-      console.log(requirements);
-      setPasswordRequirements((prev) => {
-        if (
-          prev.minLength !== requirements.minLength ||
-          prev.hasNumber !== requirements.hasNumber ||
-          prev.hasSpecial !== requirements.hasSpecial ||
-          prev.hasUppercase !== requirements.hasUppercase
-        ) {
-          return requirements;
-        }
-        return prev; // No change, don't update
-      });
-    }
-  }, [value, type, checkPasswordRequirements]);
-
-  // Get the register props only if registerField is a function
+  // $ Get the register props only if registerField is a function
   const registerProps =
-    typeof registerField === "function" ? registerField(name) : {};
+    typeof registerField === "function"
+      ? registerField(name, {
+          onChange: (e) => {
+            // $ For password field, update requirements on change
+            if (
+              type === "password" &&
+              typeof checkPasswordRequirements === "function"
+            ) {
+              const newRequirements = checkPasswordRequirements(e.target.value);
+              setPasswordRequirements(newRequirements);
+            }
+          },
+        })
+      : {};
+
   return (
     <Field.Root invalid={!!error}>
       <Field.Label
@@ -91,13 +80,13 @@ const FormInputField = ({
           fontSize={{ base: "0.5rem" }}
         >
           <Badge
-            p="5px 10px 5px 10px"
+            p="2px 5px 2px 5px"
             fontSize="inherit"
-            rounded="8px"
-            border={
+            rounded="15px"
+            outline={
               passwordRequirements.minLength
                 ? "1px solid rgba(2, 177, 79, 1)"
-                : "1px solid gray.300"
+                : "gray.300"
             }
             color={
               passwordRequirements.minLength ? "rgba(2, 177, 79, 1)" : "inherit"
@@ -111,10 +100,10 @@ const FormInputField = ({
             Min 8 characters
           </Badge>
           <Badge
-            p="5px 10px 5px 10px"
+            p="2px 5px 2px 5px"
             fontSize="inherit"
-            rounded="8px"
-            border={
+            rounded="15px"
+            outline={
               passwordRequirements.hasNumber
                 ? "1px solid rgba(2, 177, 79, 1)"
                 : "inherit"
@@ -131,10 +120,10 @@ const FormInputField = ({
             1 Number
           </Badge>
           <Badge
-            p="5px 10px 5px 10px"
+            p="2px 5px 2px 5px"
             fontSize="inherit"
-            rounded="8px"
-            border={
+            rounded="15px"
+            outline={
               passwordRequirements.hasSpecial
                 ? "1px solid rgba(2, 177, 79, 1)"
                 : "inherit"
