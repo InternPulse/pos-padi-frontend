@@ -39,10 +39,12 @@ export default function Agents() {
   }, []);
 
   return (
-    <GenericPage
-      pageSummary={agentsSummary}
-      pageTitle={"Agents"}
-      pageTable={agentsList}
-    />
+    <>
+      <GenericPage
+        pageSummary={agentsSummary}
+        pageTitle={"Agents"}
+        pageTable={agentsList}
+      />
+    </>
   );
 }

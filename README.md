@@ -29,7 +29,6 @@ npm start
 - **React.js** – Frontend Framework
 - **Redux Toolkit** – State Management
 - **React Router** – Routing
-- **Axios** – API Requests
 - **MUI** – UI Components
 
 ---
