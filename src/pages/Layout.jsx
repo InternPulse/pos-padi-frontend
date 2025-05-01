@@ -11,15 +11,24 @@ import NotificationsDrawer from "@/components/header-nav-components/Notification
 import UserAvatar from "@/components/header-nav-components/UserAvatar";
 import UserAvatarBrief from "@/components/header-nav-components/UserAvatarBrief";
 import { LuLogOut } from "react-icons/lu";
+import { useAuth } from "@/Authentication/AuthProvider";
 
 function Layout() {
+
+  const {setAuth} = useAuth();
 
   const user = {
     id: "1",
     name: "John Mason",
     email: "john.mason@example.com",
     avatar: "https://i.pravatar.cc/300?u=iu",
-    role: 'admin'
+    role: 'agent'
+  }
+
+  const handleLogout = (e) => {
+    // console.log("Hi")
+    e.preventDefault()
+    setAuth(false)
   }
 
   return (
@@ -95,7 +104,7 @@ function Layout() {
 
               <UserAvatarBrief  user={user} />
               </Box>
-              <IconButton display={{base: 'none', lg: 'flex'}} variant={'ghost'}><LuLogOut /></IconButton>
+              <IconButton display={{base: 'none', lg: 'flex'}} variant={'ghost'} onClick={handleLogout}><LuLogOut /></IconButton>
             </Flex>
             <Box display={{ base: "block", lg: "none" }}>
               {/* <MenuButton /> */}

@@ -17,7 +17,11 @@ import { MdLockOutline } from "react-icons/md";
 
 import { PasswordInput } from "@/components/ui/password-input";
 
+
 const CompleteSignUp = () => {
+
+  
+
   return (
     <Box
       w={{ base: "100%", md: "50%" }}

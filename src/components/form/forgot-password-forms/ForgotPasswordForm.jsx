@@ -1,41 +1,28 @@
+// $ This is the first form in the series of Admin Signup logic.
+import { Box, Button, Flex, Fieldset } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
+
 import { useEffect } from "react";
 
-// $ Chakra Components
-import { Box, Button, Flex, Fieldset } from "@chakra-ui/react";
+// $ Icons
+import { LuMail } from "react-icons/lu";
 
-// $ Custom form input, header and drop down
+// $ Custom form input and header
 import FormInputField from "@/components/customComponents/FormInputField";
 import FormHeader from "../FormHeader";
-import StateDropDown from "../inputs/StateDropDown";
 
 // $ Global Context
 import { useGlobalContext } from "@/context/useGlobalContext";
 
 // $ Form Schema and State Management
-import { bizInfoSchema } from "../schemas";
+import { forgotPasswordSchema } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// $ Form Input Field Data
-const formFields = [
-  {
-    name: "businessName",
-    label: "Business Name",
-    placeholder: "Enter Business Name",
-    error: "Please enter a business name",
-  },
-  {
-    name: "address",
-    label: "Address",
-    placeholder: "Enter your business location",
-    error: "Please enter your business name",
-  },
-];
-
-// $ util function to manage form logic /src/utils/useMultiFormHook.js
+// $ Custom hooks & Functions
 import useMultiFormHook from "@/utils/useMultiFormHook";
 
-const AdminSignUpBizInfoForm = () => {
+const ForgotPasswordForm = () => {
   const {
     setFormData,
     formData,
@@ -47,29 +34,26 @@ const AdminSignUpBizInfoForm = () => {
     setFormStepsValidity,
   } = useGlobalContext();
 
-  const { totalSteps } = useMultiFormHook();
+  const { totalSteps } = useMultiFormHook("forgotPassword");
 
   // $ Initialize react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
-      businessName: formData?.businessName || "",
-      address: formData?.address || "",
-      state: formData?.state || "",
-      lga: formData?.lga || "",
-      axis: formData?.axis || "",
+      email: formData?.email || "",
     },
-    resolver: zodResolver(bizInfoSchema),
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
   // $ Handle form submission
   const onSubmit = (data) => {
-    // $ Update global form data
+    // todo: api call POST request use data directly, will contain only email in this step
+
+    // $ Update global form data.
     setFormData((prevData) => ({
       ...prevData,
       ...data,
@@ -81,14 +65,30 @@ const AdminSignUpBizInfoForm = () => {
       [currentStepIndex]: true,
     }));
 
+    toaster.create({
+      title: "Verification code has been sent to your email ",
+      type: "success",
+    });
+
     // $ Update progress and move to next step
     const stepProgress = 100 / totalSteps;
     setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
     setCurrentStepIndex(currentStepIndex + 1);
 
-    console.log("formData:", formData); // debug:
-    console.log("form submitted:", formStepsSubmitted); // debug:
+    // console.log("formData:", data); // debug:
+    // console.log("form submitted:", formStepsSubmitted); // debug:
   };
+
+  // Form field definitions
+  const formFields = [
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+      placeholder: "Enter email",
+      icon: LuMail,
+    },
+  ];
 
   // $ Update global form validity state when validation state changes
   useEffect(() => {
@@ -99,36 +99,26 @@ const AdminSignUpBizInfoForm = () => {
   }, [isValid, currentStepIndex, setFormStepsValidity]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%" }}>
       <Fieldset.Root
         width="100%"
         height="100%"
         rounded={{ base: "0", md: "md" }}
         bg="white"
         py={{ base: 2, md: "2.5rem" }}
-        px={{ base: 8, md: 12 }}
+        px={{ base: "1rem", md: 12 }}
         display="flex"
         alignItems="center"
-        // border="1px dashed blue" //debug:
+        // border="1px solid red" //debug:
       >
-        <Box
-          width="100%"
-          mx="auto"
-          //   border="1px solid green" //debug:
-        >
+        <Box width="100%" mx="auto">
           <FormHeader
-            title="Business Information"
-            subHeading=" Input your business details"
+            title="Forgot Password"
+            subHeading="Input your registered email"
           />
-          <Fieldset.Content spacing={4} align="stretch">
-            <Flex
-              direction="column"
-              gap={
-                Object.keys(errors).length > 0
-                  ? { base: 1, md: 2 }
-                  : { base: 2, md: 4 }
-              }
-            >
+
+          <Fieldset.Content>
+            <Flex direction="column" gap={4} mt={{ lg: "2.5rem" }}>
               {formFields.map((input) => (
                 <FormInputField
                   key={input.name}
@@ -137,19 +127,33 @@ const AdminSignUpBizInfoForm = () => {
                   label={input.label}
                   placeholder={input.placeholder}
                   error={errors[input.name]}
-                  value={watch(input.name) || ""}
+                  value={input.name || ""}
+                  icon={input.icon}
                   registerField={register}
                 />
               ))}
-              <StateDropDown width="100%" />
             </Flex>
           </Fieldset.Content>
+
           <Button
             type="submit"
+            disabled={formStepsSubmitted[currentStepIndex]}
             mt={6}
             w="full"
-            bgColor={isValid ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"}
+            bgColor={
+              isValid && !formStepsSubmitted[currentStepIndex]
+                ? "rgba(2, 177, 79, 1)"
+                : "rgba(2, 177, 79, 0.5)"
+            }
             size="lg"
+            _hover={{
+              bgColor: isValid
+                ? "rgba(2, 177, 79, 0.9)"
+                : "rgba(2, 177, 79, 0.5)",
+              cursor: formStepsSubmitted[currentStepIndex]
+                ? "not-allowed"
+                : "pointer",
+            }}
           >
             Continue
           </Button>
@@ -159,4 +163,4 @@ const AdminSignUpBizInfoForm = () => {
   );
 };
 
-export default AdminSignUpBizInfoForm;
+export default ForgotPasswordForm;
