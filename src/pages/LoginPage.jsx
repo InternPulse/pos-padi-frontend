@@ -1,10 +1,11 @@
-import { Grid, GridItem, Flex } from "@chakra-ui/react";
+import { Grid, GridItem, Flex, Box } from "@chakra-ui/react";
 import LoginForm from "@/components/form/loginforms/LoginForm";
 import FormImage from "@/components/form/FormImage";
+import Logo from "@/components/header-nav-components/Logo";
 
 export function ContainCentral({ children }) {
   return (
-    <Flex width={"100%"} height={"100%"} justify={"center"} align={"center"}>
+    <Flex width={"100%"} height={"100%"} justify={"center"} align={"start"}>
       {children}
     </Flex>
   );
@@ -43,7 +44,7 @@ function LoginPage() {
         mx={{ base: "auto" }}
         px={{ base: "0", md: "0px" }}
         height={{ base: "auto" }}
-        // border="1px dotted green" // debug:
+        //border="1px dotted green" // debug:
       >
         <ContainCentral>
           <LoginForm />

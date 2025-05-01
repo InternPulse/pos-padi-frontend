@@ -32,7 +32,7 @@ function ForgotPasswordPage() {
         maxHeight={{ base: "auto" }}
       >
         <ContainCentral>
-          <Box w={"70%"} maxW={"500px"}>
+          <Box w={{base: '100%' , md: "100%"}} maxW={"500px"}>
             <ForgotPasswordFormManager />
           </Box>
         </ContainCentral>
