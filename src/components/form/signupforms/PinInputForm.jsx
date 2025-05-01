@@ -18,9 +18,7 @@ import FormHeader from "../FormHeader";
 import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
-import { useState } from "react";
 import { loginUser, verifyEmail } from "@/backend-functions/useractions-api";
-import { useNavigate } from "react-router-dom";
 
 
 export const PinInputForm = () => {
@@ -28,7 +26,6 @@ export const PinInputForm = () => {
   // $ Number of Pin Boxes
   const numberOfInputs = 6;
 
-  const navigate = useNavigate();
 
   const { totalSteps } = useMultiFormHook();
 
