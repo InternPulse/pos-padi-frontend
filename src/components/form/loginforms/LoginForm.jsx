@@ -1,6 +1,5 @@
 // $ This is the first form in the series of Admin Signup logic.
 
-
 import {
   Box,
   Button,
@@ -30,10 +29,8 @@ import { useAuth } from "@/Authentication/AuthProvider";
 import { loginUser } from "@/backend-functions/useractions-api";
 import { useNavigate } from "react-router-dom";
 
-
 const LoginForm = () => {
-
-  const {setAuth} = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
 
   // $ Initialize react-hook-form
@@ -95,13 +92,11 @@ const LoginForm = () => {
     },
   ];
 
-  
-  
   //   const handleLogin = async (e) => {
   //     e.preventDefault();
-  
+
   //     console.log("Hi")
-  
+
   //     const response = await loginUser({
   //       "email": "owner1@test.com",
   //       "password": "Jonathan1@"

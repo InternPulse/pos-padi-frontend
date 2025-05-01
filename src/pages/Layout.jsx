@@ -23,7 +23,7 @@ function Layout() {
     name: "John Mason",
     email: "john.mason@example.com",
     avatar: "https://i.pravatar.cc/300?u=iu",
-    role: 'admin'
+    role: 'agent'
   }
 
   const handleLogout = (e) => {

@@ -5,6 +5,7 @@ import {
   forgotPasswordSchema,
   newPasswordSchema,
 } from "./forgotPasswordSchema";
+import { agentSignUpSchema } from "./agentSignUpSchema";
 
 export {
   adminSchema,
@@ -12,4 +13,5 @@ export {
   loginSchema,
   forgotPasswordSchema,
   newPasswordSchema,
+  agentSignUpSchema,
 };

@@ -1,14 +1,9 @@
 import AdminSignUpFormManager from "@/components/form/signupforms/AdminSignUpFormManager";
+import FormImage from "@/components/form/FormImage";
+
 import { useGlobalContext } from "@/context/useGlobalContext";
-import {
-  Grid,
-  GridItem,
-  Image,
-  Box,
-  Stack,
-  Progress,
-  Flex,
-} from "@chakra-ui/react";
+
+import { Grid, GridItem, Box, Stack, Progress, Flex } from "@chakra-ui/react";
 
 function AdminSignUpPage() {
   const { progressStatus } = useGlobalContext();
@@ -26,40 +21,33 @@ function AdminSignUpPage() {
 
   return (
     <Grid
-      templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-      height="auto"
+      templateColumns={{
+        base: "1fr",
+        md: "minmax(30rem, 43.75rem) minmax(25rem, 31.25rem)",
+      }}
+      minHeight="100vh"
       bgColor={{ base: "white", md: "rgba(0, 0, 0, 0.02)" }}
       width="100%"
-      // bgColor="rgba(0, 0, 0, 0.2)"
       // border="2px dashed red" // debug:
     >
       <GridItem
-        height="auto"
-        // maxHeight={{ md: "auto", lg: "100vh" }}
+        height="100%"
+        maxHeight={{ md: "auto", lg: "100vh" }}
         py="1.25rem"
         px={{ md: "1rem", lg: "1.875rem" }}
         display={{ base: "none", md: "block" }}
         // border="1px dashed blue" // debug:
       >
-        <Box height="100%">
-          <Image
-            src="/src/assets/POD.png"
-            alt="Sign Up Visual"
-            height="100%"
-            width="100%"
-            fit="cover"
-            rounded="20px"
-          />
-        </Box>
+        <FormImage />
       </GridItem>
       <GridItem
         py="2.5rem"
         width="100%"
         mx={{ base: "auto", md: "0" }}
         px={{ base: "0", md: "0px" }}
-        maxHeight={{ base: "auto" }}
+        height={{ base: "auto" }}
         maxWidth={"500px"}
-        // border="1px dotted blue" // debug:
+        // border="1px dashed teal" // debug:
       >
         <Flex
           gap="1.5rem"
