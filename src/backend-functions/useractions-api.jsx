@@ -1,6 +1,8 @@
 import AuthContext from "@/Authentication/AuthProvider";
 
-const token = import.meta.env.VITE_BEARER_TOKEN
+const token = localStorage.getItem('POSPadiaccess')
+const tokenRefresh = localStorage.getItem('POSPadirefresh')
+
 
 // Authentication
 
@@ -53,7 +55,9 @@ export async function loginUser(userData) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    // const newUser = await response.json();
+    const data = await response.json();
+    localStorage.setItem('POSPadiaccess', data.access)
+    localStorage.setItem('POSPadirefresh', data.refresh)
     // console.log("Login successful:", newUser);
     return response;
   } catch (error) {
@@ -62,14 +66,15 @@ export async function loginUser(userData) {
   }
 }
 
-export async function logoutUser(refreshToken) {
+export async function logoutUser() {
+  
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   
   const requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: JSON.stringify(refreshToken),
+    body: JSON.stringify(tokenRefresh),
     redirect: 'follow'
   };
 
@@ -77,6 +82,9 @@ export async function logoutUser(refreshToken) {
     const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/logout/", requestOptions);
 
     // console.log(response)
+
+    localStorage.removeItem("POSPadiaccess")
+    localStorage.removeItem("POSPadirefresh")
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -199,14 +207,16 @@ export async function verifyEmail(emailandOTP) {
   try {
     const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/verify/", requestOptions);
 
-    // console.log(response)
+    // const res = await response.json()
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
-    const res = await response.json();
+    console.log(response)
+    return response
+    // const res = await response.json();
     // console.log("Owner created:", result);
+    // console.log(response)
     return res;
   } catch (error) {
     console.error("Error:", error);
