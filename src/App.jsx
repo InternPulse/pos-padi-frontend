@@ -15,6 +15,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AgentCompleteSignUpPage from "./pages/AgentCompleteSignUp";
+import RequireAuth from "./Authentication/RequireAuth";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 

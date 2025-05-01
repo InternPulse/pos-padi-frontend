@@ -186,7 +186,7 @@ const LoginForm = () => {
           </Button>
           <Flex justify="center" mt={{ base: 4, lg: "1.875rem" }}>
             <Text color="gray.600" mr={1} fontSize={{ base: "0.875rem" }}>
-              Do you have an account?
+              Don't have an account?
             </Text>
             <Link
               color="rgba(2, 177, 79, 1)"
