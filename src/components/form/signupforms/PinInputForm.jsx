@@ -15,6 +15,7 @@ import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
 import { useState } from "react";
+import { verifyEmail } from "@/backend-functions/useractions-api";
 
 export const PinInputForm = () => {
   // $ Number of Pin Boxes
@@ -54,6 +55,14 @@ export const PinInputForm = () => {
       setCurrentStepIndex(currentStepIndex + 1);
       console.log(formData);
       alert("Signup Complete:", formData);
+      // reshaping formData
+      const serverData = {
+        email: formData.email,
+        otp: String(pinData.OTP).replace(/,/g, "")
+      }
+      console.log(serverData)
+      verifyEmail(serverData)
+
 
       // $ Success toast
       toaster.create({

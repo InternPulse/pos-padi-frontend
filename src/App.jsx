@@ -32,31 +32,7 @@ function App() {
 
 
   return (
-    // <BrowserRouter>
-    //   {isUserAuthenticated ? (
-    //     <Routes>
-    //       <Route path="/" element={<Layout />}>
-    //         <Route index element={<Dashboard />} />
-    //         <Route path="settings" element={<Settings />} />
-    //         <Route path="transactions" element={<AltTransactions />} />
-    //         <Route path="dashboard" element={<Dashboard />} />
-    //         <Route path="agents" element={<Agents />} />
-    //         <Route path="agents/:id" element={<AgentDetails />} />
-    //         <Route path="customers" element={<Customers />} />
-    //         <Route path="customers/:id" element={<CustomerDetails />} />
-    //         <Route path="terminals" element={<Terminals />} />
-    //         <Route path="disputes" element={<Disputes />} />
-    //         <Route path="settings" element={<Settings />} />
-    //         {/* <Route path="notifications" element={<NotificationsPage />} /> */}
-    //       </Route>
-    //     </Routes>
-    //   ) : (
-    //     <Routes>
-    //       <Route path="/" element={<LandingPage />}></Route>
-    //       <Route path="/auth" element={<HomePage />}></Route>
-    //     </Routes>
-    //   )}
-    // </BrowserRouter>
+
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<RequireAuth />}>

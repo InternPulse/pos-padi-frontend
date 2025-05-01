@@ -61,11 +61,13 @@ const LoginForm = () => {
 
     console.log("formData:", data); // debug:
     // reset(); // todo: Reset the form after successfull api call using this function
+    console.log(data)
+    //reshaping the login keys
     const response = await loginUser({
-            "email": "owner1@test.com",
-            "password": "Jonathan1@"
+            "email": data.email,
+            "password": data.loginPassword,
           });
-          console.log(response)
+          // console.log(response)
           if (response.ok) {
             setAuth(true)
           }

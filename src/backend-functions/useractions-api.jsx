@@ -1,6 +1,6 @@
 import AuthContext from "@/Authentication/AuthProvider";
 
-const token = import.meta.env.VITE_BEARER_TOKEN
+const token = localStorage.getItem('access')
 
 // Authentication
 
@@ -53,7 +53,9 @@ export async function loginUser(userData) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    // const newUser = await response.json();
+    const data = await response.json();
+    localStorage.setItem('access', data.access)
+    localStorage.setItem('refresh', data.refresh)
     // console.log("Login successful:", newUser);
     return response;
   } catch (error) {
@@ -207,6 +209,7 @@ export async function verifyEmail(emailandOTP) {
 
     const res = await response.json();
     // console.log("Owner created:", result);
+    console.log(res)
     return res;
   } catch (error) {
     console.error("Error:", error);
