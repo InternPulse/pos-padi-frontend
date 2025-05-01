@@ -1,5 +1,9 @@
 // $ This is the second form in the series of Admin Signup logic. The form is used to confirm the email address of the user trying to signup.
 
+// $ React Hooks
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 // $ Chakra Components
 import { PinInput, Flex, Fieldset, Box, Button, Field } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
@@ -14,11 +18,14 @@ import FormHeader from "../FormHeader";
 import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
-import { useState } from "react";
+import { loginUser, verifyEmail } from "@/backend-functions/useractions-api";
+
 
 export const PinInputForm = () => {
+  const navigate = useNavigate();
   // $ Number of Pin Boxes
   const numberOfInputs = 6;
+
 
   const { totalSteps } = useMultiFormHook();
 
@@ -38,7 +45,7 @@ export const PinInputForm = () => {
     useGlobalContext();
 
   // $ Form Submit Function handling the form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log("pin value", value); // debug: console.log
 
@@ -53,15 +60,34 @@ export const PinInputForm = () => {
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
       setCurrentStepIndex(currentStepIndex + 1);
       console.log(formData);
+
       alert("Signup Complete:", formData);
+      // reshaping formData
+      const serverData = {
+        email: formData.email,
+        otp: String(pinData.OTP).replace(/,/g, "")
+      }
+      console.log(serverData)
+      // verifyEmail(serverData)
+      const status = await verifyEmail(serverData)
+      
+      if (status.ok) {
+        const {email, password} = formData
+        const loginResponse = await loginUser({email, password})
+        if (loginResponse.ok) {
+              navigate('/')
+            }
+      } else {
+        console.log("Something went wrong with login after sign-up")
+      }
 
       // $ Success toast
       toaster.create({
-        title: "Account created succsfully",
+        title: "Account created successfully",
         type: "success",
       });
 
-      // $ redirect to login page/dashboard with token.
+      //todo: call api with email and OTP to register email.
     } else {
       console.log("Form validation failed");
     }

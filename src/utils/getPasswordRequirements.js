@@ -1,4 +1,5 @@
 export const getPasswordRequirements = (value) => {
+  // console.log("password value:", value); //debug:
   if (!value)
     return {
       minLength: false,
@@ -10,6 +11,5 @@ export const getPasswordRequirements = (value) => {
     minLength: value.length >= 8,
     hasNumber: /\d/.test(value),
     hasSpecial: /[!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?]/.test(value),
-    hasUppercase: /[A-Z]/.test(value),
   };
 };

@@ -54,7 +54,7 @@ function FormHeader({ title, subHeading }) {
           {subHeading}
         </Fieldset.HelperText>
       </Flex>
-      {location === "/login" ? null : (
+      {["/login", "/agent-complete-signup"].includes(location) ? null : (
         <Box
           position="absolute"
           top="0"
