@@ -14,90 +14,51 @@ import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import CreateNotification from "./components/CreateNotification"; // <--- ADDED THIS
-import RequireAuth from "./Authentication/RequireAuth";
+import AgentCompleteSignUpPage from "./pages/AgentCompleteSignUp";
+
+// import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
-  const isUserAuthenticated = false; // Update this as needed based on auth logic
+  // const isUserAuthenticated = true; // This is a placeholder for now and eventually will be derived from user authentication flow.
+
+  // loginUser({
+  //   "email": "owner1@test.com",
+  //   "password": "Jonathan1@"
+  // })
+
+  // getUserSummary()
 
   return (
+
     <BrowserRouter>
       <Routes>
-        {isUserAuthenticated ? (
-          <Route
-            path="/"
-            element={<RequireAuth />}>
-            <Route element={<Layout />}>
-              <Route
-                index
-                element={<Dashboard />}
-              />
-              <Route
-                path="settings"
-                element={<Settings />}
-              />
-              <Route
-                path="transactions"
-                element={<AltTransactions />}
-              />
-              <Route
-                path="dashboard"
-                element={<Dashboard />}
-              />
-              <Route
-                path="agents"
-                element={<Agents />}
-              />
-              <Route
-                path="agents/:id"
-                element={<AgentDetails />}
-              />
-              <Route
-                path="customers"
-                element={<Customers />}
-              />
-              <Route
-                path="customers/:id"
-                element={<CustomerDetails />}
-              />
-              <Route
-                path="terminals"
-                element={<Terminals />}
-              />
-              <Route
-                path="disputes"
-                element={<Disputes />}
-              />
-              <Route
-                path="notifications/create"
-                element={<CreateNotification />}
-              />
-            </Route>
+        <Route path="/" element={<RequireAuth />}>
+          {/* protected routes */}
+          <Route element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="transactions" element={<AltTransactions />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="agents" element={<Agents />} />
+            <Route path="agents/:id" element={<AgentDetails />} />
+            <Route path="customers" element={<Customers />} />
+            <Route path="customers/:id" element={<CustomerDetails />} />
+            <Route path="terminals" element={<Terminals />} />
+            <Route path="disputes" element={<Disputes />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
-        ) : (
-          <>
-            <Route
-              path="/"
-              element={<LandingPage />}
-            />
-            <Route
-              path="/auth"
-              element={<HomePage />}
-            />
-            <Route
-              path="/admin-signup"
-              element={<AdminSignUpPage />}
-            />
-            <Route
-              path="/forgot-password"
-              element={<ForgotPasswordPage />}
-            />
-            <Route
-              path="/login"
-              element={<LoginPage />}
-            />
-          </>
-        )}
+        </Route>
+        {/* public routes */}
+        <Route path="/home" element={<LandingPage />} />
+        <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
+        <Route
+          path="/agent-complete-signup"
+          element={<AgentCompleteSignUpPage />}
+        ></Route>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/auth" element={<HomePage />} />
+
       </Routes>
     </BrowserRouter>
   );

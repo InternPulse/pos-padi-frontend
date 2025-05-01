@@ -19,7 +19,7 @@ function FormImage() {
         justify="space-between"
         h="full"
         position="relative"
-        p={{ base: 8, md: 12 }}
+        p={{ base: 8, md: 6, lg: 12 }}
       >
         <HStack mb={4}>
           <Flex
@@ -33,23 +33,26 @@ function FormImage() {
               <Image src={logoImage} alt="Logo" p={2} objectFit="cover" />
             </Box>
 
-            <Text fontWeight="bold" textStyle="2xl">
+            <Text fontWeight="bold" textStyle="2xl" color="white">
               POS-Padi
             </Text>
           </Flex>
         </HStack>
         <Box
-          px={6}
-          py={12}
+          px={{ base: 2, lg: 6 }}
+          py={{ md: 10, lg: 12 }}
           borderRadius="md"
           bg="rgba(255, 255, 255, 0.2)"
           backdropFilter="blur(10px)"
           color="white"
         >
-          <Heading size="xl" mb={4}>
+          <Heading
+            fontSize={{ base: "1rem", md: "1.2rem", lg: "1.5rem" }}
+            mb={4}
+          >
             Run Your POS Business Smarter with POS-Padi
           </Heading>
-          <Text fontSize="md">
+          <Text fontSize={{ base: "0.875rem", lg: "1.125rem" }}>
             Get full control over your operations — from managing agents and
             tracking transactions to monitoring performance in real time.
           </Text>

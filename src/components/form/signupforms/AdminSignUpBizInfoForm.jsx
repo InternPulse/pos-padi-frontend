@@ -34,6 +34,7 @@ const formFields = [
 
 // $ util function to manage form logic /src/utils/useMultiFormHook.js
 import useMultiFormHook from "@/utils/useMultiFormHook";
+import { registerUser } from "@/backend-functions/useractions-api";
 
 const AdminSignUpBizInfoForm = () => {
   const {
@@ -54,9 +55,8 @@ const AdminSignUpBizInfoForm = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       businessName: formData?.businessName || "",
       address: formData?.address || "",
@@ -87,6 +87,17 @@ const AdminSignUpBizInfoForm = () => {
     setCurrentStepIndex(currentStepIndex + 1);
 
     console.log("formData:", formData); // debug:
+    //TODO - Remind backend guys to either remove nin, we want to know owner 
+    const serverData = {
+      email: formData.email,
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      phone: formData.phone,
+      nin: "12345678901",
+      role: "agent",
+      password: formData.password
+    }
+    registerUser(serverData)
     console.log("form submitted:", formStepsSubmitted); // debug:
   };
 
@@ -137,7 +148,7 @@ const AdminSignUpBizInfoForm = () => {
                   label={input.label}
                   placeholder={input.placeholder}
                   error={errors[input.name]}
-                  value={watch(input.name) || ""}
+                  value={input.name || ""}
                   registerField={register}
                 />
               ))}

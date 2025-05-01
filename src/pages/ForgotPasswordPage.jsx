@@ -1,13 +1,14 @@
 import ForgotPasswordFormManager from "@/components/form/forgot-password-forms/ForgotPasswordFormManager";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Box } from "@chakra-ui/react";
 import FormImage from "@/components/form/FormImage";
+import { ContainCentral } from "./LoginPage";
 
 function ForgotPasswordPage() {
   return (
     <Grid
       templateColumns={{
         base: "1fr",
-        md: "minmax(30rem, 43.75rem) minmax(25rem, 31.25rem)",
+        md: "50% 50%",
       }}
       height="100vh"
       bgColor={{ base: "white", md: "rgba(0, 0, 0, 0.02)" }}
@@ -29,10 +30,12 @@ function ForgotPasswordPage() {
         width="100%"
         mx={{ base: "auto", md: "0" }}
         maxHeight={{ base: "auto" }}
-        maxWidth={"500px"}
-        // border="2px dotted blue" // debug:
       >
-        <ForgotPasswordFormManager />
+        <ContainCentral>
+          <Box w={{base: '100%' , md: "100%"}} maxW={"500px"}>
+            <ForgotPasswordFormManager />
+          </Box>
+        </ContainCentral>
       </GridItem>
     </Grid>
   );

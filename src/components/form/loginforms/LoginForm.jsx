@@ -58,21 +58,20 @@ const LoginForm = () => {
 
     console.log("formData:", data); // debug:
     // reset(); // todo: Reset the form after successfull api call using this function
+    console.log(data)
+    //reshaping the login keys
     const response = await loginUser({
-      email: "owner1@test.com",
-      password: "Jonathan1@",
-    });
-    // console.log(response);
-    if (response.ok) {
-      const data = await response.json()
-
-      // Data contains access tokens that should be stored to Local storage and pulled for next login
-
-      console.log(data)
-      setAuth(true);
-    }
-
-    navigate("/");
+            "email": data.email,
+            "password": data.loginPassword,
+          });
+          // console.log(response)
+          if (response.ok) {
+            setAuth(true)
+          }
+          
+          navigate("/")
+          
+    
   };
 
   // $ Form field definitions
@@ -171,7 +170,7 @@ const LoginForm = () => {
           </Flex>
           <Button
             type="submit"
-            disabled={!isValid || isSubmitting}
+            disabled={ isSubmitting}
             isLoading={isSubmitting}
             mt={{ base: "2rem", lg: "2.5rem" }}
             w="full"
