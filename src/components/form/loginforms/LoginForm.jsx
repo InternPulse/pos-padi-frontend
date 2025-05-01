@@ -64,11 +64,11 @@ const LoginForm = () => {
     });
     // console.log(response);
     if (response.ok) {
-      const data = await response.json()
+      const data = await response.json();
 
       // Data contains access tokens that should be stored to Local storage and pulled for next login
 
-      console.log(data)
+      console.log(data);
       setAuth(true);
     }
 
