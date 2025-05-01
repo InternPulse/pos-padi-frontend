@@ -13,8 +13,6 @@ import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
-import RequireAuth from "./Authentication/RequireAuth";
-import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AgentCompleteSignUpPage from "./pages/AgentCompleteSignUp";
 
@@ -60,6 +58,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/auth" element={<HomePage />} />
+
       </Routes>
     </BrowserRouter>
   );
