@@ -13,118 +13,92 @@ import AgentDetails from "./pages/AgentDetails";
 import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
-import RequireAuth from "./Authentication/RequireAuth";
-import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-
-// import NotificationsPage from "./pages/NotificationsPage";
+import CreateNotification from "./components/CreateNotification"; // <--- ADDED THIS
+import RequireAuth from "./Authentication/RequireAuth";
 
 function App() {
-  const isUserAuthenticated = false; // This is a placeholder for now and eventually will be derived from user authentication flow.
+  const isUserAuthenticated = false; // Update this as needed based on auth logic
 
   return (
-    // <BrowserRouter>
-    //   {isUserAuthenticated ? (
-    //     <Routes>
-    //       <Route path="/" element={<Layout />}>
-    //         <Route index element={<Dashboard />} />
-    //         <Route path="settings" element={<Settings />} />
-    //         <Route path="transactions" element={<AltTransactions />} />
-    //         <Route path="dashboard" element={<Dashboard />} />
-    //         <Route path="agents" element={<Agents />} />
-    //         <Route path="agents/:id" element={<AgentDetails />} />
-    //         <Route path="customers" element={<Customers />} />
-    //         <Route path="customers/:id" element={<CustomerDetails />} />
-    //         <Route path="terminals" element={<Terminals />} />
-    //         <Route path="disputes" element={<Disputes />} />
-    //         <Route path="settings" element={<Settings />} />
-    //         {/* <Route path="notifications" element={<NotificationsPage />} /> */}
-    //       </Route>
-    //     </Routes>
-    //   ) : (
-    //     <Routes>
-    //       <Route path="/" element={<LandingPage />}></Route>
-    //       <Route path="/auth" element={<HomePage />}></Route>
-    //     </Routes>
-    //   )}
-    // </BrowserRouter>
     <BrowserRouter>
-      {isUserAuthenticated ? (
-        <Routes>
+      <Routes>
+        {isUserAuthenticated ? (
           <Route
             path="/"
             element={<RequireAuth />}>
-          {/* protected routes */}
             <Route element={<Layout />}>
               <Route
-              index
-              element={<Dashboard />}
-            />
+                index
+                element={<Dashboard />}
+              />
               <Route
-              path="settings"
-              element={<Settings />}
-            />
+                path="settings"
+                element={<Settings />}
+              />
               <Route
-              path="transactions"
-              element={<AltTransactions />}
-            />
+                path="transactions"
+                element={<AltTransactions />}
+              />
               <Route
-              path="dashboard"
-              element={<Dashboard />}
-            />
+                path="dashboard"
+                element={<Dashboard />}
+              />
               <Route
-              path="agents"
-              element={<Agents />}
-            />
+                path="agents"
+                element={<Agents />}
+              />
               <Route
-              path="agents/:id"
-              element={<AgentDetails />}
-            />
+                path="agents/:id"
+                element={<AgentDetails />}
+              />
               <Route
-              path="customers"
-              element={<Customers />}
-            />
+                path="customers"
+                element={<Customers />}
+              />
               <Route
-              path="customers/:id"
-              element={<CustomerDetails />}
-            />
+                path="customers/:id"
+                element={<CustomerDetails />}
+              />
               <Route
-              path="terminals"
-              element={<Terminals />}
-            />
+                path="terminals"
+                element={<Terminals />}
+              />
               <Route
-              path="disputes"
-              element={<Disputes />}
-            />
+                path="disputes"
+                element={<Disputes />}
+              />
               <Route
-              path="settings"
-              element={<Settings />}
-            />
-            <Route
-              path="notifications/create"
-              element={<CreateNotification />}
-            />
+                path="notifications/create"
+                element={<CreateNotification />}
+              />
             </Route>
           </Route>
-          {/* public routes */}
-          <Route
-            path="/home"
-            element={<LandingPage />} />
-          <Route
-            path="/admin-signup"
-            element={<AdminSignUpPage />}></Route>
-          <Route
-            path="/forgot-password"
-            element={<ForgotPasswordPage />}
-          ></Route>
-          <Route
-            path="/login"
-            element={<LoginPage />}></Route>
-          <Route
-            path="/auth"
-            element={<HomePage />} />
-        </Routes>
-      )}
+        ) : (
+          <>
+            <Route
+              path="/"
+              element={<LandingPage />}
+            />
+            <Route
+              path="/auth"
+              element={<HomePage />}
+            />
+            <Route
+              path="/admin-signup"
+              element={<AdminSignUpPage />}
+            />
+            <Route
+              path="/forgot-password"
+              element={<ForgotPasswordPage />}
+            />
+            <Route
+              path="/login"
+              element={<LoginPage />}
+            />
+          </>
+        )}
+      </Routes>
     </BrowserRouter>
   );
 }
