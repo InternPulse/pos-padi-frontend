@@ -14,6 +14,7 @@ import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
 import { useState } from "react";
+import { data } from "react-router-dom";
 
 export const ForgotPasswordPinInputForm = () => {
   // $ Number of Pin Boxes
@@ -33,7 +34,7 @@ export const ForgotPasswordPinInputForm = () => {
     },
   ]);
 
-  const { setProgressStatus, setCurrentStepIndex, currentStepIndex } =
+  const { setProgressStatus, setCurrentStepIndex, currentStepIndex, formData, setFormData } =
     useGlobalContext();
 
   // $ Form Submit Function handling the form submission
@@ -52,6 +53,20 @@ export const ForgotPasswordPinInputForm = () => {
       const stepProgress = 100 / totalSteps;
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
       setCurrentStepIndex(currentStepIndex + 1);
+
+      // console.log(formData)
+
+      setFormData((prevData) => ({
+        ...prevData,
+        otp: String(pinData.OTP).replace(/,/g, "")
+      }));
+
+      const serverData = {
+        email: formData.email,
+        otp: String(pinData.OTP).replace(/,/g, "")
+      }
+
+      console.log(serverData)
 
       // $ redirect to login page/dashboard with token.
     } else {
