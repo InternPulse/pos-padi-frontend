@@ -6,7 +6,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
     // const [auth, setAuth] = useState(false);
     const [auth, setAuth] = useState(() => {
-        return !!localStorage.getItem("access");
+        return !!localStorage.getItem("POSPadiaccess");
       });
     const [loading, setLoading] = useState(true);
 

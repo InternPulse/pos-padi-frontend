@@ -12,6 +12,7 @@ import UserAvatar from "@/components/header-nav-components/UserAvatar";
 import UserAvatarBrief from "@/components/header-nav-components/UserAvatarBrief";
 import { LuLogOut } from "react-icons/lu";
 import { useAuth } from "@/Authentication/AuthProvider";
+import { logoutUser } from "@/backend-functions/useractions-api";
 
 function Layout() {
 
@@ -26,8 +27,9 @@ function Layout() {
   }
 
   const handleLogout = (e) => {
+    // e.preventDefault()
+    logoutUser()
     // console.log("Hi")
-    e.preventDefault()
     setAuth(false)
   }
 

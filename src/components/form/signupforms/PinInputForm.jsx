@@ -15,9 +15,12 @@ import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
 import { useState } from "react";
-import { verifyEmail } from "@/backend-functions/useractions-api";
+import { loginUser, verifyEmail } from "@/backend-functions/useractions-api";
+import { useNavigate } from "react-router-dom";
+
 
 export const PinInputForm = () => {
+  const navigate = useNavigate();
   // $ Number of Pin Boxes
   const numberOfInputs = 6;
 
@@ -39,7 +42,7 @@ export const PinInputForm = () => {
     useGlobalContext();
 
   // $ Form Submit Function handling the form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log("pin value", value); // debug: console.log
 
@@ -61,7 +64,19 @@ export const PinInputForm = () => {
         otp: String(pinData.OTP).replace(/,/g, "")
       }
       console.log(serverData)
-      verifyEmail(serverData)
+      // verifyEmail(serverData)
+      const status = await verifyEmail(serverData)
+      
+      if (status.ok) {
+        const {email, password} = formData
+        const loginResponse = await loginUser({email, password})
+        if (loginResponse.ok) {
+              navigate('/')
+            }
+      } else {
+        console.log("NOOO")
+      }
+
 
 
       // $ Success toast
