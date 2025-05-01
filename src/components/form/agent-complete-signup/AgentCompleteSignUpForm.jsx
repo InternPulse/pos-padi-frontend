@@ -1,4 +1,9 @@
-// $ This is the first form in the series of Admin Signup logic.
+// $ This form handle the complete agent signup by confirming the user password logic.
+
+// $ React Hooks
+import { useNavigate } from "react-router-dom";
+
+// $ Chakra Components
 import { Box, Button, Flex, Fieldset, Image } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
 
@@ -9,14 +14,14 @@ import { MdLockOutline } from "react-icons/md";
 import FormInputField from "@/components/customComponents/FormInputField";
 import FormHeader from "../FormHeader";
 
-// $ Global Context
-
 // $ Form Schema and State Management
 import { agentSignUpSchema } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const AgentCompleteSignUpForm = () => {
+  const navigate = useNavigate();
+
   // $ Initialize react-hook-form
   const {
     register,
@@ -41,7 +46,10 @@ const AgentCompleteSignUpForm = () => {
       type: "success",
     });
 
-    console.log("formData:", data); // debug:
+    console.log("data:", data); // debug:
+
+    navigate("/login"); // $ direct the user to the login page or the dashboard as per the requirements
+
     reset(); // todo: Reset the form after successfull api call using this function
   };
 

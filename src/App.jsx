@@ -16,6 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./Authentication/RequireAuth";
 import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import AgentCompleteSignUpPage from "./pages/AgentCompleteSignUp";
 
 // import NotificationsPage from "./pages/NotificationsPage";
 
@@ -76,6 +77,10 @@ function App() {
         {/* public routes */}
         <Route path="/home" element={<LandingPage />} />
         <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
+        <Route
+          path="/agent-complete-signup"
+          element={<AgentCompleteSignUpPage />}
+        ></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/auth" element={<HomePage />} />
