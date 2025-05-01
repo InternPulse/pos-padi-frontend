@@ -170,7 +170,7 @@ const LoginForm = () => {
           </Flex>
           <Button
             type="submit"
-            disabled={!isValid || isSubmitting}
+            disabled={ isSubmitting}
             isLoading={isSubmitting}
             mt={{ base: "2rem", lg: "2.5rem" }}
             w="full"

@@ -3,7 +3,18 @@ import FormImage from "@/components/form/FormImage";
 
 import { useGlobalContext } from "@/context/useGlobalContext";
 
-import { Grid, GridItem, Box, Stack, Progress, Flex } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  Image,
+  Box,
+  Stack,
+  Progress,
+  Flex,
+} from "@chakra-ui/react";
+import FormImage from "@/components/form/FormImage";
+import { ContainCentral } from "./LoginPage";
+
 
 function AdminSignUpPage() {
   const { progressStatus } = useGlobalContext();
@@ -21,11 +32,8 @@ function AdminSignUpPage() {
 
   return (
     <Grid
-      templateColumns={{
-        base: "1fr",
-        md: "minmax(30rem, 43.75rem) minmax(25rem, 31.25rem)",
-      }}
-      minHeight="100vh"
+      templateColumns={{ base: "1fr", md: "50% 50%" }}
+      height="100vh"
       bgColor={{ base: "white", md: "rgba(0, 0, 0, 0.02)" }}
       width="100%"
       // border="2px dashed red" // debug:
@@ -38,24 +46,31 @@ function AdminSignUpPage() {
         display={{ base: "none", md: "block" }}
         // border="1px dashed blue" // debug:
       >
-        <FormImage />
+
+        <ContainCentral>
+          <FormImage/>
+        </ContainCentral>
+
       </GridItem>
       <GridItem
         py="2.5rem"
         width="100%"
-        mx={{ base: "auto", md: "0" }}
+        mx={{ base: "auto" }}
         px={{ base: "0", md: "0px" }}
         height={{ base: "auto" }}
         maxWidth={"500px"}
         // border="1px dashed teal" // debug:
       >
+        <ContainCentral>
+
+        
         <Flex
           gap="1.5rem"
           direction="column"
           width="100%"
           height="100%"
           // px={{ base: "10px", md: "0" }}
-          // border="1px dashed red" // debug:
+          // border="2px solid red" // debug:
         >
           {/* // $ ======================= Progess Bar ======================= */}
           <Stack gap="1" position="relative">
@@ -82,6 +97,7 @@ function AdminSignUpPage() {
           </Stack>
           <AdminSignUpFormManager />
         </Flex>
+        </ContainCentral>
       </GridItem>
     </Grid>
   );
