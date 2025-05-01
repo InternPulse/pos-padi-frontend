@@ -32,6 +32,7 @@ const FormInputField = ({
       value
     ) {
       const requirements = checkPasswordRequirements(value);
+      console.log(requirements);
       setPasswordRequirements((prev) => {
         if (
           prev.minLength !== requirements.minLength ||

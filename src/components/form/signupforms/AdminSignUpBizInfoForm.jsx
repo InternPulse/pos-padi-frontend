@@ -54,9 +54,8 @@ const AdminSignUpBizInfoForm = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       businessName: formData?.businessName || "",
       address: formData?.address || "",
@@ -137,7 +136,7 @@ const AdminSignUpBizInfoForm = () => {
                   label={input.label}
                   placeholder={input.placeholder}
                   error={errors[input.name]}
-                  value={watch(input.name) || ""}
+                  value={input.name || ""}
                   registerField={register}
                 />
               ))}

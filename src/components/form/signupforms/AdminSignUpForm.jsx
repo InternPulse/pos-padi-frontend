@@ -43,9 +43,8 @@ const AdminSignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       firstName: formData?.firstName || "",
       lastName: formData?.lastName || "",
@@ -80,10 +79,7 @@ const AdminSignUpForm = () => {
     console.log("form submitted:", formStepsSubmitted); // debug:
   };
 
-  // Watch password value for requirement checks
-  // const watchedPassword = watch("password");
-
-  // Form field definitions
+  // $ Form field definitions to rendeer the input fields
   const formFields = [
     {
       name: "firstName",
@@ -162,7 +158,7 @@ const AdminSignUpForm = () => {
                   label={input.label}
                   placeholder={input.placeholder}
                   error={errors[input.name]}
-                  value={watch(input.name) || ""}
+                  value={input.name || ""}
                   icon={input.icon}
                   checkPasswordRequirements={
                     input.type === "password" ? getPasswordRequirements : null
@@ -175,7 +171,7 @@ const AdminSignUpForm = () => {
 
           <Button
             type="submit"
-            disabled={!isValid || formStepsSubmitted[currentStepIndex]}
+            disabled={formStepsSubmitted[currentStepIndex]}
             mt={6}
             w="full"
             bgColor={
