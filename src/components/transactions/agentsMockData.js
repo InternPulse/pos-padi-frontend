@@ -34,7 +34,7 @@ export const agentsList = {
     item5: "Email",
     item6: "Phone Number",
   },
-  items: rawAgents.map(agent => {
+  items: rawAgents.map(agent => {  // changed from RawAagents to workingAgents
     return {
       isHeader: false,
       item1: agent.agentId,
@@ -45,3 +45,22 @@ export const agentsList = {
     }
   })
 };
+
+// working agents 
+
+const initialAgents = [
+  {
+    imageURL: 'https://i.pravatar.cc/150?u=default1',
+    firstName: "Default",
+    lastName: "Agent",
+    email: "default.agent@example.com",
+    phone: "0000000000",
+    dateCreated: "January 1, 2025",
+    agentId: "DEFAULT1",
+    terminalId: "DEFAULTT1",
+    isActive: false,
+    performanceSummary: [],
+  }
+];
+
+export const workingAgents = (rawAgents.length === 0) ? initialAgents : rawAgents;

@@ -1110,3 +1110,19 @@ export const transactionTableHeaders = [
   { name: 'dateTime' },
   { name: 'status' },
 ];
+
+const initialTransactions = [
+    {
+        reference: "",
+        amount: 0,
+        customer: "",
+        type: "",
+        agent: "",
+        dateTime: "",
+        status: "",
+        fee: 0,
+        loyaltyPoints: 0
+    }
+];
+
+ export  const workingTransactions = (transactions.length==0)? initialTransactions:transactions;
