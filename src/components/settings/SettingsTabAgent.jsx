@@ -1,9 +1,180 @@
+// // import { Tabs, Flex } from "@chakra-ui/react"
+// // import { LuFolder, LuSquareCheck, LuUser } from "react-icons/lu"
+
+// // const SettingsTabAgent = () => {
+// //   return (
+// //     <Tabs.Root defaultValue="pinfo" variant="plain" w="full" height="100%">
+// //       <Flex
+// //         direction="column"
+// //         width="100%"
+// //         height="100%"
+// //         p="10px"
+// //         gap={6}
+// //         align="center"
+// //       >
+
+// //         <Flex
+// //         bg="white"
+// //         rounded="l3"
+// //         p="10px"
+// //         justifyContent="center"
+// //         alignItems="center"
+// //         width="100%"
+// //         >
+// //         <Tabs.List
+// //             display="flex"
+// //             justifyContent="space-between"
+// //             width="100%"
+// //             bg="bg.muted"
+// //             rounded="l3"
+// //             p="1"
+// //         >
+// //             <Tabs.Trigger value="pinfo" flex="1" margin="0 8px">
+// //             <LuUser />
+// //             Personal Information
+// //             </Tabs.Trigger>
+// //             <Tabs.Trigger value="loginandsec" flex="1" margin="0 8px">
+// //             <LuFolder />
+// //             Login and Security
+// //             </Tabs.Trigger>
+// //             <Tabs.Trigger value="notification" flex="1" margin="0 8px">
+// //             <LuSquareCheck />
+// //             Notification
+// //             </Tabs.Trigger>
+// //             <Tabs.Trigger value="terminal" flex="1" margin="0 8px">
+// //             <LuSquareCheck />
+// //             Terminal
+// //             </Tabs.Trigger>
+            
+// //             <Tabs.Indicator rounded="full" color="green" />
+// //         </Tabs.List>
+// //         </Flex>
+
+
+// //         <Flex
+// //           direction="column"
+// //           bg="white"
+// //           p="6"
+// //           rounded="l3"
+// //           w="full"
+// //           h="full"
+// //           boxShadow="md"
+// //         >
+// //           <Tabs.Content value="pinfo">
+// //             Personal Info
+// //           </Tabs.Content>
+// //           <Tabs.Content value="loginandsec">
+// //             Login and Security
+// //           </Tabs.Content>
+// //           <Tabs.Content value="notification">
+// //             Notifications
+// //           </Tabs.Content>
+// //           <Tabs.Content value="terminal">
+// //             Terminal
+// //           </Tabs.Content>
+        
+// //         </Flex>
+// //       </Flex>
+// //     </Tabs.Root>
+// //   )
+// // }
+
+// // export default SettingsTabAgent;
+
+
+// import { Tabs, Flex } from "@chakra-ui/react"
+// import { LuFolder, LuSquareCheck, LuUser } from "react-icons/lu"
+
+// const SettingsTabAgent = () => {
+//   return (
+//     <Tabs.Root defaultValue="pinfo" variant="plain" w="full" height="100%">
+//       <Flex
+//         direction="column"
+//         width="100%"
+//         height="100%"
+//         p="10px"
+//         gap={6}
+//         align="center"
+//       >
+
+//         <Flex
+//           bg="white"
+//           rounded="l3"
+//           p="10px"
+//           justifyContent="center"
+//           alignItems="center"
+//           width="100%"
+//         >
+//           <Tabs.List
+//             display="flex"
+//             justifyContent="space-between"
+//             width="100%"
+//             bg="bg.muted"
+//             rounded="l3"
+//             p="1"
+//             overflowX={{ base: "auto", md: "unset" }}  
+//             gap={{ base: "4", sm: "8" }}  
+//             flexWrap="nowrap"  
+//             maxWidth="100%"  
+//           >
+//             <Tabs.Trigger value="pinfo" flex="1" margin="0 8px">
+//               <LuUser />
+//               Personal Information
+//             </Tabs.Trigger>
+//             <Tabs.Trigger value="loginandsec" flex="1" margin="0 8px">
+//               <LuFolder />
+//               Login and Security
+//             </Tabs.Trigger>
+//             <Tabs.Trigger value="notification" flex="1" margin="0 8px">
+//               <LuSquareCheck />
+//               Notification
+//             </Tabs.Trigger>
+//             <Tabs.Trigger value="terminal" flex="1" margin="0 8px">
+//               <LuSquareCheck />
+//               Terminal
+//             </Tabs.Trigger>
+//             <Tabs.Indicator rounded="full" color="green" />
+//           </Tabs.List>
+//         </Flex>
+
+//         <Flex
+//           direction="column"
+//           bg="white"
+//           p="6"
+//           rounded="l3"
+//           w="full"
+//           h="full"
+//           boxShadow="md"
+//         >
+//           <Tabs.Content value="pinfo">
+//             Personal Info
+//           </Tabs.Content>
+//           <Tabs.Content value="loginandsec">
+//             Login and Security
+//           </Tabs.Content>
+//           <Tabs.Content value="notification">
+//             Notifications
+//           </Tabs.Content>
+//           <Tabs.Content value="terminal">
+//             Terminal
+//           </Tabs.Content>
+//         </Flex>
+//       </Flex>
+//     </Tabs.Root>
+//   )
+// }
+
+// export default SettingsTabAgent;
+
+
+
 import React, { useState, useEffect } from 'react'
 import { Tabs, Flex, Box, Heading, Text, IconButton, Input, Grid, Button, Table, Switch, Popover, VStack, HStack, Badge, Progress, Dialog, Portal } from '@chakra-ui/react'
 import { FaUserEdit, FaTrash, FaDesktop, FaMobile, FaTablet, FaInfoCircle, FaStar, FaBan, FaHistory } from 'react-icons/fa'
 import { LuUsers, LuUpload } from "react-icons/lu"
+import TerminalComponent from './CustomerTerminal'
 
-function Settings() {
+function SettingsTabAgent() {
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
     firstName: 'John',
@@ -153,7 +324,7 @@ function Settings() {
   ]
 
   return (
-      <Tabs.Root p={{base: 0, '2xl': 6}} defaultValue="Personal Information" width="100%" css={{
+      <Tabs.Root defaultValue="Personal Information" width="100%" css={{
         '& [data-state="active"]': {
           borderBottom: '2px solid',
           borderColor: {base: 'green.500', _dark: 'green.300'},
@@ -179,92 +350,49 @@ function Settings() {
           border="1px solid" 
           borderColor={{base: 'gray.200', _dark: 'gray.600'}}
           borderRadius="md" 
-          p={{ base: 6, md: 4 }}
+          p={{ base: 2, md: 4 }}
           display="flex" 
-          flexWrap="nowrap"
-          justifyContent={{ base: "flex-start", md: "space-between" }}
+          flexWrap="wrap"
+          justifyContent={{ base: "center", md: "space-between" }}
           width="100%"
           mb={4}
           mt={8}
           bg={{base: 'white', _dark: 'inherit'}}
-          gap={{ base: 8, md: 0 }}
-          overflowX="auto"
-          css={{
-            '&::-webkit-scrollbar': {
-              height: '4px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: {base: 'gray.100', _dark: 'gray.700'},
-              borderRadius: '2px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: {base: 'gray.300', _dark: 'gray.500'},
-              borderRadius: '2px',
-            },
-            '&::-webkit-scrollbar-thumb:hover': {
-              background: {base: 'gray.400', _dark: 'gray.400'},
-            },
-          }}
+          gap={{ base: 2, md: 0 }}
         >
           <Tabs.Trigger 
             value="Personal Information"
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
-            px={{ base: 4, md: 4 }}
-            py={{ base: 2, md: 2 }}
-            whiteSpace="nowrap"
-            minW="fit-content"
           >
             Personal Information
-          </Tabs.Trigger>
-          <Tabs.Trigger 
-            value="Business Information"
-            _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            color={{base: '#626C7A', _dark: 'gray.300'}}
-            px={{ base: 4, md: 4 }}
-            py={{ base: 2, md: 2 }}
-            whiteSpace="nowrap"
-            minW="fit-content"
-          >
-            Business Information
           </Tabs.Trigger>
           <Tabs.Trigger 
             value="Notifications"
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
-            px={{ base: 4, md: 4 }}
-            py={{ base: 2, md: 2 }}
-            whiteSpace="nowrap"
-            minW="fit-content"
           >
             Notifications
           </Tabs.Trigger>
-          <Tabs.Trigger 
-            value="KYC"
-            _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            color={{base: '#626C7A', _dark: 'gray.300'}}
-            px={{ base: 4, md: 4 }}
-            py={{ base: 2, md: 2 }}
-            whiteSpace="nowrap"
-            minW="fit-content"
-          >
-            KYC
-          </Tabs.Trigger>
+
           <Tabs.Trigger 
             value="Security"
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
             color={{base: '#626C7A', _dark: 'gray.300'}}
-            px={{ base: 4, md: 4 }}
-            py={{ base: 2, md: 2 }}
-            whiteSpace="nowrap"
-            minW="fit-content"
           >
             Security
+          </Tabs.Trigger>
+
+          <Tabs.Trigger 
+            value="terminal"
+            _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
+            _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
+            color={{base: '#626C7A', _dark: 'gray.300'}}
+          >
+            Terminal
           </Tabs.Trigger>
         </Tabs.List>
 
@@ -589,13 +717,10 @@ function Settings() {
             </Box>
           </Tabs.Content>
 
-          <Tabs.Content value="KYC">
+          <Tabs.Content value="terminal">
             <Box border="1px solid" borderColor={{base: 'gray.200', _dark: 'gray.600'}} borderRadius="md" p={{ base: 4, md: 8 }} bg={{base: 'white', _dark: 'inherit'}} minH={{ base: "auto", md: "600px" }}>
               <Flex justify="space-between" align="center" mb={6} direction={{ base: "column", md: "row" }} gap={4}>
-                <Box textAlign={{ base: "center", md: "left" }}>
-                  <Heading as="h1" size={{ base: "md", md: "lg" }} mb={2} color={{base: '#626C7A', _dark: 'gray.300'}}>KYC</Heading>
-                  <Text color={{base: '#626C7A', _dark: 'gray.300'}} fontSize={{ base: "sm", md: "md" }}>Complete your Know Your Customer verification</Text>
-                </Box>
+                <TerminalComponent />
               </Flex>
             </Box>
           </Tabs.Content>
@@ -882,4 +1007,4 @@ function Settings() {
     )
   }
 
-export default Settings
+export default SettingsTabAgent

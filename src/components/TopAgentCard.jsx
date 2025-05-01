@@ -5,10 +5,10 @@ import { LuUsers } from "react-icons/lu";
 import ProfileImage from "../assets/agents/ellipse34.png";
 import starBanner from "../assets/star-banner.png";
 
-const formatAmount = (amount) => {
-  const num = parseFloat(amount);
-  return `₦${num.toLocaleString("en-NG", { minimumFractionDigits: 2 })}`;
-};
+// const formatAmount = (amount) => {
+//   const num = parseFloat(amount);
+//   return `₦${num.toLocaleString("en-NG", { minimumFractionDigits: 2 })}`;
+// };
 
 const TopAgentCard = ({
   userImageURL = ProfileImage,
@@ -73,7 +73,7 @@ const TopAgentCard = ({
           <Flex align="center" gap="8px">
             <LuWallet size="14px" />
             <Text fontSize="14px" fontWeight="500" color={{base: "#626C7A" , _dark: 'gray.300'}}>
-              {formatAmount(amount)}
+              {amount}
             </Text>
           </Flex>
 

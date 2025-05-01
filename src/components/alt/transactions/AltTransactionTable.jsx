@@ -170,8 +170,9 @@ function AltTransactionTable({ transactions }) {
         page={page}
         onPageChange={(details) => setPage(details.page)}
         align="end"
+        width={'100%'}
       >
-        <ButtonGroup variant="ghost" size="sm" wrap="wrap">
+        <ButtonGroup variant="ghost" size={{base: "xs", md: 'sm'}} wrap="wrap">
           <Pagination.PrevTrigger asChild>
             <IconButton>
               <LuChevronLeft />

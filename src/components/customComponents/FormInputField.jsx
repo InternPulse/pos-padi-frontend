@@ -63,8 +63,10 @@ const FormInputField = ({
       <InputGroup startElement={Icon && <Icon style={{ color: "#C4C4C4" }} />}>
         {type === "password" ? (
           <PasswordInput
+            fontSize={{ base: "0.75rem" }}
             id={name}
             placeholder={placeholder}
+            _placeholder={{ color: "#C4C4C4" }}
             {...registerProps}
           />
         ) : (
