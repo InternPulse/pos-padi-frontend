@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 // $ Custom hooks & Functions
 import useMultiFormHook from "@/utils/useMultiFormHook";
+import { resetPassword } from "@/backend-functions/useractions-api";
 
 const NewPasswordForm = () => {
   const navigate = useNavigate();
@@ -82,6 +83,15 @@ const NewPasswordForm = () => {
     // console.log("form submitted:", formStepsSubmitted); // debug:
 
     // todo: call the api with finalData i.e. email, password and new password
+
+   
+  
+    resetPassword({
+      email: finalData.email,
+      otp: finalData.otp,
+      new_password: finalData.newPassword,
+      confirm_password: finalData.confirmNewPassword
+    })
 
     // $ send data to the api
     toaster.create({

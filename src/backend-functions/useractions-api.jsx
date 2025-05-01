@@ -120,6 +120,7 @@ export async function forgotPassword(email) {
     }
 
     const message = await response.json();
+    console.log(message)
     // console.log("Logout Successful:", newUser);
     return message;
   } catch (error) {
@@ -149,6 +150,7 @@ export async function resetPassword(userData) {
     }
 
     const message = await response.json();
+    console.log(message)
     // console.log("Logout Successful:", newUser);
     return message;
   } catch (error) {
