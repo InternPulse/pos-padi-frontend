@@ -311,7 +311,7 @@ export const customersList = {
     item5: "Phone No",
     item6: "Agent",
   },
-  items: rawCustomers.map(customer => {
+  items: rawCustomers.map(customer => {  //changed from rawCustomers to workingCustomers
     return {
       isHeader: false,
       item1: customer.customerId,
@@ -323,3 +323,21 @@ export const customersList = {
   })
 };
 
+
+// initials Customers
+const initialCustomers = [
+  {
+    imageURL: 'https://i.pravatar.cc/150?u=defaultcustomer',
+    firstName: "Default",
+    lastName: "Customer",
+    email: "default.customer@example.com",
+    phone: "0000000000",
+    dateCreated: "January 1, 2025",
+    customerId: "DEFAULTCUST1",
+    agent: "No Agent",
+    isActive: false,
+    performanceSummary: [],
+  }
+];
+
+export const workingCustomers = (rawCustomers.length === 0) ? initialCustomers : rawCustomers;
