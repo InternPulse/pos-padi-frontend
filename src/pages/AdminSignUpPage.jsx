@@ -12,7 +12,6 @@ import {
   Progress,
   Flex,
 } from "@chakra-ui/react";
-import FormImage from "@/components/form/FormImage";
 import { ContainCentral } from "./LoginPage";
 
 
