@@ -9,5 +9,5 @@ export {
   bizInfoSchema,
   loginSchema,
   forgotPasswordSchema,
-  agentSignUpSchema,
+  newPasswordSchema,
 };

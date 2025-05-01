@@ -1,4 +1,5 @@
 // $ This is the first form in the series of Admin Signup logic.
+
 import {
   Box,
   Button,
@@ -24,24 +25,30 @@ import FormHeader from "../FormHeader";
 import { loginSchema } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/Authentication/AuthProvider";
+import { loginUser } from "@/backend-functions/useractions-api";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+
   // $ Initialize react-hook-form
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     defaultValues: {
       email: "",
-      password: "",
+      loginPassword: "",
     },
     resolver: zodResolver(loginSchema),
   });
 
   // $ Handle form submission
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // todo: api call POST request
 
     toaster.create({
@@ -50,7 +57,22 @@ const LoginForm = () => {
     });
 
     console.log("formData:", data); // debug:
-    reset(); // todo: Reset the form after successfull api call using this function
+    // reset(); // todo: Reset the form after successfull api call using this function
+    const response = await loginUser({
+      email: "owner1@test.com",
+      password: "Jonathan1@",
+    });
+    // console.log(response);
+    if (response.ok) {
+      const data = await response.json();
+
+      // Data contains access tokens that should be stored to Local storage and pulled for next login
+
+      console.log(data);
+      setAuth(true);
+    }
+
+    navigate("/");
   };
 
   // $ Form field definitions
@@ -70,6 +92,21 @@ const LoginForm = () => {
       icon: MdLockOutline,
     },
   ];
+
+  //   const handleLogin = async (e) => {
+  //     e.preventDefault();
+
+  //     console.log("Hi")
+
+  //     const response = await loginUser({
+  //       "email": "owner1@test.com",
+  //       "password": "Jonathan1@"
+  //     });
+  //     console.log(response)
+  //     if (response.ok) {
+  //       setAuth(true)
+  //     }
+  //   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -134,7 +171,8 @@ const LoginForm = () => {
           </Flex>
           <Button
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
+            isLoading={isSubmitting}
             mt={{ base: "2rem", lg: "2.5rem" }}
             w="full"
             bgColor={isValid ? "rgba(2, 177, 79, 1)" : "rgba(2, 177, 79, 0.5)"}
@@ -145,7 +183,7 @@ const LoginForm = () => {
                 : "rgba(2, 177, 79, 0.5)",
             }}
           >
-            Login
+            {isSubmitting ? "Submitting..." : "Login"}
           </Button>
           <Flex justify="center" mt={{ base: 4, lg: "1.875rem" }}>
             <Text color="gray.600" mr={1} fontSize={{ base: "0.875rem" }}>

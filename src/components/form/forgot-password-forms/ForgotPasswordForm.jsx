@@ -1,12 +1,11 @@
 // $ This is the first form in the series of Admin Signup logic.
-import { Box, Button, Flex, Link, Text, Fieldset } from "@chakra-ui/react";
+import { Box, Button, Flex, Fieldset } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
 
 import { useEffect } from "react";
 
 // $ Icons
-import { LuUser, LuMail } from "react-icons/lu";
-import { IoCallOutline } from "react-icons/io5";
-import { MdLockOutline } from "react-icons/md";
+import { LuMail } from "react-icons/lu";
 
 // $ Custom form input and header
 import FormInputField from "@/components/customComponents/FormInputField";
@@ -16,15 +15,14 @@ import FormHeader from "../FormHeader";
 import { useGlobalContext } from "@/context/useGlobalContext";
 
 // $ Form Schema and State Management
-import { adminSchema } from "../schemas";
+import { forgotPasswordSchema } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // $ Custom hooks & Functions
 import useMultiFormHook from "@/utils/useMultiFormHook";
-import { getPasswordRequirements } from "@/utils/getPasswordRequirements";
 
-const AdminSignUpForm = () => {
+const ForgotPasswordForm = () => {
   const {
     setFormData,
     formData,
@@ -36,7 +34,7 @@ const AdminSignUpForm = () => {
     setFormStepsValidity,
   } = useGlobalContext();
 
-  const { totalSteps } = useMultiFormHook();
+  const { totalSteps } = useMultiFormHook("forgotPassword");
 
   // $ Initialize react-hook-form
   const {
@@ -46,19 +44,16 @@ const AdminSignUpForm = () => {
   } = useForm({
     mode: "onSubmit",
     defaultValues: {
-      firstName: formData?.firstName || "",
-      lastName: formData?.lastName || "",
       email: formData?.email || "",
-      phone: formData?.phone || "",
-      password: formData?.password || "",
-      confirmPassword: formData?.confirmPassword || "",
     },
-    resolver: zodResolver(adminSchema),
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
   // $ Handle form submission
   const onSubmit = (data) => {
-    // $ Update global form data
+    // todo: api call POST request use data directly, will contain only email in this step
+
+    // $ Update global form data.
     setFormData((prevData) => ({
       ...prevData,
       ...data,
@@ -70,55 +65,28 @@ const AdminSignUpForm = () => {
       [currentStepIndex]: true,
     }));
 
+    toaster.create({
+      title: "Verification code has been sent to your email ",
+      type: "success",
+    });
+
     // $ Update progress and move to next step
     const stepProgress = 100 / totalSteps;
     setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
     setCurrentStepIndex(currentStepIndex + 1);
 
-    // console.log("formData:", formData); // debug:
+    // console.log("formData:", data); // debug:
     // console.log("form submitted:", formStepsSubmitted); // debug:
   };
 
-  // $ Form field definitions to rendeer the input fields
+  // Form field definitions
   const formFields = [
-    {
-      name: "firstName",
-      label: "First Name",
-      placeholder: "Enter first name",
-      icon: LuUser,
-    },
-    {
-      name: "lastName",
-      label: "Last Name",
-      placeholder: "Enter last name",
-      icon: LuUser,
-    },
-    {
-      name: "phone",
-      label: "Phone No",
-      placeholder: "Enter phone number",
-      icon: IoCallOutline,
-    },
     {
       name: "email",
       label: "Email",
       type: "email",
       placeholder: "Enter email",
       icon: LuMail,
-    },
-    {
-      name: "password",
-      label: "Password",
-      type: "password",
-      placeholder: "Enter password",
-      icon: MdLockOutline,
-    },
-    {
-      name: "confirmPassword",
-      label: "Confirm Password",
-      type: "password",
-      placeholder: "Confirm password",
-      icon: MdLockOutline,
     },
   ];
 
@@ -130,27 +98,27 @@ const AdminSignUpForm = () => {
     }));
   }, [isValid, currentStepIndex, setFormStepsValidity]);
 
-  // console.log("formData:", formData); //log:
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%" }}>
       <Fieldset.Root
         width="100%"
+        height="100%"
         rounded={{ base: "0", md: "md" }}
         bg="white"
         py={{ base: 2, md: "2.5rem" }}
         px={{ base: "1rem", md: 12 }}
         display="flex"
         alignItems="center"
-        height="100%"
+        // border="1px solid red" //debug:
       >
         <Box width="100%" mx="auto">
           <FormHeader
-            title="Create A New Account"
-            subHeading="Input your personal details"
+            title="Forgot Password"
+            subHeading="Input your registered email"
           />
 
           <Fieldset.Content>
-            <Flex direction="column" gap={4}>
+            <Flex direction="column" gap={4} mt={{ lg: "2.5rem" }}>
               {formFields.map((input) => (
                 <FormInputField
                   key={input.name}
@@ -161,9 +129,6 @@ const AdminSignUpForm = () => {
                   error={errors[input.name]}
                   value={input.name || ""}
                   icon={input.icon}
-                  checkPasswordRequirements={
-                    input.name === "password" ? getPasswordRequirements : null
-                  }
                   registerField={register}
                 />
               ))}
@@ -192,23 +157,10 @@ const AdminSignUpForm = () => {
           >
             Continue
           </Button>
-          <Flex justify="center" mt={4}>
-            <Text color="gray.600" mr={1} fontSize={{ base: "0.875rem" }}>
-              Do you have an account?
-            </Text>
-            <Link
-              color="rgba(2, 177, 79, 1)"
-              fontWeight="bold"
-              href="/login"
-              fontSize={{ base: "0.875rem" }}
-            >
-              Login
-            </Link>
-          </Flex>
         </Box>
       </Fieldset.Root>
     </form>
   );
 };
 
-export default AdminSignUpForm;
+export default ForgotPasswordForm;

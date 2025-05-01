@@ -54,9 +54,8 @@ const AdminSignUpBizInfoForm = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       businessName: formData?.businessName || "",
       address: formData?.address || "",
@@ -101,7 +100,8 @@ const AdminSignUpBizInfoForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Fieldset.Root
-        w="100%"
+        width="100%"
+        height="100%"
         rounded={{ base: "0", md: "md" }}
         bg="white"
         py={{ base: 2, md: "2.5rem" }}
@@ -109,7 +109,6 @@ const AdminSignUpBizInfoForm = () => {
         display="flex"
         alignItems="center"
         // border="1px dashed blue" //debug:
-        height="100%"
       >
         <Box
           width="100%"
@@ -137,7 +136,7 @@ const AdminSignUpBizInfoForm = () => {
                   label={input.label}
                   placeholder={input.placeholder}
                   error={errors[input.name]}
-                  value={watch(input.name) || ""}
+                  value={input.name || ""}
                   registerField={register}
                 />
               ))}

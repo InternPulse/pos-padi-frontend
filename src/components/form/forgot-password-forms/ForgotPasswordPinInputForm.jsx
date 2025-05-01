@@ -1,12 +1,7 @@
-// $ This is the second form in the series of Admin Signup logic. The form is used to confirm the email address of the user trying to signup.
-
-// $ React Hooks
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// $ This is the second form in the series of Forgot Password logic. The form is used to confirm the email address of the user trying to set a new password.
 
 // $ Chakra Components
 import { PinInput, Flex, Fieldset, Box, Button, Field } from "@chakra-ui/react";
-import { toaster } from "@/components/ui/toaster";
 
 // $ Icons
 import { IoMailOutline } from "react-icons/io5";
@@ -18,14 +13,13 @@ import FormHeader from "../FormHeader";
 import useFormValidation from "@/utils/useFormValidation";
 import { useGlobalContext } from "@/context/useGlobalContext";
 import useMultiFormHook from "@/utils/useMultiFormHook";
+import { useState } from "react";
 
-export const PinInputForm = () => {
+export const ForgotPasswordPinInputForm = () => {
   // $ Number of Pin Boxes
   const numberOfInputs = 6;
 
-  const navigate = useNavigate();
-
-  const { totalSteps } = useMultiFormHook();
+  const { totalSteps } = useMultiFormHook("forgotPassword");
 
   // $ Initial state for the pin data array
   const [value, setValue] = useState(["", "", "", "", "", ""]);
@@ -39,7 +33,7 @@ export const PinInputForm = () => {
     },
   ]);
 
-  const { setProgressStatus, setCurrentStepIndex, currentStepIndex, formData } =
+  const { setProgressStatus, setCurrentStepIndex, currentStepIndex } =
     useGlobalContext();
 
   // $ Form Submit Function handling the form submission
@@ -54,21 +48,12 @@ export const PinInputForm = () => {
     const isValid = validate(pinData);
 
     if (isValid) {
+      // todo: submit to api if pin is valid
       const stepProgress = 100 / totalSteps;
       setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
       setCurrentStepIndex(currentStepIndex + 1);
-      console.log(formData);
 
       // $ redirect to login page/dashboard with token.
-      navigate("/login");
-
-      // $ Success toast
-      toaster.create({
-        title: "Account created successfully",
-        type: "success",
-      });
-
-      //todo: call api with email and OTP to register email.
     } else {
       console.log("Form validation failed");
     }
