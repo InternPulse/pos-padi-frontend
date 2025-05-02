@@ -7,10 +7,12 @@ import { filterRow } from "@/components/Others/data-filters/SearchByText";
 import { FiPlus } from "react-icons/fi";
 import ExportButton from "../../dashboard-components/ExportButton";
 import { useLocation } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
   const [searchText, setSearchText] = useState("");
   const currentPath = useLocation().pathname
+  const { user } = useOutletContext()
 
   const filteredPageTable = {
     ...pageTable,
@@ -76,9 +78,9 @@ const GenericPage = ({ pageSummary, pageTable, pageTitle }) => {
               setSearchText={setSearchText}
             />
           </Flex>
-          <Flex width={{ base: "100%", md: "340px" }} justify={currentPath.includes('agent') ? 'space-between' : 'end' }>
-            <Button colorPalette={"green"} rounded={"lg"} display={currentPath.includes('agent') ? 'block' : 'none' }>
-              <Flex gap={2}><FiPlus /> Add New Agent </Flex>
+          <Flex width={{ base: "100%", md: "340px" }} justify={(currentPath.includes('agent') || (currentPath.includes('customer') && user.role == 'agent')) ? 'space-between' : 'end' }>
+            <Button colorPalette={"green"} rounded={"lg"} display={(currentPath.includes('agent') || (currentPath.includes('customer') && user.role == 'agent')) ? 'block' : 'none' }>
+              <Flex gap={2}><FiPlus /> Add {currentPath.includes('agent') ? 'Agent' : 'Customer'} </Flex>
             </Button>
             <Box width={{ base: "50px", md: "150px" }}>
               <ExportButton />

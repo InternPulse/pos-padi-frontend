@@ -24,7 +24,7 @@ export function transformUserData(currentUser) {
     avatar: `${currentUser.user.photo}`,
     role:
       `${currentUser.user.role}` == "owner"
-        ? "admin"
+        ? "agent"
         : `${currentUser.user.role}`,
   };
 }
@@ -149,7 +149,7 @@ function Layout() {
               <PageTitle />
             </Box>
             <Flex justify={"center"} width={"100%"}>
-              <Outlet />
+              <Outlet context={{user}} />
             </Flex>
           </Box>
         </Flex>

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./pages/Layout";
@@ -14,9 +13,12 @@ import CustomerDetails from "./pages/CustomerDetails";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./Authentication/RequireAuth";
-import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import UserContext from "./context/UserContext";
+
+
+import AddTransactionBackup from "./components/form/add-transaction/AddTransactionBackup";
+import ConfirmationModal from "./components/ConfirmationModal";
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
         <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/demo" element={<ConfirmationModal />}></Route>
+
       </Routes>
     </BrowserRouter>
   );
