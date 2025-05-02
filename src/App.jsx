@@ -16,6 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./Authentication/RequireAuth";
 import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import Demo from "./pages/Demo";
  
  
 
@@ -84,7 +85,7 @@ function App() {
             element={<ForgotPasswordPage />}
           ></Route>
           <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/auth" element={<HomePage />} />
+          <Route path="/auth" element={<Demo />} />
         </Routes>
     </BrowserRouter>
   );
