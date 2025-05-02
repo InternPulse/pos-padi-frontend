@@ -60,8 +60,6 @@ const ForgotPasswordForm = () => {
       ...data,
     }));
 
-    
-
     // $ Mark this step as submitted
     setFormStepsSubmitted((prev) => ({
       ...prev,
@@ -73,14 +71,12 @@ const ForgotPasswordForm = () => {
       type: "success",
     });
 
-    
-
     // $ Update progress and move to next step
     const stepProgress = 100 / totalSteps;
     setProgressStatus((prev) => Math.min(prev + stepProgress, 100));
     setCurrentStepIndex(currentStepIndex + 1);
 
-    forgotPassword(data)
+    forgotPassword(data);
 
     // console.log("formData:", data); // debug:
     // console.log("form submitted:", formStepsSubmitted); // debug:
