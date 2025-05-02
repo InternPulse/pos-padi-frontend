@@ -17,19 +17,14 @@ import RequireAuth from "./Authentication/RequireAuth";
 import { getUserSummary, loginUser } from "./backend-functions/useractions-api";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import UserContext from "./context/UserContext";
- 
-
 
 function App() {
-
   return (
-
     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<RequireAuth />}>
+      <Routes>
+        <Route path="/" element={<RequireAuth />}>
           {/* protected routes */}
-            <Route element={<UserContext />}>
-
+          <Route element={<UserContext />}>
             <Route element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="settings" element={<Settings />} />
@@ -43,18 +38,15 @@ function App() {
               <Route path="disputes" element={<Disputes />} />
               <Route path="settings" element={<Settings />} />
             </Route>
-            </Route>
           </Route>
-          {/* public routes */}
-           
-          <Route path="/home" element={<LandingPage />} />
-          <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
-          <Route
-            path="/forgot-password"
-            element={<ForgotPasswordPage />}
-          ></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-        </Routes>
+        </Route>
+        {/* public routes */}
+
+        <Route path="/home" element={<LandingPage />} />
+        <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+      </Routes>
     </BrowserRouter>
   );
 }
