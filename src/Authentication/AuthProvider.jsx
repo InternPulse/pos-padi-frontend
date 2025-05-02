@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import UserContext from "@/context/UserContext";
 
 const AuthContext = createContext();
 
@@ -21,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, loading }}>
-      <UserContext>{children}</UserContext>
+      {children}
     </AuthContext.Provider>
   );
 };

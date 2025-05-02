@@ -1,6 +1,7 @@
 import { getUserSummary } from "@/backend-functions/useractions-api";
 import React from "react";
 import { createContext, useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 
 const User = createContext();
 
@@ -29,7 +30,7 @@ function UserContext({ children }) {
       .catch((err) => console.log(err));
   }, []);
 
-  return isLoading ? <em style={loadingStyles}>Loading POS-Padi...</em> : <User.Provider value={user}>{children}</User.Provider>;
+  return isLoading ? <em style={loadingStyles}>Loading POS-Padi...</em> : <User.Provider value={user}><Outlet /></User.Provider>;
 }
 
 export default UserContext;
