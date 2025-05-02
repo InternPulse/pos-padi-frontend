@@ -17,6 +17,7 @@ import { transactions } from "@/components/transactions/transactionsMockData";
 import ExportButton from "@/components/alt/dashboard-components/ExportButton";
 import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
 import { LuWallet } from "react-icons/lu";
+import { useOutletContext } from "react-router-dom";
 
 const totalRevenue = formatCurrency(transactions.reduce((acc, tx) => acc + tx.fee, 0))
 const processedAgents = rawAgents.map(agent => {
@@ -84,10 +85,12 @@ function ExportButtonContainer() {
 }
 
 function ChartContainer({ filteredTransactions }) {
+  const { user } = useOutletContext()
+
   return (
     <Box
       width={{ base: "100%", lg: "100%" }}
-      maxW={{ base: "100%", lg: "738px" }}
+      maxW={{ base: "100%", lg: (user.role == 'admin'? "738px" : '100%') }}
       bg="gray.200" 
       height={{ base: "220px", md: "350px", lg: "484px" }}
       rounded="xl"
@@ -152,6 +155,8 @@ function Dashboard() {
   useEffect(() => {
     window.scrollTo(0,0)
   },[])
+
+  const { user } = useOutletContext()
   
  // Get filtered transactions based on active period
  const periodFilteredTransactions = filterTransactionsByPeriod(transactions, activePeriod);
@@ -283,9 +288,10 @@ function Dashboard() {
         align={{ lg: 'center' }}
         width="100%"
         maxW="100%"
+        px={user.role == 'agent' ? {base: 0, md: 6, lg: 4 , '2xl': 20} : 0}
       >
         <ChartContainer filteredTransactions={periodFilteredTransactions} />
-        <Flex 
+{ (user.role == 'admin') &&  <Flex 
           direction={{ base: 'column', sm: 'row', xl: 'column' }} 
           gap={5} 
           justify={{ base: 'space-between', md: 'space-around' }} 
@@ -294,7 +300,7 @@ function Dashboard() {
         >
           <RevenueCardContainer />
           <TopAgentContainer />
-        </Flex>
+        </Flex>}
       </Flex>
     </Flex>
   );

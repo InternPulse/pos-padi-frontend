@@ -1,5 +1,7 @@
 import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react"
 import DisputesForm from "@/components/form/dispute-form/DisputesForm"
+import AddTransactionPage from "@/components/AddTransactionPage"
+import AddTransactionBackup from "@/components/form/add-transaction/AddTransactionBackup"
 
 export default function Demo(){
   return (
@@ -22,7 +24,7 @@ export default function Demo(){
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua.
                   </p>
-                  <DisputesForm />
+                  <AddTransactionPage />
                   <button onClick={() => store.setOpen(false)}>Close</button>
                 </Dialog.Body>
               )}
