@@ -13,29 +13,40 @@ import UserAvatarBrief from "@/components/header-nav-components/UserAvatarBrief"
 import { LuLogOut } from "react-icons/lu";
 import { useAuth } from "@/Authentication/AuthProvider";
 import { logoutUser } from "@/backend-functions/useractions-api";
+import { User } from "@/context/UserContext";
+import { useContext, useEffect } from "react";
+
+export function transformUserData(currentUser) {
+  return {
+    id: `${currentUser.user.email}`,
+    name: `${currentUser.user.first_name} ${currentUser.user.last_name}`,
+    email: `${currentUser.user.email}`,
+    avatar: `${currentUser.user.photo}`,
+    role:
+      `${currentUser.user.role}` == "owner"
+        ? "admin"
+        : `${currentUser.user.role}`,
+  };
+}
 
 function Layout() {
+  const { setAuth } = useAuth();
 
-  const {setAuth} = useAuth();
+  const currentUser = useContext(User);
 
-  const user = {
-    id: "1",
-    name: "John Mason",
-    email: "john.mason@example.com",
-    avatar: "https://i.pravatar.cc/300?u=iu",
-    role: 'agent'
-  }
+  const user = transformUserData(currentUser);
 
   const handleLogout = (e) => {
     // e.preventDefault()
-    logoutUser()
+    logoutUser();
     // console.log("Hi")
-    setAuth(false)
-  }
+    setAuth(false);
+  };
 
   return (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
-    <Flex width={"100%"} height={"100%"} >
+
+    <Flex width={"100%"} height={"100%"}>
       <Flex
         width={{ lg: "200px", xl: "260px" }}
         display={{ base: "none", lg: "flex" }}
@@ -95,18 +106,22 @@ function Layout() {
             <Flex
               height={{ base: "40px", lg: "60px" }}
               width={{ base: "40px", lg: "180px" }}
-              align={'center'}
+              align={"center"}
             >
               {/*Awaiting Avatar Component */}
-              <Box display={{base: 'none', lg:'block'}}>
-
-              <UserAvatar user={user} />
+              <Box display={{ base: "none", lg: "block" }}>
+                <UserAvatar user={user} />
               </Box>
-              <Box display={{base: 'block', lg:'none'}}>
-
-              <UserAvatarBrief  user={user} />
+              <Box display={{ base: "block", lg: "none" }}>
+                <UserAvatarBrief user={user} />
               </Box>
-              <IconButton display={{base: 'none', lg: 'flex'}} variant={'ghost'} onClick={handleLogout}><LuLogOut /></IconButton>
+              <IconButton
+                display={{ base: "none", lg: "flex" }}
+                variant={"ghost"}
+                onClick={handleLogout}
+              >
+                <LuLogOut />
+              </IconButton>
             </Flex>
             <Box display={{ base: "block", lg: "none" }}>
               {/* <MenuButton /> */}

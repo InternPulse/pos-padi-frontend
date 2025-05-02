@@ -19,7 +19,7 @@ function UserAvatar({ user }) {
             <Avatar.Image src={user.avatar} />
           </Avatar.Root>
           <Stack gap="0" >
-            <Text fontWeight="semibold" textStyle={'xs'} width={'80px'}>{addEllipsis(user.name,10)}</Text>
+            <Text textTransform={'capitalize'} fontWeight="semibold" textStyle={'xs'} width={'80px'}>{addEllipsis(user.name,10)}</Text>
             <Text overflow={'hidden'} whiteSpace={'nowrap'} textOverflow={'ellipsis'} color="fg.muted" textStyle="xs" textTransform={'capitalize'}>
               {user.role}
             </Text>
