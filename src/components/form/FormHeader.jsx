@@ -43,7 +43,9 @@ function FormHeader({ title, subHeading }) {
         <Fieldset.Legend
           fontSize={{ base: "1.375rem", lg: "1.75rem" }}
           fontWeight={"600"}
-          color="rgba(0, 0, 0, 1)"
+         _dark={{
+          color: "white",
+         }}
         >
           {title}
         </Fieldset.Legend>

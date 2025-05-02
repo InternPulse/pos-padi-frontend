@@ -108,11 +108,11 @@ const LoginForm = () => {
   //   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form  onSubmit={handleSubmit(onSubmit)}>
       <Fieldset.Root
+       _dark={{ bg: "gray.1000", borderColor: "gray.300" }}
         width="100%"
         rounded={{ base: "0", md: "md" }}
-        bg="white"
         py={{ base: 2, md: "2.5rem" }}
         px={{ base: "1rem", md: 12 }}
         display="flex"
@@ -139,7 +139,7 @@ const LoginForm = () => {
             <FormHeader
               title="Login To Your Account"
               subHeading="Welcome back! Input your login details"
-            />
+            /> 
           </Box>
 
           <Fieldset.Content>

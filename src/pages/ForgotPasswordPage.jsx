@@ -10,8 +10,11 @@ function ForgotPasswordPage() {
         base: "1fr",
         md: "50% 50%",
       }}
+      _light={{
+        bg:"white"
+      }}
       height="100vh"
-      bgColor={{ base: "white", md: "rgba(0, 0, 0, 0.02)" }}
+      bgColor={{ base: "", md: "rgba(0, 0, 0, 0.02)" }}
       width="100%"
       pt={{ base: "8rem", md: "0" }}
       // border="2px dashed red" // debug:

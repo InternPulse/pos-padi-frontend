@@ -24,7 +24,6 @@ const Forgot = () => {
   return (
     <Box
       w={{ base: "100%", md: "50%" }}
-      bg="white"
       py={{ base: 12, md: 24 }}
       px={{ base: 8, md: 12 }}
       display="flex"
