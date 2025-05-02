@@ -33,7 +33,7 @@ function AdminSignUpPage() {
     <Grid
       templateColumns={{ base: "1fr", md: "50% 50%" }}
       height="100vh"
-      bgColor={{ base: "white", md: "rgba(0, 0, 0, 0.02)" }}
+      bgColor={{ base: "", md: "rgba(0, 0, 0, 0.02)" }}
       width="100%"
       // border="2px dashed red" // debug:
     >

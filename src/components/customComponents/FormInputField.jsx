@@ -40,7 +40,7 @@ const FormInputField = ({
       : {};
 
   return (
-    <Field.Root invalid={!!error}>
+    <Field.Root invalid={!!error} >
       <Field.Label
         color={{ base: "#1A1A1A", _dark: "gray.50/60" }}
         htmlFor={name}

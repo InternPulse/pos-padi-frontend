@@ -115,7 +115,9 @@ const AdminSignUpBizInfoForm = () => {
         width="100%"
         height="100%"
         rounded={{ base: "0", md: "md" }}
-        bg="white"
+        _light={{
+          bg: "white"
+        }}
         py={{ base: 2, md: "2.5rem" }}
         px={{ base: 8, md: 12 }}
         display="flex"

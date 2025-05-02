@@ -101,7 +101,7 @@ export const PinInputForm = () => {
       width="100%"
       height="100%"
       rounded="md"
-      bg="white"
+      
       py={{ base: "12 12 0 12", md: "40px" }}
       px={{ base: 8, md: 12 }}
       display="flex"

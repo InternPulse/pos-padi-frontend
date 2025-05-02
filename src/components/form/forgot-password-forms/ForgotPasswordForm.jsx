@@ -111,7 +111,9 @@ const ForgotPasswordForm = () => {
         width="100%"
         height="100%"
         rounded={{ base: "0", md: "md" }}
-        bg="white"
+        _light={{
+          bg: "white"
+        }}
         py={{ base: 2, md: "2.5rem" }}
         px={{ base: "1rem", md: 12 }}
         display="flex"

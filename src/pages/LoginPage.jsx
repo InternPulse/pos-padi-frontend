@@ -20,8 +20,11 @@ function LoginPage() {
         // md: "minmax(30rem, 43.75rem) minmax(25rem, 31.25rem)",
         md: '50% 50%'
       }}
+      _light={{
+        bgColor:"white"
+      }}
       height="100vh"
-      bgColor={{ base: "white", md: "rgba(0, 0, 0, 0.02)" }}
+      bgColor={{ base: "", md: "rgba(0, 0, 0, 0.02)" }}
       width="100%"
       //   border="2px dashed red" // debug:
     >

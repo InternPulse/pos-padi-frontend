@@ -136,7 +136,10 @@ const AdminSignUpForm = () => {
       <Fieldset.Root
         width="100%"
         rounded={{ base: "0", md: "md" }}
-        bg="white"
+        _dark={{ bg: "", borderColor: "gray.600" }}
+        _light={{
+          bg: "white"
+        }}
         py={{ base: 2, md: "2.5rem" }}
         px={{ base: "1rem", md: 12 }}
         display="flex"
