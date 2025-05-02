@@ -27,7 +27,7 @@ import { formatCurrency } from "./AltTransactions";
 //     status: "successful",
 //   }
 
-const TransactionDetailsCard = ({ data }) => {
+const TransactionDetailsCard = ({ data, setDisplay }) => {
   return (
     <VStack>
       <VStack gap="3">
@@ -138,7 +138,7 @@ const TransactionDetailsCard = ({ data }) => {
           Download Receipt
         </Text>
       </Button>
-      <Button width="100%" p="20px" variant="outline" rounded="lg">
+      <Button width="100%" p="20px" variant="outline" rounded="lg" onClick={() => {setDisplay('disputeForm')}}>
         <Text fontSize="14px" color="#626C7A">
           Raise Dispute
         </Text>

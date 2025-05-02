@@ -1,141 +1,104 @@
-import React, { useState } from "react";
-import { Box, Button, Input, Text, VStack } from "@chakra-ui/react";
-import DisputeReasons from "./DisputeReasons";
-import DisputeBank from "./DisputeBank";
+import {
+  Field,
+  Button,
+  Input,
+  Text,
+  Flex,
+  NativeSelect,
+} from "@chakra-ui/react";
+import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
+import banks from "../../../components/alt/transactions/Effects/banks.json";
+import { useState } from "react";
 
-const DisputesForm = ({
-  defaultTransactionType = "Withdrawal",
-  defaultAmount = "₦ 5000",
-  defaultAccountName = "John Doe",
-}) => {
-  const [accountNumber, setAccountNumber] = useState("");
-  const [reason, setReason] = useState("");
-  const [bank, setBank] = useState("");
+export default function DisputesForm({ data, store }) {
+  const [formData, setFormData] = useState({
+    ...data,
+    status: "pending",
+  });
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Form Submitted:", {
-      transactionType: defaultTransactionType,
-      amount: defaultAmount,
-      accountName: defaultAccountName,
-      accountNumber,
-      reason,
-      bank,
-    });
 
-  };
+    console.log(formData);
+    // Handle POST/PUT request to disputes API
+
+    store.setOpen(false);
+  }
 
   return (
-    <Box
-      width={{ base: "100%", md: "500px" }}
-      minHeight="904px"
-      borderRadius="10px"
-      bg="white"
-      p={8}
-      mx="auto"
-      mt={8}
-      boxShadow="md"
-    >
-      <VStack
-        spacing={6}
-        width={{ base: "100%", md: "400px" }}
-        mx="auto"
-        align="stretch"
-      >
-        <Text fontSize="24px" fontWeight="600" color="black">
+    <form onSubmit={handleSubmit}>
+      <Flex direction={"column"} width={"100%"}>
+        <Text textAlign={"center"} fontWeight={"semibold"} textStyle={"xl"}>
           Dispute
         </Text>
-
-        <Text fontWeight="400" fontSize="16px" color="#626C7A" mb="5px" fontFamily="Poppins">
+        <Text textAlign={"center"} color={"gray.500"}>
           Input dispute details
         </Text>
+        <Flex gap={4} direction={"column"} mt={6}>
+          <Field.Root>
+            <Field.Label>Transaction Type </Field.Label>
+            <Input textTransform={"capitalize"} value={data.type} disabled />
+          </Field.Root>
+          <Field.Root>
+            <Field.Label>Amount</Field.Label>
+            <Input value={formatCurrency(data.amount)} disabled />
+          </Field.Root>
+          <Field.Root>
+            <Field.Label>Reason</Field.Label>
+            <NativeSelect.Root>
+              <NativeSelect.Field
+                onChange={(e) => {
+                  setFormData({ ...formData, reason: e.target.value });
+                }}
+              >
+                <option value="">Select Reason</option>
+                <option value="declined">
+                  Declined, But Customer Got Debited
+                </option>
+                <option value="fraud">Fraudulent Transaction</option>
+                <option value="duplicate">Duplicate Transaction</option>
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
+          </Field.Root>
+          <Field.Root>
+            <Field.Label>Bank</Field.Label>
+            <NativeSelect.Root>
+              <NativeSelect.Field
+                onChange={(e) => {
+                  setFormData({ ...formData, bank: e.target.value });
+                }}
+              >
+                <option value="">Select Bank</option>
+                {Object.keys(banks).map((bank) => (
+                  <option value={bank}>{bank}</option>
+                ))}
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
+          </Field.Root>
+          <Field.Root>
+            <Field.Label>Account Number</Field.Label>
+            <Input
+              onChange={(e) => {
+                setFormData({ ...formData, accountNumber: e.target.value });
+              }}
+            />
+          </Field.Root>
+          <Field.Root>
+            <Field.Label>Account Name</Field.Label>
+            <Input
+              textTransform={"capitalize"}
+              value={data.customer}
+              disabled
+            />
+          </Field.Root>
 
-        {/* Transaction Type (readonly) */}
-        <Text fontSize="16px" color="#1A1A1A">
-          Transaction Type
-        </Text>
-        <Input
-          value={defaultTransactionType}
-          isReadOnly
-          placeholder="Transaction Type"
-          height="48px"
-          borderRadius="10px"
-          fontFamily="Poppins"
-          fontSize="12px"
-          bg="gray.100"
-        />
-
-        {/* Amount (readonly) */}
-        <Text fontSize="16px" color="#1A1A1A">
-          Amount
-        </Text>
-        <Input
-          value={defaultAmount}
-          isReadOnly
-          placeholder="Amount"
-          height="48px"
-          borderRadius="10px"
-          fontFamily="Poppins"
-          fontSize="12px"
-          bg="gray.100"
-        />
-
-        {/* Reason (editable) */}
-        <DisputeReasons
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
-        />
-
-        {/* Account Number (editable) */}
-        <Text fontSize="16px" color="#1A1A1A">
-          Account Number
-        </Text>
-        <Input
-          value={accountNumber}
-          onChange={(e) => setAccountNumber(e.target.value)}
-          placeholder="Enter account number"
-          height="48px"
-          borderRadius="10px"
-          fontFamily="Poppins"
-          fontSize="12px"
-        />
-
-        {/* Bank (editable) */}
-        <DisputeBank
-          value={bank}
-          onChange={(e) => setBank(e.target.value)}
-        />
-
-        {/* Account Name (readonly) */}
-        <Text fontSize="16px" color="#1A1A1A">
-          Account Name
-        </Text>
-        <Input
-          value={defaultAccountName}
-          isReadOnly
-          placeholder="Account Name"
-          height="48px"
-          borderRadius="10px"
-          fontFamily="Poppins"
-          fontSize="12px"
-          bg="gray.100"
-        />
-
-        <Button
-          bg="#02B14F"
-          color="white"
-          _hover={{ bg: "#028a3f" }}
-          mt={4}
-          height="48px"
-          borderRadius="10px"
-          fontFamily="Poppins"
-          onClick={handleSubmit}
-        >
-          Raise Dispute
-        </Button>
-      </VStack>
-    </Box>
+          <Button type="submit" mt={4} colorPalette={"green"}>
+            Raise Dispute
+          </Button>
+        </Flex>
+      </Flex>
+    </form>
   );
-};
-
-export default DisputesForm;
+}
