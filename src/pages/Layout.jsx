@@ -24,7 +24,7 @@ export function transformUserData(currentUser) {
     avatar: `${currentUser.user.photo}`,
     role:
       `${currentUser.user.role}` == "owner"
-        ? "agent"
+        ? "admin"
         : `${currentUser.user.role}`,
   };
 }
