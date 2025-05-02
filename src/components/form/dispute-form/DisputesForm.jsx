@@ -22,6 +22,8 @@ export default function DisputesForm({ data, store }) {
     console.log(formData);
     // Handle POST/PUT request to disputes API
 
+    
+
     store.setOpen(false);
   }
 

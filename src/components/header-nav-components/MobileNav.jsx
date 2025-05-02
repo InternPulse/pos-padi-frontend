@@ -15,18 +15,15 @@ import MenuButton from "./MenuButton";
 import Navigation from "./Navigation";
 import UserAvatar from "./UserAvatar";
 import { useAuth } from "@/Authentication/AuthProvider";
+import { User } from "@/context/UserContext";
+import { useContext } from "react";
+import { transformUserData } from "@/pages/Layout";
 
 function MobileNav() {
 
   const {setAuth} = useAuth();
 
-  const user = {
-    id: "1",
-    name: "John Mason",
-    email: "john.mason@example.com",
-    avatar: "https://i.pravatar.cc/300?u=iu",
-    role: "admin",
-  };
+  const user = transformUserData(useContext(User))
 
   const handleLogout = (e) => {
     // console.log("Hi")
