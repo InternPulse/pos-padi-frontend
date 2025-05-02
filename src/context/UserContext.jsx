@@ -8,6 +8,17 @@ function UserContext({ children }) {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  const loadingStyles = {
+    color: 'green',
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
   useEffect(() => {
     getUserSummary()
       .then((data) => {
@@ -18,7 +29,7 @@ function UserContext({ children }) {
       .catch((err) => console.log(err));
   }, []);
 
-  return !isLoading && <User.Provider value={user}>{children}</User.Provider>;
+  return isLoading ? <em style={loadingStyles}>Loading POS-Padi...</em> : <User.Provider value={user}>{children}</User.Provider>;
 }
 
 export default UserContext;
