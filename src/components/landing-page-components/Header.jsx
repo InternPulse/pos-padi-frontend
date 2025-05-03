@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { Menu } from 'lucide-react';
 import { Drawer, CloseButton, Portal } from '@chakra-ui/react';
+import Logo from '../header-nav-components/Logo';
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState('Home');
@@ -42,15 +43,15 @@ const Header = () => {
       <Flex
         maxW="7xl"
         mx="auto"
-        px={{ base: 4, sm: 6 }}
+        px={{ base: 4, sm: 4 }}
         h="16"
         justify="space-between"
         align="center"
       >
         {/* Logo - Reduced size */}
-        <Flex shrink="0">
+        <Flex shrink="0"  width={'170px'}>
           <Link href="/" display="flex" alignItems="center">
-            <Flex
+            {/* <Flex
               h="8"
               w="8"
               bg="green.500"
@@ -64,7 +65,8 @@ const Header = () => {
             </Flex>
             <Text ml="2" color="green.500" fontWeight="bold" fontSize="xl">
               POS-Padi
-            </Text>
+            </Text> */}
+            <Logo />
           </Link>
         </Flex>
 
@@ -82,7 +84,7 @@ const Header = () => {
               key={item.name}
               href={item.path}
               onClick={() => setActiveLink(item.name)}
-              fontSize="md"
+              fontSize={{base: "md", md: 'sm', lg: 'md'}}
               p={1}
               color={activeLink === item.name ? 'green.500' : 'gray.500'}
               fontWeight={activeLink === item.name ? 'semibold' : 'medium'}
@@ -102,7 +104,7 @@ const Header = () => {
             href="/login"
             px="4"
             py="2"
-            fontSize="md"
+            fontSize="sm"
             fontWeight="medium"
             color="gray.600"
             _hover={{ color: 'green.500' }}
@@ -110,7 +112,7 @@ const Header = () => {
             Log In
           </Link>
           <Link
-            href="/signup"
+            href="/admin-signup"
             px="4"
             py="2"
             bg="green.500"
