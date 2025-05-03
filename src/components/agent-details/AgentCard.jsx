@@ -8,8 +8,7 @@ import {
   Avatar,
   Clipboard,
 } from "@chakra-ui/react";
-
-import React from 'react'
+import AgentDeactivation from "../alt/transactions/Effects/AgentDeactivation";
 
 function AgentCard({ agent }) {
   return (
@@ -137,10 +136,7 @@ function AgentCard({ agent }) {
           </Text>
         </GridItem>
         <GridItem textAlign="right">
-          <Switch.Root colorPalette="green" checked={agent.isActive} >
-            <Switch.HiddenInput />
-            <Switch.Control boxShadow={'0 0 2px lightgrey'} />
-          </Switch.Root>
+          <AgentDeactivation isActive={agent.isActive} />
         </GridItem>
       </Grid>
     </Flex>

@@ -18,6 +18,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 import AddTransactionBackup from "./components/form/add-transaction/AddTransactionBackup";
 import ConfirmationModal from "./components/ConfirmationModal";
+import AgentDeactivation from "./components/alt/transactions/Effects/AgentDeactivation";
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
         <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/demo" element={<AddTransactionBackup />}></Route>
+        <Route path="/demo" element={<AgentDeactivation />}></Route>
 
       </Routes>
     </BrowserRouter>
