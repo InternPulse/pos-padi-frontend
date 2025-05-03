@@ -17,13 +17,12 @@ import UserAvatar from "./UserAvatar";
 import { useAuth } from "@/Authentication/AuthProvider";
 import { User } from "@/context/UserContext";
 import { useContext } from "react";
-import { transformUserData } from "@/pages/Layout";
 
 function MobileNav() {
 
   const {setAuth} = useAuth();
 
-  const user = transformUserData(useContext(User))
+  const user = useContext(User)
 
   const handleLogout = (e) => {
     // console.log("Hi")

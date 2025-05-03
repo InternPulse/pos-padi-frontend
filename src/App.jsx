@@ -14,7 +14,6 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./Authentication/RequireAuth";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import UserContext from "./context/UserContext";
 
 
 import AddTransactionBackup from "./components/form/add-transaction/AddTransactionBackup";
@@ -46,7 +45,7 @@ function App() {
         <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/demo" element={<ConfirmationModal />}></Route>
+        <Route path="/demo" element={<AddTransactionBackup />}></Route>
 
       </Routes>
     </BrowserRouter>

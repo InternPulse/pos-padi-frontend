@@ -1,7 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Flex, Box, Stack, IconButton } from "@chakra-ui/react";
-// import NotificationButton from "@/components/header-nav-components/NotificationButton";
-// import MenuButton from "@/components/header-nav-components/MenuButton";
+import { Flex, Box, Spinner, Text, VStack, IconButton } from "@chakra-ui/react";
 import Logo from "@/components/header-nav-components/Logo";
 import PageTitle from "@/components/header-nav-components/PageTitle";
 import Navigation from "@/components/header-nav-components/Navigation";
@@ -13,41 +11,24 @@ import UserAvatarBrief from "@/components/header-nav-components/UserAvatarBrief"
 import { LuLogOut } from "react-icons/lu";
 import { useAuth } from "@/Authentication/AuthProvider";
 import { logoutUser } from "@/backend-functions/useractions-api";
-import { User } from "@/context/UserContext";
 import { useState, useEffect } from "react";
 import UserContext from "@/context/UserContext";
 import { getUserSummary } from "@/backend-functions/useractions-api";
 
-export function transformUserData(currentUser) {
-  return {
-    id: `${currentUser.user.email}`,
-    name: `${currentUser.user.first_name} ${currentUser.user.last_name}`,
-    email: `${currentUser.user.email}`,
-    avatar: `${currentUser.user.photo}`,
-    role:
-      `${currentUser.user.role}` == "owner"
-        ? "admin"
-        : `${currentUser.user.role}`,
-  };
+function LoadingSpinner(){
+  return (
+    <VStack colorPalette="green">
+      <Spinner color="colorPalette.600" size={'xl'} borderWidth={'3px'} />
+      <Text textStyle={'sm'} fontWeight={'medium'} italic color="gray.600">Loading... refresh page if it's taking too long</Text>
+    </VStack>
+  )
 }
 
 function Layout() {
   const { setAuth } = useAuth();
-
-  // const [userData, setUserData] = useState({});
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const loadingStyles = {
-    color: "green",
-    fontWeight: "bold",
-    fontSize: "1.2rem",
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  };
 
   useEffect(() => {
     getUserSummary()
@@ -60,7 +41,7 @@ function Layout() {
           avatar: `${data.user.photo}`,
           role: `${data.user.role}` == "owner" ? "admin" : `${data.user.role}`,
         };
-        // return transformUserData(data);
+
       })
       .then((data) => {
         console.log(data);
@@ -70,7 +51,6 @@ function Layout() {
       .catch((err) => console.log(err));
   }, []);
 
-  // const currentUser = useContext(User);
 
   const handleLogout = (e) => {
     //Function to logout user. Triggered by clicking the logout button
@@ -80,7 +60,9 @@ function Layout() {
   };
 
   return isLoading ? (
-    <em style={loadingStyles}>Loading POS-Padi...</em>
+    <Flex width={'100vw'} height={'100vh'} justify={'center'} align={'center'}>
+      <LoadingSpinner />
+    </Flex>
   ) : (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
     <UserContext user={user}>
