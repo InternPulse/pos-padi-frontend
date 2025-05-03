@@ -11,13 +11,18 @@ import {
 import { FaRegUser } from "react-icons/fa";
 import { BsTelephone } from "react-icons/bs";
 import SuccessDialog from "../success-dialog/SuccessDialog";
+import { useLocation } from "react-router-dom";
 
 const AddCustomerForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-  });
+  const currentPath = useLocation().pathname;
+  const variant = currentPath.includes("customer") ? "customer" : "agent";
+
+  const customerFormData = { firstName: "", lastName: "", phoneNumber: "" };
+  const agentFormData = { ...customerFormData, email: "" };
+  const defaultFormData =
+    variant == "customer" ? customerFormData : agentFormData;
+
+  const [formData, setFormData] = useState(defaultFormData);
 
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -32,18 +37,14 @@ const AddCustomerForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.firstName || !formData.lastName || !formData.phoneNumber) {
+    if (!formData.firstName || !formData.lastName || !formData.phoneNumber || (!formData.email && (variant == 'agent'))) {
       alert("Please fill in all fields");
       return;
     }
 
     console.log("Form submitted:", formData);
     setShowSuccess(true);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-    });
+    setFormData(defaultFormData);
   };
 
   const closeSuccess = () => {
@@ -51,18 +52,13 @@ const AddCustomerForm = () => {
   };
 
   return (
-    <Center minH="100vh" bg="gray.50" p={4} position="relative">
+    <Center py={6} position="relative">
       {/* Form Content */}
       <Box
         as="form"
         onSubmit={handleSubmit}
-        width={{ base: "100%", sm: "100%", md: "500px" }}
-        height="602px"
-        minH={{ base: "100vh", md: "auto" }}
-        borderRadius="10px"
-        bg="#FFFFFF"
-        p={6}
-        boxShadow="md"
+        width={{ base: "100%", sm: "100%" }}
+        maxW={"400px"}
       >
         <Text
           fontFamily="Poppins"
@@ -70,15 +66,22 @@ const AddCustomerForm = () => {
           fontSize="24px"
           color="#000000"
           mb={4}
+          textTransform={"capitalize"}
         >
-          Add New Customer
+          Add New {variant}
         </Text>
 
-        <Text fontFamily="Poppins" fontSize="16px" color="#626C7A" mb={6}>
-          Input Customer Details
+        <Text
+          textTransform={"capitalize"}
+          fontFamily="Poppins"
+          fontSize="16px"
+          color="#626C7A"
+          mb={6}
+        >
+          Input {variant} Details
         </Text>
 
-        <VStack spacing={4} align="stretch">
+        <VStack gap={6} align="stretch">
           {/* First Name */}
           <Box position="relative">
             <Text
@@ -184,6 +187,43 @@ const AddCustomerForm = () => {
             </Flex>
           </Box>
 
+          {/* Email */}
+          {variant == "agent" && (
+            <Box position="relative">
+              <Text
+                fontFamily="Poppins"
+                fontWeight={400}
+                fontSize="16px"
+                color="#1A1A1A"
+                mb={1}
+              >
+                Email
+              </Text>
+              <Flex align="center" position="relative">
+                <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+                  <BsTelephone />
+                </Box>
+                <Input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter Phone Number"
+                  width="100%"
+                  height="48px"
+                  borderRadius="10px"
+                  border="1px solid"
+                  borderColor="gray.200"
+                  pl={10}
+                  fontFamily="Poppins"
+                  _placeholder={{
+                    color: "gray.400",
+                    fontFamily: "Poppins",
+                  }}
+                />
+              </Flex>
+            </Box>
+          )}
+
           <Button
             type="submit"
             bg="green.500"
@@ -195,15 +235,16 @@ const AddCustomerForm = () => {
             fontWeight={600}
             fontSize="16px"
             mt={4}
+            textTransform={"capitalize"}
           >
-            Add New Customer
+            Add New {variant}
           </Button>
         </VStack>
       </Box>
 
       {/* Success Dialog - */}
       {showSuccess && (
-        <SuccessDialog onClose={closeSuccess} variant="customer" />
+        <SuccessDialog onClose={closeSuccess} variant={variant} />
       )}
     </Center>
   );

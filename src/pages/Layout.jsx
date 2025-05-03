@@ -39,7 +39,7 @@ function Layout() {
           name: `${data.user.first_name} ${data.user.last_name}`,
           email: `${data.user.email}`,
           avatar: `${data.user.photo}`,
-          role: `${data.user.role}` == "owner" ? "admin" : `${data.user.role}`,
+          role: `${data.user.role}` == "owner" ? "agent" : `${data.user.role}`,
         };
 
       })

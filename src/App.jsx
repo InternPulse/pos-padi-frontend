@@ -19,6 +19,9 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AddTransactionBackup from "./components/form/add-transaction/AddTransactionBackup";
 import ConfirmationModal from "./components/ConfirmationModal";
 import AgentDeactivation from "./components/alt/transactions/Effects/AgentDeactivation";
+import AddTransactionDialog from "./components/form/add-transaction/AddTransactionDialog";
+import AddCustomerForm from "./components/form/add-customer-form/AddCustomerForm";
+import AddCustomerDialog from "./components/form/add-customer-form/AddCustomerDialog";
 
 function App() {
   return (
@@ -46,7 +49,7 @@ function App() {
         <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/demo" element={<AgentDeactivation />}></Route>
+        {/* <Route path="/demo" element={<AddCustomerDialog />}></Route> */}
 
       </Routes>
     </BrowserRouter>

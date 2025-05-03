@@ -7,8 +7,8 @@ import { LuWallet } from "react-icons/lu";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import { FiPlus } from "react-icons/fi";
 import ExportButton from "../dashboard-components/ExportButton";
+import AddTransactionDialog from "@/components/form/add-transaction/AddTransactionDialog";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -163,7 +163,7 @@ function AltTransactions() {
 
           <Flex width={{ base: "100%", md: "340px" }} justify={{base: 'space-between' , md: "start"}} gap={4} >
 
-            <Button
+            {/* <Button
               colorPalette={"green"}
               rounded={"lg"}
               display={user.role == "agent" ? "block" : "none"}
@@ -171,7 +171,8 @@ function AltTransactions() {
               <Flex gap={2}>
                 <FiPlus /> Add Transaction
               </Flex>
-            </Button>
+            </Button> */}
+            <AddTransactionDialog />
             <Box width={{ base: "50px", md: "150px" }}>
               <ExportButton />
             </Box>

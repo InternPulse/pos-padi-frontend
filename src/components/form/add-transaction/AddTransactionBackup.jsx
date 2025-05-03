@@ -71,22 +71,20 @@ const AddTransactionBackup = () => {
   };
 
   return (
-    <Center minH="100vh" bg="gray.50" p={4} position="relative">
+    <Center position="relative">
       <Box
         as="form"
         onSubmit={handleSubmit}
-        width={{ base: "100%", sm: "100%", md: "500px" }}
+        width={{ base: "100%", sm: "100%" }}
         height="auto"
-        minH={{ base: "100vh", md: "auto" }}
-        bg="#FFFFFF"
-        p={6}
-        boxShadow="md"
+        px={{base: 2, md: 2}}
+        py={{base: 8, md: 8}}
       >
         <Text
           fontFamily="Poppins"
           fontWeight={600}
           fontSize="24px"
-          color="#000000"
+          color={{base: 'black', _dark: 'white'}}
           mb={4}
         >
           Add New Transaction
@@ -96,20 +94,20 @@ const AddTransactionBackup = () => {
           Input Transaction Details
         </Text>
 
-        <VStack spacing={4} align="stretch">
+        <VStack gap={6} align="stretch">
           {/* Amount */}
           <Box position="relative">
             <Text
               fontFamily="Poppins"
               fontWeight={400}
               fontSize="16px"
-              color="#1A1A1A"
+              color={{base: 'gray.600', _dark: 'gray.300'}}
               mb={1}
             >
               Amount
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+              <Box position="absolute" left="3" zIndex="1" color={{base: 'gray.600', _dark: 'gray.300'}}>
                 <FaMoneyBillWave />
               </Box>
               <Input
@@ -125,7 +123,7 @@ const AddTransactionBackup = () => {
                 pl={10}
                 fontFamily="Poppins"
                 _placeholder={{
-                  color: "gray.400",
+                  color: {base: 'gray.600', _dark: 'gray.300'},
                   fontFamily: "Poppins",
                 }}
               />
@@ -138,13 +136,13 @@ const AddTransactionBackup = () => {
               fontFamily="Poppins"
               fontWeight={400}
               fontSize="16px"
-              color="#1A1A1A"
+              color={{base: 'gray.600', _dark: 'gray.300'}}
               mb={1}
             >
               Customer Phone No
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+              <Box position="absolute" left="3" zIndex="1" color={{base: 'gray.600', _dark: 'gray.300'}}>
                 <LuPhone />
               </Box>
               <Input
