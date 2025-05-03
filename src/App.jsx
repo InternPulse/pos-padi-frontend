@@ -26,7 +26,6 @@ function App() {
       <Routes>
         <Route path="/" element={<RequireAuth />}>
           {/* protected routes */}
-          <Route element={<UserContext />}>
             <Route element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="settings" element={<Settings />} />
@@ -40,7 +39,6 @@ function App() {
               <Route path="disputes" element={<Disputes />} />
               <Route path="settings" element={<Settings />} />
             </Route>
-          </Route>
         </Route>
         {/* public routes */}
 

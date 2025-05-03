@@ -5,36 +5,34 @@ import { Outlet } from "react-router-dom";
 
 const User = createContext();
 
-function UserContext({ children }) {
-  const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+function UserContext({ children, user }) {
+  // const [user, setUser] = useState({});
+  // const [isLoading, setIsLoading] = useState(true);
 
-  const loadingStyles = {
-    color: "green",
-    fontWeight: "bold",
-    fontSize: "1.2rem",
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  };
+  // const loadingStyles = {
+  //   color: "green",
+  //   fontWeight: "bold",
+  //   fontSize: "1.2rem",
+  //   width: "100vw",
+  //   height: "100vh",
+  //   display: "flex",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // };
 
-  useEffect(() => {
-    getUserSummary()
-      .then((data) => {
-        setUser(data);
-        // console.log(user);
-        setIsLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   getUserSummary()
+  //     .then((data) => {
+  //       setUser(data);
+  //       // console.log(user);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
-  return isLoading ? (
-    <em style={loadingStyles}>Loading POS-Padi...</em>
-  ) : (
+  return (
     <User.Provider value={user}>
-      <Outlet />
+      {children}
     </User.Provider>
   );
 }
