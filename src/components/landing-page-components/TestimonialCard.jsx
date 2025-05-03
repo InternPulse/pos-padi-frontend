@@ -7,6 +7,8 @@ import {
   HStack,
   SimpleGrid,
   Badge,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 
 export default function TestimonialCard() {
@@ -48,70 +50,113 @@ export default function TestimonialCard() {
       name: "Mayowa Uche ",
     },
   ];
-  return (
-    <VStack
-      p={4}
-      bg={{ base: "gray.100", _dark: "black" }}
-      align={"center"}
-      gap={4}
-    >
-      <Badge
-        colorPalette={"green"}
-        p={2}
-        fontWeight={"semibold"}
-        rounded={"xl"}
-      >
-        <IoMdStarOutline />
-        Testimonials
-      </Badge>
 
-      <HStack gap={1} fontWeight={"semibold"} textStyle={"2xl"} justify={'center'}>
-        <Text textAlign={'center'}>Direct Stories From POS-Padi <span style={{color: '#02B14F'}}>Users</span> </Text>
-      </HStack>
-      <Text
-        fontStyle={"italic"}
-        textStyle={"xs"}
-        color={{ base: "gray.500", _dark: "gray.300" }}
-        textAlign={'center'}
+  return (
+    <Box bg={{ base: "gray.50", _dark: "gray.900" }} width="full">
+      <VStack
+        maxW="7xl"
+        mx="auto"
+        px={{ base: 4, md: 8 }}
+        py={{ base: 10, md: 20 }}
+        align={"center"}
+        gap={4}
       >
-        Don't just take our word for it. Here's what people who use our services
-        have to say.
-      </Text>
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4} p={4}>
-        {testimonials.map((testimonial, index) => (
-          <Box
-            key={index}
-            bg="white"
-            boxShadow={"0 0 3px lightgrey"}
-            borderRadius="md"
-            pt={6}
-            pb={4}
-            px={4}
-            maxW="400px"
-            mx="auto"
-            bgColor={{ base: "white", _dark: "gray.800" }}
-          >
-            <Text mb={4} color={{ base: "gray.500", _dark: "gray.300" }}>
-              {testimonial.text}
+        <Box
+          p={2}
+          bg={{ base: "green.50", _dark: "green.900" }}
+          borderRadius={20}
+          border="1px solid"
+          borderColor={{ base: "green.200", _dark: "green.700" }}
+        >
+          <Flex alignItems="center" gap={2}>
+            <IoMdStarOutline color="currentColor" size={20} />
+            <Text
+              color={{ base: "green.500", _dark: "green.300" }}
+              fontWeight="medium"
+            >
+              Testimonials
             </Text>
-            <HStack align="center" gap={4}>
-              <Avatar.Root>
-                <Avatar.Fallback name={testimonial.name} />
-                <Avatar.Image src={testimonial.avatar} />
-              </Avatar.Root>
-              <VStack align="start" spacing={0}>
-                <Text fontWeight="bold">{testimonial.name}</Text>
+          </Flex>
+        </Box>
+
+        <Heading
+          as="h1"
+          fontSize="3xl"
+          mb={3}
+          color={{ base: "gray.800", _dark: "gray.100" }}
+        >
+          Direct Stories From POS-Padi Users
+        </Heading>
+
+        <Text
+          color={{ base: "gray.600", _dark: "gray.400" }}
+          textAlign="center"
+          maxW="2xl"
+          mb={8}
+        >
+          Don't just take our word for it. Here's what people who use our
+          services have to say.
+        </Text>
+
+        <Box
+          width="100%"
+          overflowX={{ base: "auto", md: "visible" }}
+          pb={{ base: 4, md: 0 }}
+        >
+          <SimpleGrid
+            columns={{ base: 6, md: 2, lg: 3 }}
+            gap={6}
+            width={{ base: "max-content", md: "100%" }}
+            px={{ base: 4, md: 0 }}
+          >
+            {testimonials.map((testimonial, index) => (
+              <Box
+                key={index}
+                bg={{ base: "white", _dark: "gray.800" }}
+                p={6}
+                borderRadius="lg"
+                boxShadow="sm"
+                width={{ base: "300px", md: "auto" }}
+                transition="all 0.3s ease"
+                _hover={{
+                  transform: "translateY(-5px)",
+                  boxShadow: "lg",
+                  borderColor: { base: "green.200", _dark: "green.700" },
+                  border: "1px solid",
+                }}
+              >
                 <Text
-                  fontSize="sm"
-                  color={{ base: "gray.500", _dark: "gray.300" }}
+                  color={{ base: "gray.600", _dark: "gray.300" }}
+                  mb={4}
+                  fontSize="md"
                 >
-                  {testimonial.title}
+                  {testimonial.text}
                 </Text>
-              </VStack>
-            </HStack>
-          </Box>
-        ))}
-      </SimpleGrid>
-    </VStack>
+                <HStack spacing={4}>
+                  <Avatar.Root>
+                    <Avatar.Fallback name={testimonial.name} />
+                    <Avatar.Image src={testimonial.avatar} />
+                  </Avatar.Root>
+                  <VStack align="start" spacing={0}>
+                    <Text
+                      fontWeight="bold"
+                      color={{ base: "gray.800", _dark: "gray.100" }}
+                    >
+                      {testimonial.name}
+                    </Text>
+                    <Text
+                      fontSize="sm"
+                      color={{ base: "gray.500", _dark: "gray.400" }}
+                    >
+                      {testimonial.title}
+                    </Text>
+                  </VStack>
+                </HStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Box>
+      </VStack>
+    </Box>
   );
 }

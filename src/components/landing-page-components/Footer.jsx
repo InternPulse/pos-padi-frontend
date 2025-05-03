@@ -22,7 +22,12 @@ import pospadilogo from "../../assets/logo-lg.png";
 
 function FooterLink({ text, destination }) {
   return (
-    <Link color={"white"} textStyle={"sm"} href={destination}>
+    <Link
+      color={{ base: "gray.300", _dark: "gray.400" }}
+      textStyle={"sm"}
+      href={destination}
+      _hover={{ color: { base: "white", _dark: "gray.100" } }}
+    >
       {text}
     </Link>
   );
@@ -76,7 +81,12 @@ const Footer = () => {
   ];
 
   return (
-    <Flex width={"100%"} p={4} bg="black" color="white">
+    <Flex
+      width={"100%"}
+      p={4}
+      bg={{ base: "black", _dark: "gray.900" }}
+      color={{ base: "white", _dark: "gray.100" }}
+    >
       <VStack separator={<StackSeparator />} width={"100%"} gap={4}>
         <Flex
           py={{ base: 4, lg: 8 }}
@@ -88,7 +98,11 @@ const Footer = () => {
           <Flex width={{ base: "100%", lg: "25%" }}>
             <Flex direction={"column"} textAlign={{ base: "left", lg: "left" }}>
               <Image src={pospadilogo} htmlWidth="200px" htmlHeight="200px" />
-              <Text mt={2} textStyle={"sm"}>
+              <Text
+                mt={2}
+                textStyle={"sm"}
+                color={{ base: "gray.300", _dark: "gray.400" }}
+              >
                 Empowering financial freedom through easy, secure, and
                 accessible payment solutions.
               </Text>
@@ -102,6 +116,7 @@ const Footer = () => {
                   target="_blank"
                   href="https://www.facebook.com/profile.php?id=61575342099995"
                   isExternal
+                  _hover={{ opacity: 0.8 }}
                 >
                   <Icon as={FaFacebook} boxSize={6} color="#1877F2" />
                 </Link>
@@ -109,13 +124,24 @@ const Footer = () => {
                   target="_blank"
                   href="https://www.linkedin.com/company/pos-padi/"
                   isExternal
+                  _hover={{ opacity: 0.8 }}
                 >
                   <Icon as={FaLinkedin} boxSize={6} color="#0A66C2" />
                 </Link>
-                <Link target="_blank" href="https://x.com/pospadi" isExternal>
+                <Link
+                  target="_blank"
+                  href="https://x.com/pospadi"
+                  isExternal
+                  _hover={{ opacity: 0.8 }}
+                >
                   <Icon as={FaTwitter} boxSize={6} color="#1DA1F2" />
                 </Link>
-                <Link target="_blank" href="https://youtube.com" isExternal>
+                <Link
+                  target="_blank"
+                  href="https://youtube.com"
+                  isExternal
+                  _hover={{ opacity: 0.8 }}
+                >
                   <Icon as={FaYoutube} boxSize={6} color="#FF0000" />
                 </Link>
               </Stack>
@@ -123,7 +149,12 @@ const Footer = () => {
           </Flex>
           <Flex width={{ base: "100%", lg: "50%" }}>
             <Flex direction={"column"} width={"50%"}>
-              <Text fontSize="md" fontWeight="medium" mb={2}>
+              <Text
+                fontSize="md"
+                fontWeight="medium"
+                mb={2}
+                color={{ base: "white", _dark: "gray.100" }}
+              >
                 Quick Links
               </Text>
               <Stack spacing={2} align={{ base: "start", lg: "flex-start" }}>
@@ -133,7 +164,12 @@ const Footer = () => {
               </Stack>
             </Flex>
             <Flex direction={"column"} width={"50%"}>
-              <Text fontSize="md" fontWeight="medium" mb={2}>
+              <Text
+                fontSize="md"
+                fontWeight="medium"
+                mb={2}
+                color={{ base: "white", _dark: "gray.100" }}
+              >
                 Products
               </Text>
               <Stack spacing={2} align={{ base: "start", lg: "flex-start" }}>
@@ -145,7 +181,12 @@ const Footer = () => {
           </Flex>
           <Flex width={{ base: "100%", lg: "25%" }}>
             <Flex direction={"column"} textAlign={{ base: "left", md: "left" }}>
-              <Text fontSize="md" fontWeight="medium" mb={2}>
+              <Text
+                fontSize="md"
+                fontWeight="medium"
+                mb={2}
+                color={{ base: "white", _dark: "gray.100" }}
+              >
                 Contact Us
               </Text>
               <Stack gap={2} align={{ base: "start", lg: "flex-start" }}>
@@ -154,8 +195,16 @@ const Footer = () => {
                   justify={{ base: "center", lg: "flex-start" }}
                   textStyle={"sm"}
                 >
-                  <Icon as={FaEnvelope} mr={2} color="green" />
-                  <Link color={"white"} href="mailto:Support@pospade.com">
+                  <Icon
+                    as={FaEnvelope}
+                    mr={2}
+                    color={{ base: "green.500", _dark: "green.300" }}
+                  />
+                  <Link
+                    color={{ base: "gray.300", _dark: "gray.400" }}
+                    href="mailto:Support@pospade.com"
+                    _hover={{ color: { base: "white", _dark: "gray.100" } }}
+                  >
                     Support@pospade.com
                   </Link>
                 </Flex>
@@ -164,16 +213,28 @@ const Footer = () => {
                   justify={{ base: "center", lg: "flex-start" }}
                   textStyle={"sm"}
                 >
-                  <Icon as={FaPhoneAlt} mr={2} color="green" />
-                  <Text>+234 800 CALL POSPADI</Text>
+                  <Icon
+                    as={FaPhoneAlt}
+                    mr={2}
+                    color={{ base: "green.500", _dark: "green.300" }}
+                  />
+                  <Text color={{ base: "gray.300", _dark: "gray.400" }}>
+                    +234 800 CALL POSPADI
+                  </Text>
                 </Flex>
                 <Flex
                   align="center"
                   justify={{ base: "center", lg: "flex-start" }}
                   textStyle={"sm"}
                 >
-                  <Icon as={FaMapMarkerAlt} mr={2} color="green" />
-                  <Text>10 Bendel Close, Lagos, Nigeria</Text>
+                  <Icon
+                    as={FaMapMarkerAlt}
+                    mr={2}
+                    color={{ base: "green.500", _dark: "green.300" }}
+                  />
+                  <Text color={{ base: "gray.300", _dark: "gray.400" }}>
+                    10 Bendel Close, Lagos, Nigeria
+                  </Text>
                 </Flex>
               </Stack>
             </Flex>
@@ -186,18 +247,27 @@ const Footer = () => {
           gap={4}
           direction={{ base: "column", md: "row" }}
         >
-          <Text textStyle={"sm"}>© 2025 POS-Padi. All rights reserved.</Text>
+          <Text
+            textStyle={"sm"}
+            color={{ base: "gray.400", _dark: "gray.500" }}
+          >
+            © 2025 POS-Padi. All rights reserved.
+          </Text>
           <Flex>
             <Stack direction={{ base: "column", md: "row" }} gap={3}>
-              <Link color={"white"} textStyle={"sm"} href="#">
-                Privacy Policy
-              </Link>
-              <Link color={"white"} textStyle={"sm"} href="#">
-                Terms of Service
-              </Link>
-              <Link color={"white"} textStyle={"sm"} href="#">
-                Cookie Policy
-              </Link>
+              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+                (text) => (
+                  <Link
+                    key={text}
+                    color={{ base: "gray.300", _dark: "gray.400" }}
+                    textStyle={"sm"}
+                    href="#"
+                    _hover={{ color: { base: "white", _dark: "gray.100" } }}
+                  >
+                    {text}
+                  </Link>
+                )
+              )}
             </Stack>
           </Flex>
         </Flex>

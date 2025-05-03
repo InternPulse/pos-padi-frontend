@@ -1,12 +1,12 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { FiArrowRight } from "react-icons/fi";
-import { RiArrowRightLine } from "react-icons/ri"
+import { RiArrowRightLine } from "react-icons/ri";
 import POSPadiWeb from "../../assets/POSpadiWebView.png";
 import POSPadiMobile from "../../assets/POSpadiMobileView.png";
 
 const HeroSection = () => {
   return (
-    <Box bg="gray.50" py={{ base: 10, md: 20 }} px={{ base: 4, md: 10 }}>
+    <Box bg={{ base: "gray.50", _dark: "gray.900" }} width="full">
       <Flex
         direction="column"
         align="center"
@@ -14,15 +14,20 @@ const HeroSection = () => {
         maxW="7xl"
         mx="auto"
         gap={{ base: 4, md: 6 }}
+        px={{ base: 4, md: 8 }}
+        py={{ base: 10, md: 20 }}
       >
         <Button
-          bg="green.100"  
-          _hover={{ bg: "green.400", color: 'white' }}
-          color="green.600"
+          bg={{ base: "green.100", _dark: "green.900" }}
+          color={{ base: "green.600", _dark: "green.300" }}
           size="sm"
           rounded="full"
           variant="ghost"
           rightIcon={<FiArrowRight />}
+          _hover={{
+            bg: { base: "green.400", _dark: "green.700" },
+            color: "white",
+          }}
           mb={2}
           px={4}
         >
@@ -32,7 +37,7 @@ const HeroSection = () => {
         <Heading
           fontSize={{ base: "3xl", md: "5xl" }}
           fontWeight="bold"
-          color="gray.800"
+          color={{ base: "gray.800", _dark: "gray.100" }}
           lineHeight="1.2"
         >
           Powering Reliable <br /> Transactions, Anywhere
@@ -40,37 +45,37 @@ const HeroSection = () => {
 
         <Text
           fontSize={{ base: "md", md: "lg" }}
-          color="gray.600"
+          color={{ base: "gray.600", _dark: "gray.400" }}
           maxW="2xl"
         >
-          POS-Padi platform is fast, secure, and designed for growth.
-          Manage transfers, withdrawals, bill payments, and more, all from one device.
+          POS-Padi platform is fast, secure, and designed for growth. Manage
+          transfers, withdrawals, bill payments, and more, all from one device.
         </Text>
 
-        <Flex
-          mt={4}
-          gap={4}
-          flexWrap="wrap"
-          justify="center"
-        >
-          <Button 
-            colorPalette="green" 
-            size="lg" 
+        <Flex mt={4} gap={4} flexWrap="wrap" justify="center">
+          <Button
+            bg={{ base: "green.500", _dark: "green.500" }}
+            color="white"
+            size="lg"
             minW="140px"
             rounded="full"
+            _hover={{ bg: { base: "green.600", _dark: "green.600" } }}
           >
             Get Started
           </Button>
-          <Button 
-            colorPalette="green" 
-            variant="outline" 
-            size="lg" 
-            color="green.600"
+          <Button
+            color={{ base: "green.600", _dark: "green.300" }}
+            variant="outline"
+            size="lg"
             rounded="full"
-            minW="140px" 
-            bg="green.50"
-            _hover={{ bg: "green.400", color: 'white' }}
+            minW="140px"
+            bg={{ base: "green.50", _dark: "transparent" }}
             borderWidth="3px"
+            borderColor={{ base: "green.500", _dark: "green.300" }}
+            _hover={{
+              bg: { base: "green.100", _dark: "green.900" },
+              borderColor: { base: "green.600", _dark: "green.400" },
+            }}
           >
             Book a Demo
           </Button>
@@ -111,4 +116,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
