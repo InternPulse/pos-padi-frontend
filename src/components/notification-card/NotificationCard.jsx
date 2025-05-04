@@ -97,20 +97,20 @@ const getIcon = (iconName, size) => {
 };
 
 // Format time to relative time
-const formatRelativeTime = (time) => {
-  const now = moment();
-  const duration = moment.duration(now.diff(moment(time)));
+// const formatRelativeTime = (time) => {
+//   const now = moment();
+//   const duration = moment.duration(now.diff(moment(time)));
 
-  const days = Math.floor(duration.asDays());
-  const hours = Math.floor(duration.asHours());
+//   const days = Math.floor(duration.asDays());
+//   const hours = Math.floor(duration.asHours());
 
-  if (days >= 7) return "1 Week ago";
-  if (days >= 2) return `${days} Days ago`;
-  if (days === 1) return "1 Day ago";
-  if (hours >= 2) return `${hours} hours ago`;
-  if (hours === 1) return "1 hour ago";
-  return "Just now";
-};
+//   if (days >= 7) return "1 Week ago";
+//   if (days >= 2) return `${days} Days ago`;
+//   if (days === 1) return "1 Day ago";
+//   if (hours >= 2) return `${hours} hours ago`;
+//   if (hours === 1) return "1 hour ago";
+//   return "Just now";
+// };
 
 const NotificationCard = ({
   title,
@@ -152,8 +152,9 @@ const NotificationCard = ({
             <Text
               fontSize="12px"
               color={{ base: "#A0AEC0", _dark: "gray.300" }}
+              textTransform={'capitalize'}
             >
-              {formatRelativeTime(time)}
+              {/* {formatRelativeTime(time)} */} {moment(time).fromNow()}
             </Text>
             <Image src={dotIcon} boxSize="10px" />
             {name && (
