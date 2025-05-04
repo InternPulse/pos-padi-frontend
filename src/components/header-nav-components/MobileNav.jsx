@@ -17,6 +17,7 @@ import UserAvatar from "./UserAvatar";
 import { useAuth } from "@/Authentication/AuthProvider";
 import { User } from "@/context/UserContext";
 import { useContext } from "react";
+import { logoutUser } from "@/backend-functions/useractions-api";
 
 function MobileNav() {
 
@@ -25,10 +26,11 @@ function MobileNav() {
   const user = useContext(User)
 
   const handleLogout = (e) => {
-    // console.log("Hi")
-    e.preventDefault()
-    setAuth(false)
-  }
+    //Function to logout user. Triggered by clicking the logout button
+
+    logoutUser();
+    setAuth(false);
+  };
 
   return (
     <HStack wrap="wrap">
