@@ -94,7 +94,7 @@ const AddCustomerForm = () => {
               First Name
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+              <Box position="absolute" left="3" color="#626C7A">
                 <FaRegUser />
               </Box>
               <Input
@@ -129,7 +129,7 @@ const AddCustomerForm = () => {
               Last Name
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+              <Box position="absolute" left="3" color="#626C7A">
                 <FaRegUser />
               </Box>
               <Input
@@ -164,7 +164,7 @@ const AddCustomerForm = () => {
               Phone Number
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+              <Box position="absolute" left="3" color="#626C7A">
                 <BsTelephone />
               </Box>
               <Input
@@ -200,7 +200,7 @@ const AddCustomerForm = () => {
                 Email
               </Text>
               <Flex align="center" position="relative">
-                <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+                <Box position="absolute" left="3" color="#626C7A">
                   <BsTelephone />
                 </Box>
                 <Input

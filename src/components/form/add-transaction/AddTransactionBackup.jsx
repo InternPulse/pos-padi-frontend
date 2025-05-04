@@ -107,7 +107,7 @@ const AddTransactionBackup = () => {
               Amount
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color={{base: 'gray.600', _dark: 'gray.300'}}>
+              <Box position="absolute" left="3" color={{base: 'gray.600', _dark: 'gray.300'}}>
                 <FaMoneyBillWave />
               </Box>
               <Input
@@ -142,7 +142,7 @@ const AddTransactionBackup = () => {
               Customer Phone No
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color={{base: 'gray.600', _dark: 'gray.300'}}>
+              <Box position="absolute" left="3" color={{base: 'gray.600', _dark: 'gray.300'}}>
                 <LuPhone />
               </Box>
               <Input
@@ -177,7 +177,7 @@ const AddTransactionBackup = () => {
               Customer Name
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+              <Box position="absolute" left="3" color="#626C7A">
                 <FaRegUser />
               </Box>
               <Input
@@ -218,7 +218,7 @@ const AddTransactionBackup = () => {
               Date
             </Text>
             <Flex align="center" position="relative">
-              <Box position="absolute" left="3" zIndex="1" color="#626C7A">
+              <Box position="absolute" left="3" color="#626C7A">
                 <FaCalendarAlt />
               </Box>
               <Input
