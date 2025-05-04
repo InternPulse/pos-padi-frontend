@@ -202,15 +202,6 @@ function Dashboard() {
       period: 'month'
     },
     {
-      title: 'Agents',
-      amount: rawAgents.length,
-      icon: <IoPeopleOutline />,
-      iconColor: {base: 'orange.600', _dark:'orange.300'},
-      iconBgColor: {base: 'orange.50', _dark: 'orange.800'},
-      percent: 15,
-      period: 'month'
-    },
-    {
       title: 'Customers',
       amount: [...new Set(periodFilteredTransactions.map(t => t.customer))].length,
       icon: <GrGroup />,
@@ -230,6 +221,16 @@ function Dashboard() {
     },
   ];
 };
+
+const agentsSummary =     {
+  title: 'Agents',
+  amount: rawAgents.length,
+  icon: <IoPeopleOutline />,
+  iconColor: {base: 'orange.600', _dark:'orange.300'},
+  iconBgColor: {base: 'orange.50', _dark: 'orange.800'},
+  percent: 15,
+  period: 'month'
+}
 
 
   const handleDateRangeChange = ({ startDate, endDate, transactions }) => {
@@ -275,11 +276,12 @@ function Dashboard() {
         width={'100%'} 
         wrap={'wrap'} 
         gap={{ base: 3, md: 5 }} 
-        justify={'center'}
+        justify={'start'}
       >
         {CompanySummaries().map((item, index) => (
           <Card key={index} {...item} />
         ))}
+        { user.role == 'admin' && <Card {...agentsSummary} />}
       </Flex>
       <Flex 
         direction={{ base: 'column', xl: 'row' }} 
