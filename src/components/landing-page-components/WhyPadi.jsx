@@ -138,6 +138,7 @@ const WhyPadi = () => {
           <SimpleGrid
             columns={{ base: 1, md: 3 }}
             spacing={{ base: 16, md: 15 }}
+            gap={4}
             mx="auto"
             w="full"
             justifyItems="center"

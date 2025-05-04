@@ -7,6 +7,7 @@ import { TiUserAddOutline } from "react-icons/ti";
 import { GiSwipeCard } from "react-icons/gi";
 import { FaBell } from "react-icons/fa";
 import dotIcon from "../../assets/dotIcon.png";
+import { addEllipsis } from "../header-nav-components/UserAvatar";
 
 //  Switch case to get the icon based on the icon name
 
@@ -163,7 +164,7 @@ const NotificationCard = ({
                 color={{ base: "#4A5568", _dark: "gray.300" }}
                 fontWeight="500"
               >
-                {name}
+                {addEllipsis(name,15)}
               </Text>
             )}
           </HStack>
