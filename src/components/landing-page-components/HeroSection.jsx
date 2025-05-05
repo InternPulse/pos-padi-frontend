@@ -3,8 +3,10 @@ import { FiArrowRight } from "react-icons/fi";
 import { RiArrowRightLine } from "react-icons/ri";
 import POSPadiWeb from "../../assets/POSpadiWebView.png";
 import POSPadiMobile from "../../assets/POSpadiMobileView.png";
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <Box bg={{ base: "gray.50", _dark: "gray.900" }} width="full">
       <Flex
@@ -54,6 +56,7 @@ const HeroSection = () => {
 
         <Flex mt={4} gap={4} flexWrap="wrap" justify="center">
           <Button
+            onClick={() => navigate('/admin-signup')}
             bg={{ base: "green.500", _dark: "green.500" }}
             color="white"
             size="lg"
