@@ -27,6 +27,7 @@ import {
   ArrowRight,
   CheckCircle
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const FeatureCard = ({ icon, title, description }) => {
   const Icon = icon;
@@ -58,6 +59,7 @@ const StatItem = ({ value, label }) => (
 );
 
 export const About = () => {
+  const navigate = useNavigate();
   return (
     <Box py={{ base: 10, md: 20 }}>
       <Container maxW="7xl">
@@ -191,6 +193,7 @@ export const About = () => {
             Join thousands of businesses trusting POS-PADi for their payment solutions.
           </Text>
           <Button 
+           onClick={() => navigate('/admin-signup')}
             colorScheme="green" 
             size="lg" 
           >
