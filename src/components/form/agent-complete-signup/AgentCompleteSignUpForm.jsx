@@ -76,7 +76,7 @@ const AgentCompleteSignUpForm = () => {
       <Fieldset.Root
         width={{ lg: "100%" }}
         maxWidth={{ base: "25rem", md: "100%" }}
-        mx={{ base: "auto", lg: "0" }}
+        mx={{ base: "auto" }}
         rounded={{ base: "0", md: "md" }}
         bg="white"
         py={{ base: 2, md: "1rem" }}
