@@ -19,6 +19,9 @@ import { agentSignUpSchema } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+// $ Custom hooks & Functions
+import { getPasswordRequirements } from "@/utils/getPasswordRequirements";
+
 const AgentCompleteSignUpForm = () => {
   const navigate = useNavigate();
 
@@ -56,14 +59,14 @@ const AgentCompleteSignUpForm = () => {
   // $ Form field definitions
   const formFields = [
     {
-      name: "agentPassword",
+      name: "password",
       label: "password",
       type: "password",
       placeholder: "Enter password ",
       icon: MdLockOutline,
     },
     {
-      name: "confirmAgentPassword",
+      name: "confirmPassword",
       label: "Confirm Password",
       type: "password",
       placeholder: "Enter password",
@@ -128,6 +131,9 @@ const AgentCompleteSignUpForm = () => {
                   value={input.name || ""}
                   icon={input.icon}
                   registerField={register}
+                  checkPasswordRequirements={
+                    input.name === "password" ? getPasswordRequirements : null
+                  }
                 />
               ))}
             </Flex>
