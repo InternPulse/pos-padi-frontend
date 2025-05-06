@@ -15,7 +15,6 @@ import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./Authentication/RequireAuth";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
-
 import AddTransactionBackup from "./components/form/add-transaction/AddTransactionBackup";
 import ConfirmationModal from "./components/ConfirmationModal";
 import AgentDeactivation from "./components/alt/transactions/Effects/AgentDeactivation";
@@ -27,7 +26,7 @@ import Solution from "./components/landing-page-pages/Solution";
 import About from "./components/landing-page-pages/About";
 import Blog from "./components/landing-page-pages/Blog";
 import Product from "./components/landing-page-pages/Product";
-
+import AgentCompleteSignUpPage from "./pages/AgentCompleteSignUp";
 
 function App() {
   return (
@@ -35,33 +34,64 @@ function App() {
       <Routes>
         <Route path="/" element={<RequireAuth />}>
           {/* protected routes */}
-            <Route element={<Layout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="transactions" element={<AltTransactions />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="agents" element={<Agents />} />
-              <Route path="agents/:id" element={<AgentDetails />} />
-              <Route path="customers" element={<Customers />} />
-              <Route path="customers/:id" element={<CustomerDetails />} />
-              <Route path="terminals" element={<Terminals />} />
-              <Route path="disputes" element={<Disputes />} />
-              <Route path="settings" element={<Settings />} />
-            </Route>
+          <Route element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="transactions" element={<AltTransactions />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="agents" element={<Agents />} />
+            <Route path="agents/:id" element={<AgentDetails />} />
+            <Route path="customers" element={<Customers />} />
+            <Route path="customers/:id" element={<CustomerDetails />} />
+            <Route path="terminals" element={<Terminals />} />
+            <Route path="disputes" element={<Disputes />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
         </Route>
         {/* public routes */}
 
         <Route path="/home" element={<LandingPage />} />
-        <Route path="/solution" element={<LandingPageLayout><Solution /></LandingPageLayout>} />
-        <Route path="/about" element={<LandingPageLayout><About /></LandingPageLayout>} />
-        <Route path="/blog" element={<LandingPageLayout><Blog /></LandingPageLayout>} />
-        <Route path="/product" element={<LandingPageLayout><Product /></LandingPageLayout>} />
+        <Route
+          path="/solution"
+          element={
+            <LandingPageLayout>
+              <Solution />
+            </LandingPageLayout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <LandingPageLayout>
+              <About />
+            </LandingPageLayout>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <LandingPageLayout>
+              <Blog />
+            </LandingPageLayout>
+          }
+        />
+        <Route
+          path="/product"
+          element={
+            <LandingPageLayout>
+              <Product />
+            </LandingPageLayout>
+          }
+        />
 
         <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
+        <Route
+          path="/agent-complete-signup"
+          element={<AgentCompleteSignUpPage />}
+        ></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         {/* <Route path="/demo" element={<AddCustomerDialog />}></Route> */}
-
       </Routes>
     </BrowserRouter>
   );
