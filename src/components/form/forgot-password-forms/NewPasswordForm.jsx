@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // $ Custom hooks & Functions
 import useMultiFormHook from "@/utils/useMultiFormHook";
 import { resetPassword } from "@/backend-functions/useractions-api";
+import { getPasswordRequirements } from "@/utils/getPasswordRequirements";
 
 const NewPasswordForm = () => {
   const navigate = useNavigate();
@@ -50,8 +51,8 @@ const NewPasswordForm = () => {
   } = useForm({
     mode: "onSubmit",
     defaultValues: {
-      newPassword: "",
-      confirmNewPassword: "",
+      password: "",
+      confirmPassword: "",
     },
     resolver: zodResolver(newPasswordSchema),
   });
@@ -84,14 +85,12 @@ const NewPasswordForm = () => {
 
     // todo: call the api with finalData i.e. email, password and new password
 
-   
-  
     resetPassword({
       email: finalData.email,
       otp: finalData.otp,
-      new_password: finalData.newPassword,
-      confirm_password: finalData.confirmNewPassword
-    })
+      new_password: finalData.password,
+      confirm_password: finalData.confirmPassword,
+    });
 
     // $ send data to the api
     toaster.create({
@@ -109,14 +108,14 @@ const NewPasswordForm = () => {
   // Form field definitions
   const formFields = [
     {
-      name: "newPassword",
+      name: "password",
       label: "Password",
       type: "password",
       placeholder: "Enter password",
       icon: MdLockOutline,
     },
     {
-      name: "confirmNewPassword",
+      name: "confirmPassword",
       label: "Confirm Password",
       type: "password",
       placeholder: "Confirm password",
@@ -163,6 +162,9 @@ const NewPasswordForm = () => {
                   value={input.name || ""}
                   icon={input.icon}
                   registerField={register}
+                  checkPasswordRequirements={
+                    input.name === "password" ? getPasswordRequirements : null
+                  }
                 />
               ))}
             </Flex>
