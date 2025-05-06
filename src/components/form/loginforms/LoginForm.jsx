@@ -9,7 +9,7 @@ import {
   Fieldset,
   Image,
 } from "@chakra-ui/react";
-import { toaster } from "@/components/ui/toaster";
+// import { toaster } from "@/components/ui/toaster";
 
 // $ Icons & Images
 import { LuMail } from "react-icons/lu";
@@ -51,27 +51,20 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     // todo: api call POST request
 
-    toaster.create({
-      title: "Login Successful",
-      type: "success",
-    });
-
     console.log("formData:", data); // debug:
-    // reset(); // todo: Reset the form after successfull api call using this function
-    console.log(data)
+    console.log(data);
     //reshaping the login keys
     const response = await loginUser({
-            "email": data.email,
-            "password": data.loginPassword,
-          });
-          // console.log(response)
-          if (response.ok) {
-            setAuth(true)
-          }
-          
-          navigate("/")
-          
-    
+      email: data.email,
+      password: data.loginPassword,
+    });
+    // console.log(response)
+    if (response.ok) {
+      setAuth(true);
+      reset();
+    }
+
+    navigate("/");
   };
 
   // $ Form field definitions
@@ -108,9 +101,9 @@ const LoginForm = () => {
   //   }
 
   return (
-    <form  onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Fieldset.Root
-       _dark={{ bg: "gray.1000", borderColor: "gray.300" }}
+        _dark={{ bg: "gray.1000", borderColor: "gray.300" }}
         width="100%"
         rounded={{ base: "0", md: "md" }}
         py={{ base: 2, md: "2.5rem" }}
@@ -139,7 +132,7 @@ const LoginForm = () => {
             <FormHeader
               title="Login To Your Account"
               subHeading="Welcome back! Input your login details"
-            /> 
+            />
           </Box>
 
           <Fieldset.Content>
@@ -170,7 +163,7 @@ const LoginForm = () => {
           </Flex>
           <Button
             type="submit"
-            disabled={ isSubmitting}
+            disabled={isSubmitting}
             isLoading={isSubmitting}
             mt={{ base: "2rem", lg: "2.5rem" }}
             w="full"
@@ -186,7 +179,7 @@ const LoginForm = () => {
           </Button>
           <Flex justify="center" mt={{ base: 4, lg: "1.875rem" }}>
             <Text color="gray.600" mr={1} fontSize={{ base: "0.875rem" }}>
-              Don't have an account?
+              Don&apos;t have an account?
             </Text>
             <Link
               color="rgba(2, 177, 79, 1)"
