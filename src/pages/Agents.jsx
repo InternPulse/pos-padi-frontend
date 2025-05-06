@@ -2,33 +2,35 @@ import { agentsList } from "../components/transactions/agentsMockData";
 import { IoPeopleOutline } from "react-icons/io5";
 import GenericPage from "@/components/alt/transactions/generic-table/GenericPage";
 import { useEffect } from "react";
+import { rawAgents } from "../components/transactions/agentsMockData";
+import { percentageDiff } from "@/utils/percentageDifference";
 
 const agentsSummary = [
   {
     title: "Total Agents",
-    amount: 47,
+    amount: rawAgents.length,
     icon: <IoPeopleOutline />,
     iconColor: { base: "blue.600", _dark: "blue.300" },
     iconBgColor: { base: "blue.50", _dark: "blue.800" },
-    percent: -10,
+    percent: percentageDiff(rawAgents, 'agents', 'length', 'month').percentageChange,
     period: "month",
   },
   {
     title: "Active Agents",
-    amount: 42,
+    amount: rawAgents.filter(agent => agent.isActive).length,
     icon: <IoPeopleOutline />,
     iconColor: { base: "green.600", _dark: "green.300" },
     iconBgColor: { base: "green.50", _dark: "green.800" },
-    percent: -10,
+    percent: percentageDiff(rawAgents.filter(agent => agent.isActive), 'agents', 'length', 'month').percentageChange,
     period: "month",
   },
   {
     title: "Inactive Agents",
-    amount: 5,
+    amount: rawAgents.filter(agent => !agent.isActive).length,
     icon: <IoPeopleOutline />,
     iconColor: { base: "red.600", _dark: "red.300" },
     iconBgColor: { base: "red.50", _dark: "red.800" },
-    percent: 10,
+    percent: percentageDiff(rawAgents.filter(agent => !agent.isActive), 'agents', 'length', 'month').percentageChange,
     period: "month",
   },
 ];
