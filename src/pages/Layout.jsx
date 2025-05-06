@@ -15,13 +15,15 @@ import { useState, useEffect } from "react";
 import UserContext from "@/context/UserContext";
 import { getUserSummary } from "@/backend-functions/useractions-api";
 
-function LoadingSpinner(){
+function LoadingSpinner() {
   return (
     <VStack colorPalette="green">
-      <Spinner color="colorPalette.600" size={'xl'} borderWidth={'3px'} />
-      <Text textStyle={'sm'} fontWeight={'medium'} italic color="gray.600">Loading... refresh page if it's taking too long</Text>
+      <Spinner color="colorPalette.600" size={"xl"} borderWidth={"3px"} />
+      <Text textStyle={"sm"} fontWeight={"medium"} italic color="gray.600">
+        Loading... refresh page if it's taking too long
+      </Text>
     </VStack>
-  )
+  );
 }
 
 function Layout() {
@@ -29,28 +31,30 @@ function Layout() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
     getUserSummary()
       .then((data) => {
-        console.log(data.user.email);
+        // console.log(data.user.email);
         return {
-          id: (data.user.email || data.user.user_id.agent_id),
-          name: (data.user.first_name ? `${data.user.first_name} ${data.user.last_name}` : `${data.user.user_id.first_name} ${data.user.user_id.last_name}`),
-          email: (data.user.email || data.user.user_id.email),
-          avatar: (data.user.photo || data.user.user_id?.photo),
-          role: (data.user.role || data.user.user_id.role) == "owner" ? "admin" : (data.user.role || data.user.user_id.role),
+          id: data.user.email || data.user.user_id.agent_id,
+          name: data.user.first_name
+            ? `${data.user.first_name} ${data.user.last_name}`
+            : `${data.user.user_id.first_name} ${data.user.user_id.last_name}`,
+          email: data.user.email || data.user.user_id.email,
+          avatar: data.user.photo || data.user.user_id?.photo,
+          role:
+            (data.user.role || data.user.user_id.role) == "owner"
+              ? "admin"
+              : data.user.role || data.user.user_id.role,
         };
-
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setUser(data);
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
-
 
   const handleLogout = (e) => {
     //Function to logout user. Triggered by clicking the logout button
@@ -60,7 +64,7 @@ function Layout() {
   };
 
   return isLoading ? (
-    <Flex width={'100vw'} height={'100vh'} justify={'center'} align={'center'}>
+    <Flex width={"100vw"} height={"100vh"} justify={"center"} align={"center"}>
       <LoadingSpinner />
     </Flex>
   ) : (
@@ -122,7 +126,7 @@ function Layout() {
               </Box>
             </Flex>
             <Flex align={"center"} gap={5}>
-              <NotificationsDrawer/>
+              <NotificationsDrawer />
               <Flex
                 height={{ base: "40px", lg: "60px" }}
                 width={{ base: "40px", lg: "180px" }}
