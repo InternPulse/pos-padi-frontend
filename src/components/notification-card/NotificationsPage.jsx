@@ -1,63 +1,10 @@
 import { VStack, Box, Heading, HStack, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import NotificationCard from "./NotificationCard";  
-import moment from "moment";
 
-const allNotifications = [
-  {
-    id: 1,
-    title: "New Message From Support",
-    subtitle: "Ticket #58402 Has Been Updated",
-    type: "message",
-    color: "purple",
-    isRead: false,
-    time: moment().subtract(2, "days").toISOString(),
-    name: "Fombe Fri Eukeria",
-  },
-  {
-    id: 2,
-    title: "Daily Settlement Complete",
-    subtitle: "₦350,000 credited to your business account.",
-    type: "task",
-    color: "green",
-    isRead: false,
-    time: moment().subtract(10, "hours").toISOString(),
-  },
-  {
-    id: 3,
-    title: "Transaction Failed",
-    subtitle: "Card Declined for 5,000 At Terminal GH39532 (Reasons Insufficient Funds).",
-    type: "transaction",
-    color: "red",
-    isRead: false,
-    time: moment().subtract(2, "hours").toISOString(),
-    name: "Quin Darlington",
-  },
-  {
-    id: 4,
-    title: "New User Added",
-    subtitle: "Agent Ochei Funmilayo Has Been Added To Terminal LSJH525",
-    type: "user-add",
-    color: "green",
-    isRead: true,
-    time: moment().subtract(7, "days").toISOString(),
-    name: "Ochei Funmilayo",
-  },
-  {
-    id: 5,
-    title: "Terminal Disconnected",
-    subtitle: "Terminal 3GSL303 Went Offline",
-    type: "terminal",
-    color: "red",
-    isRead: false,
-    time: moment().subtract(1, "day").toISOString(),
-    name: "Egbagbe Damilola",
-  },
-];
 
-const NotificationsPage = () => {
+const NotificationsPage = ({ notifications, setNotifications }) => {
   const [filter, setFilter] = useState("all");
-  const [notifications, setNotifications] = useState(allNotifications);
 
   const filteredNotifications =
     filter === "unread"

@@ -18,8 +18,9 @@ import ExportButton from "@/components/alt/dashboard-components/ExportButton";
 import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
 import { LuWallet } from "react-icons/lu";
 import { useOutletContext } from "react-router-dom";
+import { percentageDiff } from "@/utils/percentageDifference";
 
-const totalRevenue = formatCurrency(transactions.reduce((acc, tx) => acc + tx.fee, 0))
+const totalRevenue = formatCurrency(transactions.filter(item => item.status == 'successful').reduce((acc, tx) => acc + tx.fee, 0))
 const processedAgents = rawAgents.map(agent => {
   const agentRevenue = transactions.filter(tx => tx.agent == `${agent.firstName} ${agent.lastName}`).reduce((acc, tx) => acc + tx.fee, 0)
   return {...agent, revenue: agentRevenue}
@@ -113,7 +114,7 @@ function RevenueCardContainer() {
       height={{ base: "230px", sm: '284px', xl: "170px" }}
       rounded={"xl"}
     >
-      <RevenueCard amount={totalRevenue} />
+      <RevenueCard amount={totalRevenue} percentageChange={percentageDiff(transactions.filter(tx => tx.status == 'successful'), 'fees', 'sum', 'month').percentageChange} timeframe={'last month'} />
     </Box>
   );
 }
@@ -180,8 +181,8 @@ function Dashboard() {
       icon: <LuWallet />,
       iconColor: { base: "blue.600", _dark: "blue.300" },
       iconBgColor: { base: "blue.50", _dark: "blue.800" },
-      percent: -30,
-      period: 'month'
+      percent: percentageDiff(transactions, 'transactions', 'sum', activePeriod).percentageChange,
+      period: percentageDiff(transactions, 'transactions', 'sum', activePeriod).interval
     },
     {
       title: 'Successful',
@@ -189,8 +190,8 @@ function Dashboard() {
       icon: <LuWallet />,
       iconColor: { base: "green.600", _dark: "green.300" },
       iconBgColor: { base: "green.50", _dark: "green.800" },
-      percent: 30,
-      period: 'month'
+      percent: percentageDiff(transactions.filter(tx => tx.status == 'successful'), 'transactions', 'sum', activePeriod).percentageChange,
+      period: percentageDiff(transactions.filter(tx => tx.status == 'successful'), 'transactions', 'sum', activePeriod).interval
     },
     {
       title: 'Failed',
@@ -198,17 +199,8 @@ function Dashboard() {
       icon: <LuWallet />,
       iconColor: { base: "red.600", _dark: "red.300" },
       iconBgColor: { base: "red.50", _dark: "red.800" },
-      percent: 10,
-      period: 'month'
-    },
-    {
-      title: 'Agents',
-      amount: rawAgents.length,
-      icon: <IoPeopleOutline />,
-      iconColor: {base: 'orange.600', _dark:'orange.300'},
-      iconBgColor: {base: 'orange.50', _dark: 'orange.800'},
-      percent: 15,
-      period: 'month'
+      percent: percentageDiff(transactions.filter(tx => tx.status == 'failed'), 'transactions', 'sum', activePeriod).percentageChange,
+      period: percentageDiff(transactions.filter(tx => tx.status == 'failed'), 'transactions', 'sum', activePeriod).interval
     },
     {
       title: 'Customers',
@@ -216,8 +208,8 @@ function Dashboard() {
       icon: <GrGroup />,
       iconColor: {base: 'yellow.600', _dark:'yellow.300'},
       iconBgColor: {base: 'yellow.50', _dark: 'yellow.800'},
-      percent: -5,
-      period: 'month'
+      percent: percentageDiff(rawCustomers, 'customers', 'length', activePeriod).percentageChange,
+      period: percentageDiff(rawCustomers, 'customers', 'length', activePeriod).interval
     },
     {
       title: 'Transaction Count',
@@ -225,11 +217,21 @@ function Dashboard() {
       icon: <GiSwipeCard />,
       iconColor: {base: 'purple.600', _dark:'purple.300'},
       iconBgColor: {base: 'purple.50', _dark: 'purple.800'},
-      percent: 23,
-      period: 'month'
+      percent: percentageDiff(transactions, 'transactions', 'length', activePeriod).percentageChange,
+      period: percentageDiff(transactions, 'transactions', 'length', activePeriod).interval
     },
   ];
 };
+
+const agentsSummary =     {
+  title: 'Agents',
+  amount: rawAgents.length,
+  icon: <IoPeopleOutline />,
+  iconColor: {base: 'orange.600', _dark:'orange.300'},
+  iconBgColor: {base: 'orange.50', _dark: 'orange.800'},
+  percent: percentageDiff(rawAgents, 'customers', 'length', activePeriod).percentageChange,
+  period: percentageDiff(rawAgents, 'customers', 'length', activePeriod).interval
+}
 
 
   const handleDateRangeChange = ({ startDate, endDate, transactions }) => {
@@ -274,12 +276,13 @@ function Dashboard() {
       <Flex 
         width={'100%'} 
         wrap={'wrap'} 
-        gap={{ base: 3, md: 5 }} 
-        justify={'center'}
+        gap={{ base: 3, md: 5 }}
+        justify={user.role == 'admin'? 'center': 'start'}
       >
         {CompanySummaries().map((item, index) => (
           <Card key={index} {...item} />
         ))}
+        { user.role == 'admin' && <Card {...agentsSummary} />}
       </Flex>
       <Flex 
         direction={{ base: 'column', xl: 'row' }} 

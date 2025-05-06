@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { 
-  Box, 
-  Flex, 
-  Text, 
-  IconButton, 
-  Stack, 
+import React, { useState } from "react";
+import {
+  Box,
+  Flex,
+  Text,
+  IconButton,
+  Stack,
   Link,
   HStack,
-  Button
-} from '@chakra-ui/react';
-import { Menu } from 'lucide-react';
-import { Drawer, CloseButton, Portal } from '@chakra-ui/react';
-import Logo from '../header-nav-components/Logo';
+  Button,
+} from "@chakra-ui/react";
+import { Menu } from "lucide-react";
+import { Drawer, CloseButton, Portal } from "@chakra-ui/react";
+import Logo from "../header-nav-components/Logo";
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState('Home');
+  const [activeLink, setActiveLink] = useState("Home");
 
   const navItems = [
-    { name: 'Home', path: '/home' },
-    { name: 'Solution', path: '/solution' },
-    { name: 'Product', path: '/product' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'About Us', path: '/about' },
+    { name: "Home", path: "/home" },
+    { name: "Solution", path: "/solution" },
+    { name: "Product", path: "/product" },
+    { name: "Blog", path: "/blog" },
+    { name: "About Us", path: "/about" },
   ];
 
   return (
@@ -31,14 +31,9 @@ const Header = () => {
       top="0"
       zIndex="sticky"
       w="full"
-      _dark={{
-        bg:'black',
-      }}
-      _light={{
-        bg:'white',
-      }}
+      bg={{ base: "white", _dark: "gray.900" }}
       borderBottom="1px"
-      borderColor="gray.200"
+      borderColor={{ base: "gray.200", _dark: "gray.700" }}
     >
       <Flex
         maxW="7xl"
@@ -48,31 +43,16 @@ const Header = () => {
         justify="space-between"
         align="center"
       >
-        {/* Logo - Reduced size */}
-        <Flex shrink="0"  width={'170px'}>
+        {/* Logo */}
+        <Flex shrink="0" width={"170px"}>
           <Link href="/" display="flex" alignItems="center">
-            {/* <Flex
-              h="8"
-              w="8"
-              bg="green.500"
-              borderRadius="md"
-              align="center"
-              justify="center"
-            >
-              <Text color="white" fontWeight="bold" fontSize="sm">
-                P
-              </Text>
-            </Flex>
-            <Text ml="2" color="green.500" fontWeight="bold" fontSize="xl">
-              POS-Padi
-            </Text> */}
             <Logo />
           </Link>
         </Flex>
 
         {/* Desktop Navigation */}
         <Flex
-          display={{ base: 'none', md: 'flex' }}
+          display={{ base: "none", md: "flex" }}
           align="center"
           justify="center"
           flex="1"
@@ -81,16 +61,21 @@ const Header = () => {
           <HStack as="nav" spacing="8">
             {navItems.map((item) => (
               <Link
-              key={item.name}
-              href={item.path}
-              onClick={() => setActiveLink(item.name)}
-              fontSize={{base: "md", md: 'sm', lg: 'md'}}
-              p={1}
-              color={activeLink === item.name ? 'green.500' : 'gray.500'}
-              fontWeight={activeLink === item.name ? 'semibold' : 'medium'}
-              _hover={{ color: 'green.500', bg: 'gray.50' }} // Hover effect
-              _active={{ color: 'green.600' }} // When clicked
-            
+                key={item.name}
+                href={item.path}
+                onClick={() => setActiveLink(item.name)}
+                fontSize={{ base: "md", md: "sm", lg: "md" }}
+                p={1}
+                color={
+                  activeLink === item.name
+                    ? { base: "green.500", _dark: "green.300" }
+                    : { base: "gray.600", _dark: "gray.400" }
+                }
+                fontWeight={activeLink === item.name ? "semibold" : "medium"}
+                _hover={{
+                  color: { base: "green.500", _dark: "green.300" },
+                  bg: { base: "gray.50", _dark: "gray.800" },
+                }}
               >
                 {item.name}
               </Link>
@@ -99,15 +84,15 @@ const Header = () => {
         </Flex>
 
         {/* Desktop Auth Buttons */}
-        <HStack display={{ base: 'none', md: 'flex' }} spacing="2">
+        <HStack display={{ base: "none", md: "flex" }} spacing="2">
           <Link
             href="/login"
             px="4"
             py="2"
             fontSize="sm"
             fontWeight="medium"
-            color="gray.600"
-            _hover={{ color: 'green.500' }}
+            color={{ base: "gray.600", _dark: "gray.400" }}
+            _hover={{ color: { base: "green.500", _dark: "green.300" } }}
           >
             Log In
           </Link>
@@ -115,29 +100,31 @@ const Header = () => {
             href="/admin-signup"
             px="4"
             py="2"
-            bg="green.500"
+            bg={{ base: "green.500", _dark: "green.500" }}
             color="white"
             fontSize="sm"
             fontWeight="medium"
             borderRadius="md"
-            _hover={{ bg: 'green.600' }}
+            _hover={{ bg: { base: "green.600", _dark: "green.600" } }}
           >
             Sign Up
           </Link>
         </HStack>
 
         {/* Mobile menu button */}
-        <Box display={{ md: 'none' }}>
+        <Box display={{ md: "none" }}>
           <Drawer.Root>
             <Drawer.Trigger asChild>
-              <Menu aria-label="Toggle menu"
+              <Menu
+                aria-label="Toggle menu"
                 icon={<Menu size={24} />}
-                variant="ghost"  
+                variant="ghost"
                 _dark={{
-                    color:"gray.200"
+                  color: "gray.200",
                 }}
-                 // This will apply to the icon
-                _hover={{ color: 'green.500', bg: 'gray.100' }} />
+                // This will apply to the icon
+                _hover={{ color: "green.500", bg: "gray.100" }}
+              />
             </Drawer.Trigger>
             <Portal>
               <Drawer.Backdrop />
@@ -164,9 +151,18 @@ const Header = () => {
                           margin={2}
                           borderRadius="md"
                           fontSize="lg"
-                          color={activeLink === item.name ? 'green.500' : 'gray.300'}
-                          fontWeight={activeLink === item.name ? 'semibold' : 'medium'}
-                          _hover={{ color: 'green.500', bg: 'gray.50' }}
+                          color={
+                            activeLink === item.name
+                              ? { base: "green.500", _dark: "green.300" }
+                              : { base: "gray.600", _dark: "gray.400" }
+                          }
+                          fontWeight={
+                            activeLink === item.name ? "semibold" : "medium"
+                          }
+                          _hover={{
+                            color: { base: "green.500", _dark: "green.300" },
+                            bg: { base: "gray.50", _dark: "gray.800" },
+                          }}
                         >
                           {item.name}
                         </Link>
@@ -175,20 +171,17 @@ const Header = () => {
                   </Drawer.Body>
                   <Drawer.Footer>
                     <Stack w="full" spacing="2">
-                      <Button
-                        as="a"
-                        href="/login"
-                        variant="outline"
-                        w="full"
-                      >
+                      <Button as="a" href="/login" variant="outline" w="full">
                         Log In
                       </Button>
                       <Button
                         as="a"
                         href="/admin-signup"
-                        bg="green.500"
+                        bg={{ base: "green.500", _dark: "green.500" }}
                         color="white"
-                        _hover={{ bg: 'green.600' }}
+                        _hover={{
+                          bg: { base: "green.600", _dark: "green.600" },
+                        }}
                         w="full"
                       >
                         Sign Up

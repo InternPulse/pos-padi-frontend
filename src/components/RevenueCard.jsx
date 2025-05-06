@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 
 export default function RevenueCard({
-  amount = "N 150,967.64",
-  percentageChange = -70,
-  timeframe = "last month",
+  amount,
+  percentageChange,
+  timeframe,
 }) {
   const [isVisible, setIsVisible] = useState(false);
 

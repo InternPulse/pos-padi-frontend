@@ -19,6 +19,15 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AddTransactionBackup from "./components/form/add-transaction/AddTransactionBackup";
 import ConfirmationModal from "./components/ConfirmationModal";
 import AgentDeactivation from "./components/alt/transactions/Effects/AgentDeactivation";
+import AddTransactionDialog from "./components/form/add-transaction/AddTransactionDialog";
+import AddCustomerForm from "./components/form/add-customer-form/AddCustomerForm";
+import AddCustomerDialog from "./components/form/add-customer-form/AddCustomerDialog";
+import LandingPageLayout from "./pages/LandingPageLayout";
+import Solution from "./components/landing-page-pages/Solution";
+import About from "./components/landing-page-pages/About";
+import Blog from "./components/landing-page-pages/Blog";
+import Product from "./components/landing-page-pages/Product";
+
 
 function App() {
   return (
@@ -43,10 +52,15 @@ function App() {
         {/* public routes */}
 
         <Route path="/home" element={<LandingPage />} />
+        <Route path="/solution" element={<LandingPageLayout><Solution /></LandingPageLayout>} />
+        <Route path="/about" element={<LandingPageLayout><About /></LandingPageLayout>} />
+        <Route path="/blog" element={<LandingPageLayout><Blog /></LandingPageLayout>} />
+        <Route path="/product" element={<LandingPageLayout><Product /></LandingPageLayout>} />
+
         <Route path="/admin-signup" element={<AdminSignUpPage />}></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/demo" element={<AgentDeactivation />}></Route>
+        {/* <Route path="/demo" element={<AddCustomerDialog />}></Route> */}
 
       </Routes>
     </BrowserRouter>

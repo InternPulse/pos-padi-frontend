@@ -7,8 +7,9 @@ import { LuWallet } from "react-icons/lu";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import { FiPlus } from "react-icons/fi";
 import ExportButton from "../dashboard-components/ExportButton";
+import AddTransactionDialog from "@/components/form/add-transaction/AddTransactionDialog";
+import { percentageDiff } from "@/utils/percentageDifference";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -30,7 +31,7 @@ export const transactionSummary = [
     icon: <LuWallet />,
     iconColor: { base: "blue.600", _dark: "blue.300" },
     iconBgColor: { base: "blue.50", _dark: "blue.800" },
-    percent: -30,
+    percent: percentageDiff(transactions, 'transactions', 'sum', 'month').percentageChange,
     period: "month",
   },
   {
@@ -45,7 +46,7 @@ export const transactionSummary = [
     icon: <LuWallet />,
     iconColor: { base: "green.600", _dark: "green.300" },
     iconBgColor: { base: "green.50", _dark: "green.800" },
-    percent: 30,
+    percent: percentageDiff(transactions.filter(tx => tx.status == 'successful'), 'transactions', 'sum', 'month').percentageChange,
     period: "month",
   },
   {
@@ -60,7 +61,7 @@ export const transactionSummary = [
     icon: <LuWallet />,
     iconColor: { base: "red.600", _dark: "red.300" },
     iconBgColor: { base: "red.50", _dark: "red.800" },
-    percent: 10,
+    percent: percentageDiff(transactions.filter(tx => tx.status == 'failed'), 'transactions', 'sum', 'month').percentageChange,
     period: "month",
   },
 ];
@@ -163,7 +164,7 @@ function AltTransactions() {
 
           <Flex width={{ base: "100%", md: "340px" }} justify={{base: 'space-between' , md: "start"}} gap={4} >
 
-            <Button
+            {/* <Button
               colorPalette={"green"}
               rounded={"lg"}
               display={user.role == "agent" ? "block" : "none"}
@@ -171,7 +172,8 @@ function AltTransactions() {
               <Flex gap={2}>
                 <FiPlus /> Add Transaction
               </Flex>
-            </Button>
+            </Button> */}
+            <AddTransactionDialog />
             <Box width={{ base: "50px", md: "150px" }}>
               <ExportButton />
             </Box>

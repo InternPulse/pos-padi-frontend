@@ -7,6 +7,7 @@ import { LuTicket } from "react-icons/lu";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
 import { useState } from "react";
 import { useEffect } from "react";
+import { percentageDiff } from "@/utils/percentageDifference";
 
 const disputedTransactions = disputes.map(dispute => {
   const disputeTx = transactions.find(tx => tx.reference == dispute.reference)
@@ -22,7 +23,7 @@ export const transactionSummary = [
     icon: <LuTicket />,
     iconColor: { base: "blue.600", _dark: "blue.300" },
     iconBgColor: { base: "blue.50", _dark: "blue.800" },
-    percent: -30,
+    percent: percentageDiff(disputedTransactions, 'disputes', 'length', 'month').percentageChange,
     period: "month",
   },
   {
@@ -31,7 +32,7 @@ export const transactionSummary = [
     icon: <LuTicket />,
     iconColor: { base: "green.600", _dark: "green.300" },
     iconBgColor: { base: "green.50", _dark: "green.800" },
-    percent: 30,
+    percent: percentageDiff(disputedTransactions.filter(item => item.disputeStatus == 'resolved'), 'disputes', 'length', 'month').percentageChange,
     period: "month",
   },
   {
@@ -40,7 +41,7 @@ export const transactionSummary = [
     icon: <LuTicket />,
     iconColor: { base: "red.600", _dark: "red.300" },
     iconBgColor: { base: "red.50", _dark: "red.800" },
-    percent: 10,
+    percent: percentageDiff(disputedTransactions.filter(item => item.disputeStatus == 'pending'), 'disputes', 'length', 'month').percentageChange,
     period: "month",
   },
 ];

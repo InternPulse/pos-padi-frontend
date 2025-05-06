@@ -1,20 +1,16 @@
 import React from "react";
 import { Box, Flex, Text, Button, VStack } from "@chakra-ui/react";
 
-const SuccessDialog = ({ onClose, variant = "customer" }) => {
+const SuccessDialog = ({ onClose, variant}) => {
   // messages for different variants
-  const messages = {
-    customer: "You have successfully added a new customer",
-    terminal: "You have successfully added a new terminal",
-    transaction: "You have successfully added a new transaction",
-  };
+  // const messages = {
+  //   customer: "You have successfully added a new customer",
+  //   terminal: "You have successfully added a new terminal",
+  //   transaction: "You have successfully added a new transaction",
+  // };
 
   // variant description based on the passed variant prop
-  const description =
-    messages[variant] ||
-    messages.customer ||
-    messages.transaction ||
-    messages.terminal;
+  const description = `You have successfully added a new ${variant}`
 
   return (
     <Flex

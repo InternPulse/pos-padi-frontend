@@ -122,7 +122,7 @@ function Layout() {
               </Box>
             </Flex>
             <Flex align={"center"} gap={5}>
-              <NotificationsDrawer count={5} />
+              <NotificationsDrawer/>
               <Flex
                 height={{ base: "40px", lg: "60px" }}
                 width={{ base: "40px", lg: "180px" }}
