@@ -40,7 +40,7 @@ const FormInputField = ({
       : {};
 
   return (
-    <Field.Root invalid={!!error} >
+    <Field.Root invalid={!!error}>
       <Field.Label
         color={{ base: "#1A1A1A", _dark: "gray.50/60" }}
         htmlFor={name}
@@ -79,6 +79,28 @@ const FormInputField = ({
           mt="0.625rem"
           fontSize={{ base: "0.5rem" }}
         >
+          <Badge
+            p="2px 5px 2px 5px"
+            fontSize="inherit"
+            rounded="15px"
+            outline={
+              passwordRequirements.hasUpperCase
+                ? "1px solid rgba(2, 177, 79, 1)"
+                : "inherit"
+            }
+            color={
+              passwordRequirements.hasUpperCase
+                ? "rgba(2, 177, 79, 1)"
+                : "inherit"
+            }
+            bgColor={
+              passwordRequirements.hasUpperCase
+                ? "white"
+                : "rgba(196, 196, 196, 0.2)"
+            }
+          >
+            1 Uppercase
+          </Badge>
           <Badge
             p="2px 5px 2px 5px"
             fontSize="inherit"
