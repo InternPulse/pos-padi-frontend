@@ -11,7 +11,7 @@ export const forgotPasswordSchema = z.object({
 
 export const newPasswordSchema = z
   .object({
-    newPassword: z
+    password: z
       .string()
       .regex(
         /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?]).{8,}$/,
@@ -19,9 +19,9 @@ export const newPasswordSchema = z
           message: "Invalid Password",
         }
       ),
-    confirmNewPassword: z.string(),
+    confirmPassword: z.string(),
   })
-  .refine((data) => data.newPassword === data.confirmNewPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmNewPassword"],
+    path: ["confirmPassword"],
   });
