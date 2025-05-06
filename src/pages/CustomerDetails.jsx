@@ -10,7 +10,7 @@ function CustomerDetails() {
   
   const customerFullName  = `${customer.firstName} ${customer.lastName}`
 
-  customer.loyaltyPoints = transactions.filter(tx => tx.customer == customerFullName).reduce((acc, item) => acc + item.loyaltyPoints, 0)
+  customer.loyaltyPoints = transactions.filter(tx => (tx.customer == customerFullName) && (tx.status == 'successful')).reduce((acc, item) => acc + item.loyaltyPoints, 0)
 
   return (
     <EntityDetails entity={customer} entityType={'customer'} />

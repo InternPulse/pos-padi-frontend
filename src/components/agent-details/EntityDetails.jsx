@@ -21,6 +21,8 @@ import { transactions } from "@/components/transactions/transactionsMockData";
 import { filterRow } from "../Others/data-filters/SearchByText";
 import SearchByText from "../Others/data-filters/SearchByText";
 import ExportButton from "../alt/dashboard-components/ExportButton";
+import { percentageDiff } from "@/utils/percentageDifference";
+import { TiVolumeMute } from "react-icons/ti";
 
 function EntityDetails({ entity, entityType }) {
   const currentPath = useLocation().pathname;
@@ -72,7 +74,12 @@ function EntityDetails({ entity, entityType }) {
               icon: <LuWallet />,
               iconColor: { base: "blue.600", _dark: "blue.300" },
               iconBgColor: { base: "blue.50", _dark: "blue.800" },
-              percent: -30,
+              percent: percentageDiff(
+                pageTransactions,
+                "transactions",
+                "sum",
+                "month"
+              ).percentageChange,
               period: "month",
             },
             {
@@ -81,7 +88,12 @@ function EntityDetails({ entity, entityType }) {
               icon: <GiSwipeCard />,
               iconColor: { base: "purple.600", _dark: "purple.300" },
               iconBgColor: { base: "purple.50", _dark: "purple.800" },
-              percent: 23,
+              percent: percentageDiff(
+                pageTransactions,
+                "transactions",
+                "length",
+                "month"
+              ).percentageChange,
               period: "month",
             },
             {
@@ -96,7 +108,12 @@ function EntityDetails({ entity, entityType }) {
               icon: <LuWallet />,
               iconColor: { base: "green.600", _dark: "green.300" },
               iconBgColor: { base: "green.50", _dark: "green.800" },
-              percent: 30,
+              percent: percentageDiff(
+                pageTransactions.filter((item) => item.status == "successful"),
+                "transactions",
+                "sum",
+                "month"
+              ).percentageChange,
               period: "month",
             },
             {
@@ -111,7 +128,12 @@ function EntityDetails({ entity, entityType }) {
               icon: <LuWallet />,
               iconColor: { base: "red.600", _dark: "red.300" },
               iconBgColor: { base: "red.50", _dark: "red.800" },
-              percent: 10,
+              percent: percentageDiff(
+                pageTransactions.filter((item) => item.status == "failed"),
+                "transactions",
+                "sum",
+                "month"
+              ).percentageChange,
               period: "month",
             },
             {
@@ -122,7 +144,15 @@ function EntityDetails({ entity, entityType }) {
               icon: <GrGroup />,
               iconColor: { base: "yellow.600", _dark: "yellow.300" },
               iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
-              percent: -5,
+              percent: percentageDiff(
+                rawCustomers.filter(
+                  (item) =>
+                    item.agent == `${entity.firstName} ${entity.lastName}`
+                ),
+                "customers",
+                "length",
+                "month"
+              )?.percentageChange,
               period: "month",
             },
           ]
@@ -137,7 +167,12 @@ function EntityDetails({ entity, entityType }) {
               icon: <LuWallet />,
               iconColor: { base: "blue.600", _dark: "blue.300" },
               iconBgColor: { base: "blue.50", _dark: "blue.800" },
-              percent: -30,
+              percent: percentageDiff(
+                pageTransactions,
+                "transactions",
+                "sum",
+                "month"
+              ).percentageChange,
               period: "month",
             },
             {
@@ -146,8 +181,13 @@ function EntityDetails({ entity, entityType }) {
               icon: <GiSwipeCard />,
               iconColor: { base: "purple.600", _dark: "purple.300" },
               iconBgColor: { base: "purple.50", _dark: "purple.800" },
-              percent: 23,
-              period: "month",
+              percent: percentageDiff(
+                pageTransactions,
+                "transactions",
+                "length",
+                "month"
+              ).percentageChange,
+              period: 'month'
             },
             {
               title: "Successful",
@@ -161,7 +201,12 @@ function EntityDetails({ entity, entityType }) {
               icon: <LuWallet />,
               iconColor: { base: "green.600", _dark: "green.300" },
               iconBgColor: { base: "green.50", _dark: "green.800" },
-              percent: 30,
+              percent: percentageDiff(
+                pageTransactions.filter((item) => item.status == "successful"),
+                "transactions",
+                "sum",
+                "month"
+              ).percentageChange,
               period: "month",
             },
             {
@@ -176,7 +221,12 @@ function EntityDetails({ entity, entityType }) {
               icon: <LuWallet />,
               iconColor: { base: "red.600", _dark: "red.300" },
               iconBgColor: { base: "red.50", _dark: "red.800" },
-              percent: 10,
+              percent: percentageDiff(
+                pageTransactions.filter((item) => item.status == "failed"),
+                "transactions",
+                "sum",
+                "month"
+              ).percentageChange,
               period: "month",
             },
             {
@@ -185,7 +235,7 @@ function EntityDetails({ entity, entityType }) {
               icon: <FaRegStar />,
               iconColor: { base: "yellow.600", _dark: "yellow.300" },
               iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
-              percent: -5,
+              percent: percentageDiff(pageTransactions.filter(tx => tx.status == 'successful'), 'points', 'sum', 'month').percentageChange,
               period: "month",
             },
           ],
@@ -317,15 +367,26 @@ function EntityDetails({ entity, entityType }) {
             gap={5}
             rounded={"2xl"}
           >
-            <Flex width={"100%"} rounded="xl" height={"60px"} px={2} align={'center'} justify={'space-between'}>
+            <Flex
+              width={"100%"}
+              rounded="xl"
+              height={"60px"}
+              px={2}
+              align={"center"}
+              justify={"space-between"}
+            >
               {/**Filter buttons here */}
-              <Flex width={{ base: "80%", md: "280px" }} colorPalette={'gray'} >
+              <Flex width={{ base: "80%", md: "280px" }} colorPalette={"gray"}>
                 <SearchByText
                   searchText={searchText}
                   setSearchText={setSearchText}
                 />
               </Flex>
-              <Box width={{ base: "50px", md: "150px" }} height={'40px'} colorPalette={'gray'}>
+              <Box
+                width={{ base: "50px", md: "150px" }}
+                height={"40px"}
+                colorPalette={"gray"}
+              >
                 <ExportButton />
               </Box>
             </Flex>
