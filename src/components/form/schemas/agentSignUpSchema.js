@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const agentSignUpSchema = z
   .object({
-    agentPassword: z
+    password: z
       .string()
       .regex(
         /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?]).{8,}$/,
@@ -10,9 +10,9 @@ export const agentSignUpSchema = z
           message: "Invalid Password",
         }
       ),
-    confirmAgentPassword: z.string(),
+    confirmPassword: z.string(),
   })
-  .refine((data) => data.agentPassword === data.confirmAgentPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmAgentPassword"],
+    path: ["confirmPassword"],
   });
