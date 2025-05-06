@@ -35,11 +35,11 @@ function Layout() {
       .then((data) => {
         console.log(data.user.email);
         return {
-          id: `${data.user.email}`,
-          name: `${data.user.first_name} ${data.user.last_name}`,
-          email: `${data.user.email}`,
-          avatar: `${data.user.photo}`,
-          role: `${data.user.role}` == "owner" ? "admin" : `${data.user.role}`,
+          id: (data.user.email || data.user.user_id.agent_id),
+          name: (data.user.first_name ? `${data.user.first_name} ${data.user.last_name}` : `${data.user.user_id.first_name} ${data.user.user_id.last_name}`),
+          email: (data.user.email || data.user.user_id.email),
+          avatar: (data.user.photo || data.user.user_id?.photo),
+          role: (data.user.role || data.user.user_id.role) == "owner" ? "admin" : (data.user.role || data.user.user_id.role),
         };
 
       })
