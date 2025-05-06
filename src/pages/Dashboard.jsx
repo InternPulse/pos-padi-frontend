@@ -274,10 +274,11 @@ const agentsSummary =     {
         </Flex>
       </Flex>
       <Flex 
-        width={'100%'} 
+        width={{base: '100%', md: '97%', '2xl': '91%'}}
+        mx={'auto'}
         wrap={'wrap'} 
         gap={{ base: 3, md: 5 }}
-        justify={user.role == 'admin'? 'center': 'start'}
+        justify={user.role == 'admin'? 'center': {base:'center', md: 'start'}}
       >
         {CompanySummaries().map((item, index) => (
           <Card key={index} {...item} />
