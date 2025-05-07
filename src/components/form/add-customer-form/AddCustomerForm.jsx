@@ -188,7 +188,7 @@ const AddCustomerForm = () => {
           </Box>
 
           {/* Email */}
-          {variant == "agent" && (
+          {(variant == "agent" || variant == "customer") && (
             <Box position="relative">
               <Text
                 fontFamily="Poppins"
