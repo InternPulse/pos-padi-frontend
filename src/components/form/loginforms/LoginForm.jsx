@@ -28,6 +28,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/Authentication/AuthProvider";
 import { loginUser } from "@/backend-functions/useractions-api";
 import { useNavigate } from "react-router-dom";
+import Logo from "@/components/header-nav-components/Logo";
 
 const LoginForm = () => {
   const { setAuth } = useAuth();
@@ -120,12 +121,13 @@ const LoginForm = () => {
           mb="2.56rem"
           // border="1px solid red" //debug:
         >
-          <Image
+          {/* <Image
             src="/src/assets/logo-lg.png"
             alt="pos-padi-logo"
             height="2rem"
             mx="auto"
-          />
+          /> */}
+          <Logo />
         </Box>
         <Box width="100%" mx="auto">
           <Box mt={{ lg: "3.75rem" }}>
