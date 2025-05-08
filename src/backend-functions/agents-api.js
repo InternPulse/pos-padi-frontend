@@ -1,5 +1,5 @@
-const token = import.meta.env.VITE_BEARER_TOKEN
-
+const token = localStorage.getItem('POSPadiaccess')
+const tokenRefresh = localStorage.getItem('POSPadirefresh')
 
 export async function createAgent(agentData) {
   const myHeaders = new Headers();
