@@ -1,5 +1,5 @@
-const token = import.meta.env.VITE_BEARER_TOKEN
-
+const token = localStorage.getItem('POSPadiaccess')
+const tokenRefresh = localStorage.getItem('POSPadirefresh')
 
 export async function createAgent(agentData) {
   const myHeaders = new Headers();
@@ -61,6 +61,30 @@ export async function onboardAgent(passwordData) {
     }
   }
 
+
+  export async function updateAgent(agentId) {
+    const requestOptions = {
+      method: 'PATCH',
+      redirect: 'follow'
+    };
+  
+    try {
+      const response = await fetch(`https://pos-padi-django-backend.onrender.com/api/v1/agents/${agentId}/`, requestOptions); // Replace with your actual base URL
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log(`Agent ${agentId} updated:`, result);
+      return result;
+  
+    } catch (error) {
+      console.error(`Error updating agent ${agentId}:`, error);
+      throw error;
+    }
+  }
+  
 
 export async function getAllAgents(search = "", ordering = "", page = 1) {
     const myHeaders = new Headers();
