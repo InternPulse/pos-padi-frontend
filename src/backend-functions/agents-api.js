@@ -86,12 +86,12 @@ export async function onboardAgent(passwordData) {
   }
   
 
-export async function getAllAgents(search = "", ordering = "", page = 1) {
+export async function getAllAgents(search = "", ordering = "", page = "") {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`); 
   
     // Construct the URL dynamically based on provided parameters
-    let url = `https://pos-padi-django-backend.onrender.com/api/v1/agents/?page=${page}`;
+    let url = `https://pos-padi-django-backend.onrender.com/api/v1/agents/`;
     
     if (search) url += `&search=${encodeURIComponent(search)}`;
     if (ordering) url += `&ordering=${encodeURIComponent(ordering)}`;

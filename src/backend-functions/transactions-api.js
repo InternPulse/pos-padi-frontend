@@ -87,6 +87,10 @@ export async function getTransactionById(id) {
 export async function getAllTransactions() {
   const requestOptions = {
     method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('POSPadiaccess')}`,
+      'Content-Type': 'application/json'
+    },
     redirect: 'follow'
   };
 

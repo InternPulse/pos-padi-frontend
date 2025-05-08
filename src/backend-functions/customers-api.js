@@ -38,12 +38,12 @@ export async function createCustomer(formValues, file) {
   }
 }
 
-export async function getAllCustomers(search = "", ordering = "", page = 1) {
+export async function getAllCustomers(search = "", ordering = "", page = "") {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`); 
   
   
-    let url = `https://pos-padi-django-backend.onrender.com/api/v1/customers/?page=${page}`;
+    let url = `https://pos-padi-django-backend.onrender.com/api/v1/customers/`;
     
     if (search) url += `&search=${encodeURIComponent(search)}`;
     if (ordering) url += `&ordering=${encodeURIComponent(ordering)}`;

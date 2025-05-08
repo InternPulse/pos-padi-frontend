@@ -47,7 +47,7 @@ const TopAgentCard = ({
         <Flex justify="center" mt={"1rem"} mb="2rem">
           <Image
             src={userImageURL}
-            alt="Top Agent"
+            alt=""
             boxSize="100px"
             borderRadius="full"
           />

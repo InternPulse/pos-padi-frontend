@@ -1158,7 +1158,7 @@ export function transformTransactions(arr){
       dateTime: '',
       status: '',
       fee: 0,
-      loyaltyPoints: +tx.fee * 0.1
+      loyaltyPoints: 0
     }
   ]
 
