@@ -64,7 +64,7 @@ const AddCustomerForm = () => {
           fontFamily="Poppins"
           fontWeight={600}
           fontSize="24px"
-          color="#000000"
+          color={{ base: "green.500", _dark: "green.300" }}
           mb={4}
           textTransform={"capitalize"}
         >
@@ -75,7 +75,7 @@ const AddCustomerForm = () => {
           textTransform={"capitalize"}
           fontFamily="Poppins"
           fontSize="16px"
-          color="#626C7A"
+          color={{ base: "gray.500", _dark: "gray.400" }}
           mb={6}
         >
           Input {variant} Details
@@ -88,7 +88,7 @@ const AddCustomerForm = () => {
               fontFamily="Poppins"
               fontWeight={400}
               fontSize="16px"
-              color="#1A1A1A"
+              color={{ base: "gray.900", _dark: "gray.400" }}
               mb={1}
             >
               First Name
@@ -106,7 +106,7 @@ const AddCustomerForm = () => {
                 height="48px"
                 borderRadius="10px"
                 border="1px solid"
-                borderColor="gray.200"
+                borderColor={{ base: "gray.200", _dark: "gray.500" }}
                 pl={10}
                 fontFamily="Poppins"
                 _placeholder={{
@@ -123,7 +123,7 @@ const AddCustomerForm = () => {
               fontFamily="Poppins"
               fontWeight={400}
               fontSize="16px"
-              color="#1A1A1A"
+              color={{ base: "gray.900", _dark: "gray.400" }}
               mb={1}
             >
               Last Name
@@ -141,7 +141,7 @@ const AddCustomerForm = () => {
                 height="48px"
                 borderRadius="10px"
                 border="1px solid"
-                borderColor="gray.200"
+                borderColor={{ base: "gray.200", _dark: "gray.500" }}
                 pl={10}
                 fontFamily="Poppins"
                 _placeholder={{
@@ -158,7 +158,7 @@ const AddCustomerForm = () => {
               fontFamily="Poppins"
               fontWeight={400}
               fontSize="16px"
-              color="#1A1A1A"
+              color={{ base: "gray.900", _dark: "gray.400" }}
               mb={1}
             >
               Phone Number
@@ -176,7 +176,7 @@ const AddCustomerForm = () => {
                 height="48px"
                 borderRadius="10px"
                 border="1px solid"
-                borderColor="gray.200"
+                borderColor={{ base: "gray.200", _dark: "gray.500" }}
                 pl={10}
                 fontFamily="Poppins"
                 _placeholder={{
@@ -194,7 +194,7 @@ const AddCustomerForm = () => {
                 fontFamily="Poppins"
                 fontWeight={400}
                 fontSize="16px"
-                color="#1A1A1A"
+                color={{ base: "gray.900", _dark: "gray.400" }}
                 mb={1}
               >
                 Email
@@ -212,7 +212,7 @@ const AddCustomerForm = () => {
                   height="48px"
                   borderRadius="10px"
                   border="1px solid"
-                  borderColor="gray.200"
+                  borderColor={{ base: "gray.200", _dark: "gray.500" }}
                   pl={10}
                   fontFamily="Poppins"
                   _placeholder={{
@@ -226,7 +226,7 @@ const AddCustomerForm = () => {
 
           <Button
             type="submit"
-            bg="green.500"
+            bg={{ base: "green.500", _dark: "green.600" }}
             color="white"
             width="100%"
             height="48px"
