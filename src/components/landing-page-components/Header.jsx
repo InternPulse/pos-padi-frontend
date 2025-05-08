@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Flex,
@@ -12,9 +12,10 @@ import {
 import { Menu } from "lucide-react";
 import { Drawer, CloseButton, Portal } from "@chakra-ui/react";
 import Logo from "../header-nav-components/Logo";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState("Home");
+  const location = useLocation();
 
   const navItems = [
     { name: "Home", path: "/home" },
@@ -23,6 +24,10 @@ const Header = () => {
     { name: "Blog", path: "/blog" },
     { name: "About Us", path: "/about" },
   ];
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
 
   return (
     <Box
@@ -63,15 +68,14 @@ const Header = () => {
               <Link
                 key={item.name}
                 href={item.path}
-                onClick={() => setActiveLink(item.name)}
                 fontSize={{ base: "md", md: "sm", lg: "md" }}
                 p={1}
                 color={
-                  activeLink === item.name
+                  isActive(item.path)
                     ? { base: "green.500", _dark: "green.300" }
                     : { base: "gray.600", _dark: "gray.400" }
                 }
-                fontWeight={activeLink === item.name ? "semibold" : "medium"}
+                fontWeight={isActive(item.path) ? "semibold" : "medium"}
                 _hover={{
                   color: { base: "green.500", _dark: "green.300" },
                   bg: { base: "gray.50", _dark: "gray.800" },
@@ -122,7 +126,6 @@ const Header = () => {
                 _dark={{
                   color: "gray.200",
                 }}
-                // This will apply to the icon
                 _hover={{ color: "green.500", bg: "gray.100" }}
               />
             </Drawer.Trigger>
@@ -142,9 +145,6 @@ const Header = () => {
                         <Link
                           key={item.name}
                           href={item.path}
-                          onClick={() => {
-                            setActiveLink(item.name);
-                          }}
                           display="block"
                           px="4"
                           py="3"
@@ -152,12 +152,12 @@ const Header = () => {
                           borderRadius="md"
                           fontSize="lg"
                           color={
-                            activeLink === item.name
+                            isActive(item.path)
                               ? { base: "green.500", _dark: "green.300" }
                               : { base: "gray.600", _dark: "gray.400" }
                           }
                           fontWeight={
-                            activeLink === item.name ? "semibold" : "medium"
+                            isActive(item.path) ? "semibold" : "medium"
                           }
                           _hover={{
                             color: { base: "green.500", _dark: "green.300" },
