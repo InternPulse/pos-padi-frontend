@@ -23,7 +23,8 @@ export const allNotifications = [
   {
     id: 3,
     title: "Transaction Failed",
-    subtitle: "Card Declined for 5,000 At Terminal GH39532 (Reasons Insufficient Funds).",
+    subtitle:
+      "Card Declined for 5,000 At Terminal GH39532 (Reasons Insufficient Funds).",
     type: "transaction",
     color: "red",
     isRead: false,
@@ -51,3 +52,19 @@ export const allNotifications = [
     name: "Egbagbe Damilola",
   },
 ];
+
+/*
+  {
+    "id": "2c5cf101-bcc0-41ca-b04d-4d669078eb6b",
+    "user_id": "9e6042de-d90d-475e-a7cb-cb9f2dfa24a3",
+    "title": "New Transaction",
+    "message": "Withdrawal of NGN 30,000 successful",
+    "data": {},
+    "delivered_at": "2025-05-08T13:31:04.074Z",
+    "type": "Withdrawal",
+    "read": false,
+    "created_at": "2025-05-08T13:31:04.074Z",
+    "read_at": null
+  },
+  
+  */
