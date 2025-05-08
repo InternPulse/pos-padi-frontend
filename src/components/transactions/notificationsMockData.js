@@ -68,3 +68,19 @@ export const allNotifications = [
   },
   
   */
+
+export function transformNotifications(notifications){
+  return notifications.map(item => {
+    return (
+      {
+        id: item.id,
+        title: item.title,
+        subtitle: item.message,
+        type: item.type,
+        isRead: item.read,
+        time: item.created_at,
+        recipient_id: item.user_id
+      }
+    )
+  })
+}

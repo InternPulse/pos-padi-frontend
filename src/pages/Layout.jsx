@@ -15,23 +15,15 @@ import { useState, useEffect } from "react";
 import UserContext from "@/context/UserContext";
 import { getUserSummary } from "@/backend-functions/useractions-api";
 
-function LoadingSpinner() {
-  return (
-    <VStack colorPalette="green">
-      <Spinner color="colorPalette.600" size={"xl"} borderWidth={"3px"} />
-      <Text textStyle={"sm"} fontWeight={"medium"} italic color="gray.600">
-        Loading... refresh page if it's taking too long
-      </Text>
-    </VStack>
-  );
-}
-
 function Layout() {
   const { setAuth } = useAuth();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    let ignore = false;
+
     getUserSummary()
       .then((data) => {
         // console.log(data.user.email);
@@ -50,10 +42,25 @@ function Layout() {
       })
       .then((data) => {
         // console.log(data);
-        setUser(data);
-        setIsLoading(false);
+        if (!ignore) {
+          setUser(data);
+          setError(null);
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setError(err.message);
+        setUser(null);
+      })
+      .finally(() => {
+        if (!ignore) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const handleLogout = (e) => {
@@ -63,11 +70,46 @@ function Layout() {
     setAuth(false);
   };
 
-  return isLoading ? (
-    <Flex width={"100vw"} height={"100vh"} justify={"center"} align={"center"}>
-      <LoadingSpinner />
-    </Flex>
-  ) : (
+  function LoadingSpinner() {
+    return (
+      <Flex
+        justify={"center"}
+        align={"center"}
+        width={"100vw"}
+        height={"100vh"}
+      >
+        <VStack colorPalette="green">
+          <Spinner color="colorPalette.600" size={"xl"} borderWidth={"3px"} />
+          <Logo isConcise={true} />
+          <Text
+            textStyle={"sm"}
+            fontWeight={"semibold"}
+            italic
+            color="gray.600"
+          >
+            Loading...
+          </Text>
+        </VStack>
+      </Flex>
+    );
+  }
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return (
+      <Flex justify={"center"} align={"center"} w={"100vw"} h={"100vh"}>
+        <VStack>
+          <Text fontWeight={"semibold"}>Error: {error}</Text>
+          <Text textStyle={"sm"}>Consider refreshing page</Text>
+        </VStack>
+      </Flex>
+    );
+  }
+
+  return (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
     <UserContext user={user}>
       <Flex width={"100%"} height={"100%"}>

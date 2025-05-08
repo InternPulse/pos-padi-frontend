@@ -20,7 +20,24 @@ import { LuWallet } from "react-icons/lu";
 import { useOutletContext } from "react-router-dom";
 import { percentageDiff } from "@/utils/percentageDifference";
 
-const totalRevenue = formatCurrency(transactions.filter(item => item.status == 'successful').reduce((acc, tx) => acc + tx.fee, 0))
+
+
+function Dashboard() {
+  const [filteredTransactions, setFilteredTransactions] = useState(null);
+  const [activePeriod, setActivePeriod] = useState('');
+
+  // Transactions, Agents, Customers
+
+  useEffect(() => {
+    window.scrollTo(0,0)
+
+
+
+  },[])
+
+  const { user } = useOutletContext()
+
+  const totalRevenue = formatCurrency(transactions.filter(item => item.status == 'successful').reduce((acc, tx) => acc + tx.fee, 0))
 const processedAgents = rawAgents.map(agent => {
   const agentRevenue = transactions.filter(tx => tx.agent == `${agent.firstName} ${agent.lastName}`).reduce((acc, tx) => acc + tx.fee, 0)
   return {...agent, revenue: agentRevenue}
@@ -149,15 +166,6 @@ function PlaceHolderTransactionsCard() {
     ></Box>
   );
 }
-
-function Dashboard() {
-  const [filteredTransactions, setFilteredTransactions] = useState(null);
-  const [activePeriod, setActivePeriod] = useState('');
-  useEffect(() => {
-    window.scrollTo(0,0)
-  },[])
-
-  const { user } = useOutletContext()
   
  // Get filtered transactions based on active period
  const periodFilteredTransactions = filterTransactionsByPeriod(transactions, activePeriod);
