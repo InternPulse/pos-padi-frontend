@@ -15,7 +15,7 @@ import TransactionPageFilterButton from "@/components/TransactionPageFilterButto
 import GenericTable from "@/components/alt/transactions/generic-table/GenericTable";
 import {
   rawCustomers,
-  customersList,
+  listCustomers,
 } from "@/components/transactions/customersMockData";
 import { transactions } from "@/components/transactions/transactionsMockData";
 import { filterRow } from "../Others/data-filters/SearchByText";
@@ -241,6 +241,8 @@ function EntityDetails({ entity, entityType }) {
           ],
   };
 
+  const customersList = listCustomers(rawCustomers)
+  
   const pageCustomersTable =
     entityType == "agent"
       ? {
