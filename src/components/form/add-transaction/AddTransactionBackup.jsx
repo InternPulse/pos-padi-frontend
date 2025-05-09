@@ -55,7 +55,6 @@ const AddTransactionBackup = () => {
       return;
     }
 
-    console.log("Transaction submitted:", formData);
     setShowSuccess(true);
     setFormData({
       amount: "",
@@ -64,6 +63,7 @@ const AddTransactionBackup = () => {
       transactionType: "",
       date: "",
     });
+    console.log("Transaction submitted:", formData);
   };
 
   const closeSuccess = () => {

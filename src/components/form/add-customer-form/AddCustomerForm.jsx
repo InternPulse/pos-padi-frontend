@@ -12,6 +12,7 @@ import { FaRegUser } from "react-icons/fa";
 import { BsTelephone } from "react-icons/bs";
 import SuccessDialog from "../success-dialog/SuccessDialog";
 import { useLocation } from "react-router-dom";
+import { createAgent } from "@/backend-functions/agents-api";
 
 const AddCustomerForm = () => {
   const currentPath = useLocation().pathname;
@@ -42,9 +43,16 @@ const AddCustomerForm = () => {
       return;
     }
 
-    console.log("Form submitted:", formData);
     setShowSuccess(true);
     setFormData(defaultFormData);
+    // console.log("Form submitted:", formData);
+
+    createAgent({
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      phone: formData.phoneNumber
+    })
   };
 
   const closeSuccess = () => {
