@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const transactions = [
   {
     reference: "TXN001",
@@ -1134,11 +1136,11 @@ function transformTransactionData(tx){
     id: tx.id,
     reference: tx.reference,
     amount: tx.amount,
-    customer: tx.customer_id,
+    customer: tx.customer.first_name + ' ' + tx.customer.last_name,
     type: tx.type,
-    agent: tx.agent_id,
-    dateTime: tx.created_at,
-    status: tx.status.toLowerCase(),
+    agent: tx.agent.first_name + ' ' + tx.agent.last_name,
+    dateTime: moment(tx.created_at).format('LLL'),
+    status: tx.status.toLowerCase() == 'successful' ? 'successful' : 'failed',
     fee: tx.fee,
     loyaltyPoints: +tx.fee * 0.1
   }

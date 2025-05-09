@@ -1,6 +1,6 @@
 import { Box, Flex, Stack, Text, Button } from "@chakra-ui/react";
 import AltTransactionTable from "./AltTransactionTable";
-import { transactions } from "@/components/transactions/transactionsMockData";
+import { transactions, transformTransactions } from "@/components/transactions/transactionsMockData";
 // import { BiDirections } from "react-icons/bi";
 import Card from "../dashboard-components/Card";
 import { LuWallet } from "react-icons/lu";
@@ -10,6 +10,9 @@ import { useOutletContext } from "react-router-dom";
 import ExportButton from "../dashboard-components/ExportButton";
 import AddTransactionDialog from "@/components/form/add-transaction/AddTransactionDialog";
 import { percentageDiff } from "@/utils/percentageDifference";
+import { getAllTransactions } from "@/backend-functions/transactions-api";
+import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
+import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -20,64 +23,107 @@ export function formatCurrency(num) {
   return formattedCurrency;
 }
 
-export const transactionSummary = [
-  {
-    title: "Total Transaction",
-    amount: formatCurrency(
-      transactions.reduce((acc, trans) => {
-        return acc + trans.amount;
-      }, 0)
-    ),
-    icon: <LuWallet />,
-    iconColor: { base: "blue.600", _dark: "blue.300" },
-    iconBgColor: { base: "blue.50", _dark: "blue.800" },
-    percent: percentageDiff(transactions, 'transactions', 'sum', 'month').percentageChange,
-    period: "month",
-  },
-  {
-    title: "Successful",
-    amount: formatCurrency(
-      transactions
-        .filter((trans) => trans.status == "successful")
-        .reduce((acc, trans) => {
-          return acc + trans.amount;
-        }, 0)
-    ),
-    icon: <LuWallet />,
-    iconColor: { base: "green.600", _dark: "green.300" },
-    iconBgColor: { base: "green.50", _dark: "green.800" },
-    percent: percentageDiff(transactions.filter(tx => tx.status == 'successful'), 'transactions', 'sum', 'month').percentageChange,
-    period: "month",
-  },
-  {
-    title: "Failed",
-    amount: formatCurrency(
-      transactions
-        .filter((trans) => trans.status == "failed")
-        .reduce((acc, trans) => {
-          return acc + trans.amount;
-        }, 0)
-    ),
-    icon: <LuWallet />,
-    iconColor: { base: "red.600", _dark: "red.300" },
-    iconBgColor: { base: "red.50", _dark: "red.800" },
-    percent: percentageDiff(transactions.filter(tx => tx.status == 'failed'), 'transactions', 'sum', 'month').percentageChange,
-    period: "month",
-  },
-];
+
 
 function AltTransactions() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const { user } = useOutletContext();
-
+  const { user, notifications, setNotifications } = useOutletContext();
+  const [ loading, setLoading ] = useState(true)
+  const [ error, setError ] = useState(null)
+  const [ transactionsData, setTransactionsData ] = useState([])
   const [filters, setFilters] = useState({
     search: "",
     status: "",
     agent: "",
   });
+
+
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    let ignore = false;
+
+    async function fetchTransactionsData(){
+      try{
+        setLoading(true)
+
+        const txData = await getAllTransactions()
+
+        if(!ignore && txData){
+          setTransactionsData(txData.data)
+        }
+
+      }catch(error){
+        if(!ignore){
+          setTransactionsData(null)
+        }
+      }finally {
+        if(!ignore){
+          setLoading(false)
+        }
+      }
+    }
+
+    fetchTransactionsData()
+
+    return () => {
+      ignore = true;
+    }
+
+  }, []);
+
+  // if(error){ return <ErrorMsg error={error} />}
+  if(loading){ return <LoadingSpinner /> }
+
+  const transactions = transformTransactions(transactionsData)
+
+  const transactionSummary = [
+    {
+      title: "Total Transaction",
+      amount: formatCurrency(
+        transactions.reduce((acc, trans) => {
+          return acc + trans.amount;
+        }, 0)
+      ),
+      icon: <LuWallet />,
+      iconColor: { base: "blue.600", _dark: "blue.300" },
+      iconBgColor: { base: "blue.50", _dark: "blue.800" },
+      percent: percentageDiff(transactions, 'transactions', 'sum', 'month').percentageChange,
+      period: "month",
+    },
+    {
+      title: "Successful",
+      amount: formatCurrency(
+        transactions
+          .filter((trans) => trans.status == "successful")
+          .reduce((acc, trans) => {
+            return acc + trans.amount;
+          }, 0)
+      ),
+      icon: <LuWallet />,
+      iconColor: { base: "green.600", _dark: "green.300" },
+      iconBgColor: { base: "green.50", _dark: "green.800" },
+      percent: percentageDiff(transactions.filter(tx => tx.status == 'successful'), 'transactions', 'sum', 'month').percentageChange,
+      period: "month",
+    },
+    {
+      title: "Failed",
+      amount: formatCurrency(
+        transactions
+          .filter((trans) => trans.status == "failed")
+          .reduce((acc, trans) => {
+            return acc + trans.amount;
+          }, 0)
+      ),
+      icon: <LuWallet />,
+      iconColor: { base: "red.600", _dark: "red.300" },
+      iconBgColor: { base: "red.50", _dark: "red.800" },
+      percent: percentageDiff(transactions.filter(tx => tx.status == 'failed'), 'transactions', 'sum', 'month').percentageChange,
+      period: "month",
+    },
+  ];
+
 
   // Get unique values for dropdowns
   const statusOptions = [...new Set(transactions.map((item) => item.status))];

@@ -2,7 +2,7 @@ import { Button, ButtonGroup, EmptyState, VStack } from "@chakra-ui/react";
 import Logo from "../header-nav-components/Logo";
 import { NavLink } from "react-router-dom";
 
-function NewUserLanding() {
+function NewAgentLanding() {
   return (
     <EmptyState.Root>
       <EmptyState.Content>
@@ -12,12 +12,12 @@ function NewUserLanding() {
         <VStack textAlign="center">
           <EmptyState.Title>Nothing to display</EmptyState.Title>
           <EmptyState.Description>
-            Add a new agent to get started
+            Add a new customer to get started
           </EmptyState.Description>
         </VStack>
         <ButtonGroup>
-          <NavLink to="/agents">
-            <Button colorPalette={'green'}>Create an Agent</Button>
+          <NavLink to="/customers">
+            <Button colorPalette={'green'}>Create a Customer</Button>
           </NavLink>
         </ButtonGroup>
       </EmptyState.Content>
@@ -25,4 +25,4 @@ function NewUserLanding() {
   );
 }
 
-export default NewUserLanding;
+export default NewAgentLanding

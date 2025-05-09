@@ -15,7 +15,7 @@ export async function createNotification(notificationData) {
     };
   
     try {
-      const response = await fetch("https://your-api-base-url.com/api/v1/notifications", requestOptions); 
+      const response = await fetch("https://pos-padi-express-backend.onrender.com/api/v1/notifications", requestOptions); 
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -43,7 +43,7 @@ export async function createNotification(notificationData) {
     };
   
     try {
-      const response = await fetch(`https://your-api-base-url.com/api/v1/notifications/${notificationId}`, requestOptions); 
+      const response = await fetch(`https://pos-padi-express-backend.onrender.com/api/v1/notifications/${notificationId}`, requestOptions); 
   
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -59,11 +59,12 @@ export async function createNotification(notificationData) {
     }
   }
   
-  export async function getNotifications({ page = 1, limit = 10 } = {}) {
+  export async function getNotifications({ page = 1, limit = 1000 } = {}) {
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
+    myHeaders.append('Authorization', `Bearer ${localStorage.getItem('POSPadiaccess')}`)
   
-    const url = new URL("https://your-api-base-url.com/api/v1/notifications"); // Replace with actual base URL
+    const url = new URL("https://pos-padi-express-backend.onrender.com/api/v1/notifications"); // Replace with actual base URL
     url.searchParams.append("page", page);
     url.searchParams.append("limit", limit);
   
@@ -102,7 +103,7 @@ export async function createNotification(notificationData) {
   };
 
   try {
-    const response = await fetch(`https://your-api-base-url.com/api/v1/notifications/${notificationId}/read`, requestOptions); // Replace with actual base URL
+    const response = await fetch(`https://pos-padi-express-backend.onrender.com/api/v1/notifications/${notificationId}/read`, requestOptions); // Replace with actual base URL
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

@@ -14,12 +14,16 @@ import { logoutUser } from "@/backend-functions/useractions-api";
 import { useState, useEffect } from "react";
 import UserContext from "@/context/UserContext";
 import { getUserSummary } from "@/backend-functions/useractions-api";
+import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
+import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
+import { allNotifications } from "@/components/transactions/notificationsMockData";
 
 function Layout() {
   const { setAuth } = useAuth();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [ notifications, setNotifications ] = useState([])
 
   useEffect(() => {
     let ignore = false;
@@ -70,44 +74,9 @@ function Layout() {
     setAuth(false);
   };
 
-  function LoadingSpinner() {
-    return (
-      <Flex
-        justify={"center"}
-        align={"center"}
-        width={"100vw"}
-        height={"100vh"}
-      >
-        <VStack colorPalette="green">
-          <Spinner color="colorPalette.600" size={"xl"} borderWidth={"3px"} />
-          <Logo isConcise={true} />
-          <Text
-            textStyle={"sm"}
-            fontWeight={"semibold"}
-            italic
-            color="gray.600"
-          >
-            Loading...
-          </Text>
-        </VStack>
-      </Flex>
-    );
-  }
+  if (isLoading) { return <LoadingSpinner />; }
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return (
-      <Flex justify={"center"} align={"center"} w={"100vw"} h={"100vh"}>
-        <VStack>
-          <Text fontWeight={"semibold"}>Error: {error}</Text>
-          <Text textStyle={"sm"}>Consider refreshing page</Text>
-        </VStack>
-      </Flex>
-    );
-  }
+  if (error) { return <ErrorMsg error={error} />; }
 
   return (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
@@ -168,7 +137,7 @@ function Layout() {
               </Box>
             </Flex>
             <Flex align={"center"} gap={5}>
-              <NotificationsDrawer />
+              <NotificationsDrawer notifications={notifications} setNotifications={setNotifications} />
               <Flex
                 height={{ base: "40px", lg: "60px" }}
                 width={{ base: "40px", lg: "180px" }}
@@ -215,7 +184,7 @@ function Layout() {
                 <PageTitle />
               </Box>
               <Flex justify={"center"} width={"100%"}>
-                <Outlet context={{ user }} />
+                <Outlet context={{ user, setNotifications }} />
               </Flex>
             </Box>
           </Flex>

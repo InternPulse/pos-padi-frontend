@@ -254,7 +254,7 @@ function Settings() {
           >
             KYC
           </Tabs.Trigger>
-          <Tabs.Trigger 
+          {/* <Tabs.Trigger 
             value="Security"
             _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
             _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
@@ -265,7 +265,7 @@ function Settings() {
             minW="fit-content"
           >
             Security
-          </Tabs.Trigger>
+          </Tabs.Trigger> */}
         </Tabs.List>
 
         <Box width="100%" maxW="1400px" mx="auto" mt={8} px={{ base: 4, md: 8 }}>
@@ -600,7 +600,7 @@ function Settings() {
             </Box>
           </Tabs.Content>
 
-          <Tabs.Content value="Security">
+          {/* <Tabs.Content value="Security">
             <Box border="1px solid" borderColor={{base: 'gray.200', _dark: 'gray.600'}} borderRadius="md" p={{ base: 4, md: 8 }} bg={{base: 'white', _dark: 'inherit'}} minH={{ base: "auto", md: "600px" }}>
               <Flex direction="column" gap={8}>
                 <Box>
@@ -817,7 +817,7 @@ function Settings() {
                 </Table.ScrollArea>
               </Flex>
             </Box>
-          </Tabs.Content>
+          </Tabs.Content> */}
         </Box>
 
         {/* Remove Device Confirmation Dialog */}

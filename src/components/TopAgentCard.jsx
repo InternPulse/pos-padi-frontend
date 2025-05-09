@@ -5,11 +5,6 @@ import { LuUsers } from "react-icons/lu";
 import ProfileImage from "../assets/agents/ellipse34.png";
 import starBanner from "../assets/star-banner.png";
 
-// const formatAmount = (amount) => {
-//   const num = parseFloat(amount);
-//   return `₦${num.toLocaleString("en-NG", { minimumFractionDigits: 2 })}`;
-// };
-
 const TopAgentCard = ({
   userImageURL = ProfileImage,
   userFullName,

@@ -7,33 +7,30 @@ import { useState } from "react";
 import { IoPeopleOutline } from "react-icons/io5";
 import { GrGroup } from "react-icons/gr";
 import { GiSwipeCard } from "react-icons/gi";
-import { transactionSummary } from "@/components/alt/transactions/AltTransactions";
 import Card from "@/components/alt/dashboard-components/Card";
 import { useEffect } from "react";
 import TransDashFilterbutton from "@/components/TransFilterButton";
-import {
-  rawAgents,
-  transformAgents,
-} from "@/components/transactions/agentsMockData";
-import {
-  rawCustomers,
-  transformCustomers,
-} from "@/components/transactions/customersMockData";
-import {
-  transactions,
-  transformTransactions,
-} from "@/components/transactions/transactionsMockData";
+import { transformAgents } from "@/components/transactions/agentsMockData";
+import { transformCustomers } from "@/components/transactions/customersMockData";
+import { transformTransactions } from "@/components/transactions/transactionsMockData";
+import { transformNotifications } from "@/components/transactions/notificationsMockData";
 import ExportButton from "@/components/alt/dashboard-components/ExportButton";
 import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
 import { LuWallet } from "react-icons/lu";
 import { useOutletContext } from "react-router-dom";
 import { percentageDiff } from "@/utils/percentageDifference";
 import NewUserLanding from "@/components/empty-state/NewUserLanding";
+import NewAgentLanding from "@/components/empty-state/NewAgentLanding";
 import { getAllTransactions } from "@/backend-functions/transactions-api";
 import { getAllCustomers } from "@/backend-functions/customers-api";
 import { getAllAgents } from "@/backend-functions/agents-api";
+import { getNotifications } from "@/backend-functions/notifications";
+import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
+import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
 
 function Dashboard() {
+  const { user, notifications, setNotifications } = useOutletContext();
+
   const [filteredTransactions, setFilteredTransactions] = useState(null);
   const [activePeriod, setActivePeriod] = useState("");
 
@@ -69,24 +66,35 @@ function Dashboard() {
         setLoading(true);
 
         const txData = await getAllTransactions();
-        const agentsData = await getAllAgents();
         const customersData = await getAllCustomers();
+        const notificationsData = await getNotifications();
 
-        if (!ignore && txData && agentsData && customersData) {
-          console.log(txData);
-          console.log(agentsData);
-          console.log(customersData);
-
+        if (!ignore && txData && customersData && notificationsData) {
+          // console.log(txData);
+          // console.log(customersData);
+          
           setTransactionsData(txData.data);
-          setRawAgentsData(agentsData.results);
           setRawCustomersData(customersData.results);
+          setNotifications(transformNotifications(notificationsData.data.notifications))
         }
+
+        if(user.role == 'admin'){
+          const agentsData = await getAllAgents();
+
+          if(!ignore && agentsData){
+  
+            // console.log(agentsData);
+            setRawAgentsData(agentsData.results);
+          }
+        }
+
       } catch (err) {
         if (!ignore) {
           setError(err.message);
           setTransactionsData(null);
           setRawAgentsData(null);
           setRawCustomersData(null);
+          setNotifications(null)
         }
       } finally {
         if (!ignore) {
@@ -102,7 +110,10 @@ function Dashboard() {
     };
   }, []);
 
-  const { user } = useOutletContext();
+  if(error){ return <ErrorMsg error={error} />}
+  if(loading){ return <LoadingSpinner /> }
+
+
   const transactions = transformTransactions(transactionsData)
   const rawAgents = transformAgents(rawAgentsData).rawAgents
   const rawCustomers = transformCustomers(rawCustomersData).rawCustomers
@@ -405,8 +416,12 @@ function Dashboard() {
     setActivePeriod(period);
   };
 
-  if (rawAgents.length == 0) {
+  if (user.role == 'admin' && rawAgents.length == 0) {
     return <NewUserLanding />;
+  }
+
+  if (user.role == 'agent' && rawCustomers.length == 0) {
+    return <NewAgentLanding />;
   }
 
   return (

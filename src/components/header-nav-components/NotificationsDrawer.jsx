@@ -8,11 +8,9 @@ import {
 } from "@chakra-ui/react";
 import NotificationButton from "./NotificationButton";
 import NotificationsPage from "../notification-card/NotificationsPage";
-import { allNotifications } from "../transactions/notificationsMockData";
-import { useState } from "react";
 
-function NotificationsDrawer({ count }) {
-  const [notifications, setNotifications] = useState(allNotifications);
+function NotificationsDrawer({ notifications, setNotifications }) {
+
   const notificationsCount = notifications.filter(x => !x.isRead).length
 
   return (
