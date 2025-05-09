@@ -83,7 +83,7 @@ function Customers() {
             if (!ignore) {
               setError(err.message);
               setRawCustomersData(null);
-              setNotifications(null)
+              setNotifications([])
             }
           } finally {
             if (!ignore) {

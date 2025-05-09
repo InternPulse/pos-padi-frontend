@@ -52,17 +52,19 @@ function AltTransactions() {
         setLoading(true)
 
         const txData = await getAllTransactions()
-        const notificationsData = getNotifications()
+        const notificationsData = await getNotifications()
 
-        if(!ignore && txData && notifications){
+        if(!ignore && txData && notificationsData){
           setTransactionsData(txData.data)
           setNotifications(transformNotifications(notificationsData.data.notifications))
         }
 
+        
+
       }catch(error){
         if(!ignore){
           setTransactionsData(null)
-          setNotifications(null)
+          setNotifications([])
         }
       }finally {
         if(!ignore){
@@ -79,10 +81,12 @@ function AltTransactions() {
 
   }, []);
 
-  // if(error){ return <ErrorMsg error={error} />}
+  if(error){ return <ErrorMsg error={error} />}
   if(loading){ return <LoadingSpinner /> }
 
+  console.log(transactionsData)
   const transactions = transformTransactions(transactionsData)
+  console.log(transactions)
 
   const transactionSummary = [
     {

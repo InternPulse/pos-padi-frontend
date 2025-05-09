@@ -84,7 +84,7 @@ function Dashboard() {
           setTransactionsData(null);
           setRawAgentsData(null);
           setRawCustomersData(null);
-          setNotifications(null)
+          setNotifications([])
         }
       } finally {
         if (!ignore) {

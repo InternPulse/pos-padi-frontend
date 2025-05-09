@@ -38,7 +38,7 @@ export default function Agents() {
         if(!ignore){
           setError(error.message)
           setAgentsData(null)
-          setNotifications(null)
+          setNotifications([])
         }
       }finally{
         if(!ignore){
