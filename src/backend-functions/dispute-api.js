@@ -65,29 +65,30 @@ try {
 export async function getDisputes(queryParams = {}) {
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
+    myHeaders.append('Authorization', `Bearer ${token}`)
   
-    const {
-      page = '',
-      limit = '',
-      search = '',
-      date_from = '',
-      date_to = '',
-      transaction_id = '',
-      is_active = '',
-    } = queryParams;
+    // const {
+    //   page = '',
+    //   limit = '',
+    //   search = '',
+    //   date_from = '',
+    //   date_to = '',
+    //   transaction_id = '',
+    //   is_active = '',
+    // } = queryParams;
   
-    const url = new URL("https://your-api-base-url.com/api/v1/disputes"); 
+    const url = new URL("https://pos-padi-express-backend.onrender.com/api/v1/disputes"); 
   
-    url.searchParams.append("page", page);
-    url.searchParams.append("limit", limit);
-    url.searchParams.append("sort_key", "is_active");
-    url.searchParams.append("sort_direction", "asc");
-    url.searchParams.append("search", search);
-    url.searchParams.append("date_from", date_from);
-    url.searchParams.append("date_to", date_to);
-    url.searchParams.append("transaction_id", transaction_id);
-    url.searchParams.append("status", "Rejected");
-    url.searchParams.append("is_active", is_active);
+    // url.searchParams.append("page", page);
+    // url.searchParams.append("limit", limit);
+    // url.searchParams.append("sort_key", "is_active");
+    // url.searchParams.append("sort_direction", "asc");
+    // url.searchParams.append("search", search);
+    // url.searchParams.append("date_from", date_from);
+    // url.searchParams.append("date_to", date_to);
+    // url.searchParams.append("transaction_id", transaction_id);
+    // url.searchParams.append("status", "Rejected");
+    // url.searchParams.append("is_active", is_active);
   
     const requestOptions = {
       method: 'GET',

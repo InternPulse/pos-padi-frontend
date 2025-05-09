@@ -1,64 +1,139 @@
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import DisputesTable from "@/components/alt/disputes/DisputesTable";
-import { transactions } from "@/components/transactions/transactionsMockData";
-import { disputes } from "@/components/transactions/disputesMockData";
+import { transactions, transformTransactions } from "@/components/transactions/transactionsMockData";
+import { disputes, transformDisputes } from "@/components/transactions/disputesMockData";
 import Card from "@/components/alt/dashboard-components/Card";
 import { LuTicket } from "react-icons/lu";
 import TransactionPageFilterButton from "@/components/TransactionPageFilterButton";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { percentageDiff } from "@/utils/percentageDifference";
+import { useOutletContext } from "react-router-dom";
+import { getDisputes } from "@/backend-functions/dispute-api";
+import { getNotifications } from "@/backend-functions/notifications";
+import { transformNotifications } from "@/components/transactions/notificationsMockData";
+import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
+import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
+import { getAllTransactions } from "@/backend-functions/transactions-api";
 
-const disputedTransactions = disputes.map(dispute => {
-  const disputeTx = transactions.find(tx => tx.reference == dispute.reference)
-  return {
-    ...dispute, ...disputeTx
-  }
-})
-
-export const transactionSummary = [
-  {
-    title: "Total Tickets",
-    amount: disputedTransactions.length,
-    icon: <LuTicket />,
-    iconColor: { base: "blue.600", _dark: "blue.300" },
-    iconBgColor: { base: "blue.50", _dark: "blue.800" },
-    percent: percentageDiff(disputedTransactions, 'disputes', 'length', 'month').percentageChange,
-    period: "month",
-  },
-  {
-    title: "Resolved",
-    amount: disputedTransactions.filter(item => item.disputeStatus == 'resolved').length,
-    icon: <LuTicket />,
-    iconColor: { base: "green.600", _dark: "green.300" },
-    iconBgColor: { base: "green.50", _dark: "green.800" },
-    percent: percentageDiff(disputedTransactions.filter(item => item.disputeStatus == 'resolved'), 'disputes', 'length', 'month').percentageChange,
-    period: "month",
-  },
-  {
-    title: "Pending",
-    amount: disputedTransactions.filter(item => item.disputeStatus == 'pending').length,
-    icon: <LuTicket />,
-    iconColor: { base: "red.600", _dark: "red.300" },
-    iconBgColor: { base: "red.50", _dark: "red.800" },
-    percent: percentageDiff(disputedTransactions.filter(item => item.disputeStatus == 'pending'), 'disputes', 'length', 'month').percentageChange,
-    period: "month",
-  },
-];
 
 function Disputes() {
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const { user, notifications, setNotifications } = useOutletContext()
 
+  const [ loading, setLoading ] = useState(true)
+  const [ error, setError ] = useState(null)
+  const [ disputesData, setDisputesData ] = useState([])
+  const [ transactionsData, setTransactionsData ] = useState([])
 
+  
   
   const [filters, setFilters] = useState({
     search: '',
     disputeStatus: '',
     agent: ''
   });
+
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    let ignore = false;
+
+    async function fetchDisputesData(){
+      setLoading(true)
+
+      try{
+
+        const dpData = await getDisputes()
+        const txData = await getAllTransactions()
+        const notificationsData = await getNotifications()
+
+        if(!ignore && dpData && notificationsData && txData){
+          setDisputesData(transformDisputes(dpData.disputes))
+          setNotifications(transformNotifications(notificationsData.data.notifications))
+          setTransactionsData(txData.data)
+          console.log(transactionsData)
+        }
+
+      }catch(error){
+        if(!ignore){
+          setDisputesData(null)
+          setTransactionsData(null)
+          setNotifications([])
+        }
+      }finally{
+        if(!ignore){
+          setLoading(false)
+        }
+      }
+
+    }
+
+    fetchDisputesData()
+
+    return () => {
+      ignore = true
+    }
+
+  }, []);
+
+  if(error){ return <ErrorMsg error={error} />}
+  if(loading){ return <LoadingSpinner /> }
+
+  console.log(transactionsData)
+
+  // const transactions = transformTransactions(transactionsData)
+  // console.log(transactions)
+
+  // const disputedTransactions = disputes.map(dispute => {
+  //   const disputeTx = transactions.find(tx => tx.reference == dispute.reference)
+  //   return {
+  //     ...dispute, ...disputeTx
+  //   }
+  // })
+
+  const disputedTransactions = disputesData
+
+  console.log(disputesData)
+  console.log(disputedTransactions[1])
+
+
+  // console.log(disputesData)
+  // const disputedTransactions = disputesData.map(dispute => dispute.transaction)
+  // console.log(disputedTransactions)
+  
+  const transactionSummary = [
+    {
+      title: "Total Tickets",
+      amount: disputedTransactions.length,
+      icon: <LuTicket />,
+      iconColor: { base: "blue.600", _dark: "blue.300" },
+      iconBgColor: { base: "blue.50", _dark: "blue.800" },
+      percent: percentageDiff(disputedTransactions, 'disputes', 'length', 'month').percentageChange,
+      period: "month",
+    },
+    {
+      title: "Resolved",
+      amount: disputedTransactions.filter(item => item.disputeStatus.toLowerCase() == 'resolved').length,
+      icon: <LuTicket />,
+      iconColor: { base: "green.600", _dark: "green.300" },
+      iconBgColor: { base: "green.50", _dark: "green.800" },
+      percent: percentageDiff(disputedTransactions.filter(item => item.disputeStatus == 'resolved'), 'disputes', 'length', 'month').percentageChange,
+      period: "month",
+    },
+    {
+      title: "Pending",
+      amount: disputedTransactions.filter(item => item.disputeStatus.toLowerCase() == 'pending').length,
+      icon: <LuTicket />,
+      iconColor: { base: "red.600", _dark: "red.300" },
+      iconBgColor: { base: "red.50", _dark: "red.800" },
+      percent: percentageDiff(disputedTransactions.filter(item => item.disputeStatus == 'pending'), 'disputes', 'length', 'month').percentageChange,
+      period: "month",
+    },
+  ];
+
+
 
   // Get unique values for dropdowns
   const statusOptions = [...new Set(disputedTransactions.map(item => item.disputeStatus))];
