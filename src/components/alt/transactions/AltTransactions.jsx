@@ -13,6 +13,8 @@ import { percentageDiff } from "@/utils/percentageDifference";
 import { getAllTransactions } from "@/backend-functions/transactions-api";
 import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
 import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
+import { getNotifications } from "@/backend-functions/notifications";
+import { transformNotifications } from "@/components/transactions/notificationsMockData";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -27,6 +29,7 @@ export function formatCurrency(num) {
 
 function AltTransactions() {
   const { user, notifications, setNotifications } = useOutletContext();
+
   const [ loading, setLoading ] = useState(true)
   const [ error, setError ] = useState(null)
   const [ transactionsData, setTransactionsData ] = useState([])
@@ -49,14 +52,17 @@ function AltTransactions() {
         setLoading(true)
 
         const txData = await getAllTransactions()
+        const notificationsData = getNotifications()
 
-        if(!ignore && txData){
+        if(!ignore && txData && notifications){
           setTransactionsData(txData.data)
+          setNotifications(transformNotifications(notificationsData.data.notifications))
         }
 
       }catch(error){
         if(!ignore){
           setTransactionsData(null)
+          setNotifications(null)
         }
       }finally {
         if(!ignore){

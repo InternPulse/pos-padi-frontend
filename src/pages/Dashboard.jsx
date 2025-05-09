@@ -51,16 +51,6 @@ function Dashboard() {
 
     let ignore = false;
 
-    // getAllTransactions().then((data) => {
-    //   const txs = transformTransactions(data.data)
-    //   console.log(txs)
-    //   setTransactions(txs)
-    //   setError(null)
-    // }).catch(err => {
-    //   setError(err.message)
-    //   setTransactions(null)
-    // })
-
     async function fetchDashboardData() {
       try {
         setLoading(true);
