@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { Tabs, Flex, Box, Heading, Text, IconButton, Input, Grid, Button, Table, Switch, Popover, VStack, HStack, Badge, Progress, Dialog, Portal } from '@chakra-ui/react'
 import { FaUserEdit, FaTrash, FaDesktop, FaMobile, FaTablet, FaInfoCircle, FaStar, FaBan, FaHistory } from 'react-icons/fa'
 import { LuUsers, LuUpload } from "react-icons/lu"
+import { getUserSummary } from "@/backend-functions/useractions-api"
 
 function Settings() {
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    phone: '+1 234 567 8900',
-    businessName: 'John Doe Enterprises',
-    address: '123 Main St, Lagos',
-    lga: 'Lagos Main',
-    state: 'Lagos State'
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    businessName: '',
+    address: '',
+    lga: '',
+    state: ''
   })
+  const [loading, setLoading] = useState(true)
   const [emailNotifications, setEmailNotifications] = useState(false)
   const [pushNotifications, setPushNotifications] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
@@ -23,16 +25,46 @@ function Settings() {
   const [isUploading, setIsUploading] = useState(false)
   const [showRemoveConfirm, setShowRemoveConfirm] = useState(false)
   const [deviceToRemove, setDeviceToRemove] = useState(null)
-  const [primaryDevice, setPrimaryDevice] = useState('MacBook Pro') // Default primary device
+  const [primaryDevice, setPrimaryDevice] = useState('MacBook Pro') 
   const [showNotification, setShowNotification] = useState(false)
   const [notification, setNotification] = useState({ title: '', description: '', type: 'success' })
 
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const data = await getUserSummary();
+        const user = data.user.first_name ? data.user : data.user.user_id;
+        setFormData({
+          firstName: user.first_name || '',
+          lastName: user.last_name || '',
+          email: user.email || '',
+          phone: user.phone || '',
+          businessName: user.business_name || '',
+          address: user.address || '',
+          lga: user.lga || '',
+          state: user.state || ''
+        });
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleEditClick = () => {
-    setIsEditing(!isEditing)
+    if (isEditing) {
+      // TODO: Implement save changes API call
+      setIsEditing(false)
+    } else {
+      setIsEditing(true)
+    }
   }
 
   const handleInputChange = (e) => {
@@ -242,30 +274,7 @@ function Settings() {
           >
             Notifications
           </Tabs.Trigger>
-          <Tabs.Trigger 
-            value="KYC"
-            _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            color={{base: '#626C7A', _dark: 'gray.300'}}
-            px={{ base: 4, md: 4 }}
-            py={{ base: 2, md: 2 }}
-            whiteSpace="nowrap"
-            minW="fit-content"
-          >
-            KYC
-          </Tabs.Trigger>
-          {/* <Tabs.Trigger 
-            value="Security"
-            _hover={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            _selected={{ color: {base: 'green.500', _dark: 'green.300'} }}
-            color={{base: '#626C7A', _dark: 'gray.300'}}
-            px={{ base: 4, md: 4 }}
-            py={{ base: 2, md: 2 }}
-            whiteSpace="nowrap"
-            minW="fit-content"
-          >
-            Security
-          </Tabs.Trigger> */}
+          {/* KYC Tab temporarily hidden */}
         </Tabs.List>
 
         <Box width="100%" maxW="1400px" mx="auto" mt={8} px={{ base: 4, md: 8 }}>
@@ -589,235 +598,7 @@ function Settings() {
             </Box>
           </Tabs.Content>
 
-          <Tabs.Content value="KYC">
-            <Box border="1px solid" borderColor={{base: 'gray.200', _dark: 'gray.600'}} borderRadius="md" p={{ base: 4, md: 8 }} bg={{base: 'white', _dark: 'inherit'}} minH={{ base: "auto", md: "600px" }}>
-              <Flex justify="space-between" align="center" mb={6} direction={{ base: "column", md: "row" }} gap={4}>
-                <Box textAlign={{ base: "center", md: "left" }}>
-                  <Heading as="h1" size={{ base: "md", md: "lg" }} mb={2} color={{base: '#626C7A', _dark: 'gray.300'}}>KYC</Heading>
-                  <Text color={{base: '#626C7A', _dark: 'gray.300'}} fontSize={{ base: "sm", md: "md" }}>Complete your Know Your Customer verification</Text>
-                </Box>
-              </Flex>
-            </Box>
-          </Tabs.Content>
-
-          {/* <Tabs.Content value="Security">
-            <Box border="1px solid" borderColor={{base: 'gray.200', _dark: 'gray.600'}} borderRadius="md" p={{ base: 4, md: 8 }} bg={{base: 'white', _dark: 'inherit'}} minH={{ base: "auto", md: "600px" }}>
-              <Flex direction="column" gap={8}>
-                <Box>
-                  <Heading as="h1" size={{ base: "md", md: "lg" }} mb={2} color={{base: '#626C7A', _dark: 'gray.300'}}>Change Password</Heading>
-                  <Text color={{base: '#626C7A', _dark: 'gray.300'}} fontSize={{ base: "sm", md: "md" }}>Change your password at any time</Text>
-                </Box>
-
-                <Box>
-                  <Heading as="h1" size={{ base: "md", md: "lg" }} mb={2} color={{base: '#626C7A', _dark: 'gray.300'}}>Device Sessions</Heading>
-                  <Text color={{base: '#626C7A', _dark: 'gray.300'}} fontSize={{ base: "sm", md: "md" }}>You are currently logged into these device(s)</Text>
-                </Box>
-
-                <Table.ScrollArea
-                  maxWidth="5xl"
-                  roundedTop="10px"
-                  roundedBottom="8px"
-                  border="1px solid"
-                  borderColor={{base: 'gray.200', _dark: 'gray.600'}}
-                  overflowX="auto"
-                >
-                  <Table.Root>
-                    <Table.Header>
-                      <Table.Row
-                        bgColor={{base: 'gray.100', _dark: 'gray.700'}}
-                        height={{ base: "3.5rem", md: "4.375rem" }}
-                        p={{ base: "10px 15px", md: "20px 30px" }}
-                      >
-                        <Table.ColumnHeader
-                          color={{base: '#626C7A', _dark: 'gray.300'}}
-                          border="none"
-                          fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                          fontWeight="600"
-                          textTransform={"capitalize"}
-                        >
-                          Device Name
-                        </Table.ColumnHeader>
-                        <Table.ColumnHeader
-                          color={{base: '#626C7A', _dark: 'gray.300'}}
-                          border="none"
-                          fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                          fontWeight="600"
-                          textTransform={"capitalize"}
-                        >
-                          Location
-                        </Table.ColumnHeader>
-                        <Table.ColumnHeader
-                          color={{base: '#626C7A', _dark: 'gray.300'}}
-                          border="none"
-                          fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                          fontWeight="600"
-                          textTransform={"capitalize"}
-                        >
-                          Signed in Via
-                        </Table.ColumnHeader>
-                        <Table.ColumnHeader
-                          color={{base: '#626C7A', _dark: 'gray.300'}}
-                          border="none"
-                          fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                          fontWeight="600"
-                          textTransform={"capitalize"}
-                        >
-                          Date and Time
-                        </Table.ColumnHeader>
-                        <Table.ColumnHeader
-                          color={{base: '#626C7A', _dark: 'gray.300'}}
-                          border="none"
-                          fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                          fontWeight="600"
-                          textTransform={"capitalize"}
-                        >
-                          Action
-                        </Table.ColumnHeader>
-                      </Table.Row>
-                    </Table.Header>
-                    <Table.Body bgColor="transparent">
-                      {deviceSessions.map((session, index) => (
-                        <Table.Row
-                          key={index}
-                          _hover={{
-                            bgColor: {base: 'gray.200/50', _dark: 'gray.600/50'},
-                            cursor: "pointer",
-                          }}
-                          textTransform="capitalize"
-                          height={{ base: "60px", md: "70px" }}
-                          bgColor="transparent"
-                          color={{base: '#626C7A', _dark: 'gray.300'}}
-                          p={{ base: "10px 15px", md: "20px 30px" }}
-                        >
-                          <Table.Cell
-                            color={{base: '#626C7A', _dark: 'gray.300'}}
-                            borderBottom="0.5px solid"
-                            borderColor={{base: 'gray.200', _dark: 'gray.600'}}
-                            fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                            fontWeight="400"
-                          >
-                            {session.deviceName}
-                          </Table.Cell>
-                          <Table.Cell
-                            color={{base: '#626C7A', _dark: 'gray.300'}}
-                            borderBottom="0.5px solid"
-                            borderColor={{base: 'gray.200', _dark: 'gray.600'}}
-                            fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                            fontWeight="400"
-                          >
-                            {session.location}
-                          </Table.Cell>
-                          <Table.Cell
-                            color={{base: '#626C7A', _dark: 'gray.300'}}
-                            borderBottom="0.5px solid"
-                            borderColor={{base: 'gray.200', _dark: 'gray.600'}}
-                            fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                            fontWeight="400"
-                          >
-                            {session.signedInVia}
-                          </Table.Cell>
-                          <Table.Cell
-                            color={{base: '#626C7A', _dark: 'gray.300'}}
-                            borderBottom="0.5px solid"
-                            borderColor={{base: 'gray.200', _dark: 'gray.600'}}
-                            fontSize={{ base: "0.725rem", xl: "0.875rem" }}
-                            fontWeight="400"
-                          >
-                            {session.dateTime}
-                          </Table.Cell>
-                          <Table.Cell
-                            borderBottom="0.5px solid"
-                            borderColor={{base: 'gray.200', _dark: 'gray.600'}}
-                            fontSize="0.75rem"
-                          >
-                            <Popover.Root>
-                              <Popover.Trigger>
-                                <Text color={{base: '#626C7A', _dark: 'gray.300'}} fontSize="1.25rem" cursor="pointer">...</Text>
-                              </Popover.Trigger>
-                              <Popover.Positioner>
-                                <Popover.Content>
-                                  <Popover.Arrow>
-                                    <Popover.ArrowTip />
-                                  </Popover.Arrow>
-                                  <Popover.Body>
-                                    <Popover.Title>Device Actions</Popover.Title>
-                                    <VStack spacing={3} align="stretch">
-                                      <HStack spacing={2}>
-                                        {getDeviceIcon(session.deviceName)}
-                                        <Text fontSize="sm" fontWeight="medium">{session.deviceName}</Text>
-                                        {primaryDevice === session.deviceName && (
-                                          <Badge colorScheme="green" ml="auto">Primary</Badge>
-                                        )}
-                                      </HStack>
-                                      <Box borderBottom="1px solid" borderColor={{base: 'gray.200', _dark: 'gray.600'}} my={2} />
-                                      <HStack spacing={2}>
-                                        <FaInfoCircle />
-                                        <Text fontSize="sm">Last active: {session.dateTime}</Text>
-                                      </HStack>
-                                      <HStack spacing={2}>
-                                        <FaInfoCircle />
-                                        <Text fontSize="sm">Location: {session.location}</Text>
-                                      </HStack>
-                                      <HStack spacing={2}>
-                                        <FaInfoCircle />
-                                        <Text fontSize="sm">Browser: {session.signedInVia}</Text>
-                                      </HStack>
-                                      <Box borderBottom="1px solid" borderColor={{base: 'gray.200', _dark: 'gray.600'}} my={2} />
-                                      <Button
-                                        size="sm"
-                                        variant="outline"
-                                        colorPalette="green"
-                                        width="100%"
-                                        mb={1}
-                                        leftIcon={<FaStar />}
-                                        onClick={() => handleSetPrimaryDevice(session.deviceName)}
-                                        isDisabled={primaryDevice === session.deviceName}
-                                      >
-                                        Set as Primary
-                                      </Button>
-                                      <Button
-                                        size="sm"
-                                        variant="outline"
-                                        colorPalette="yellow"
-                                        width="100%"
-                                        mb={1}
-                                        leftIcon={<FaHistory />}
-                                      >
-                                        View Activity History
-                                      </Button>
-                                      <Button
-                                        size="sm"
-                                        variant="outline"
-                                        colorPalette="red"
-                                        width="100%"
-                                        mb={1}
-                                        leftIcon={<FaBan />}
-                                      >
-                                        Block Device
-                                      </Button>
-                                      <Button
-                                        size="sm"
-                                        colorPalette="red"
-                                        width="100%"
-                                        leftIcon={<FaTrash />}
-                                        onClick={() => handleRemoveDevice(session)}
-                                      >
-                                        Remove Device
-                                      </Button>
-                                    </VStack>
-                                  </Popover.Body>
-                                </Popover.Content>
-                              </Popover.Positioner>
-                            </Popover.Root>
-                          </Table.Cell>
-                        </Table.Row>
-                      ))}
-                    </Table.Body>
-                  </Table.Root>
-                </Table.ScrollArea>
-              </Flex>
-            </Box>
-          </Tabs.Content> */}
+          {/* KYC Content temporarily hidden */}
         </Box>
 
         {/* Remove Device Confirmation Dialog */}
