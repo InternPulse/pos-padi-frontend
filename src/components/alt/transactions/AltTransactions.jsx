@@ -16,7 +16,9 @@ import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
 import { getNotifications } from "@/backend-functions/notifications";
 import { transformNotifications } from "@/components/transactions/notificationsMockData";
 import { getAllCustomers } from "@/backend-functions/customers-api";
+import { getDisputes } from "@/backend-functions/dispute-api";
 import { transformCustomers } from "@/components/transactions/customersMockData";
+import { transformDisputes } from "@/components/transactions/disputesMockData";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -36,6 +38,7 @@ function AltTransactions() {
   const [ error, setError ] = useState(null)
   const [ transactionsData, setTransactionsData ] = useState([])
   const [ rawCustomersData, setRawCustomersData ] = useState([])
+  const [ disputesData, setDisputesData ] = useState([])
   const [filters, setFilters] = useState({
     search: "",
     status: "",
@@ -55,13 +58,15 @@ function AltTransactions() {
         setLoading(true)
 
         const txData = await getAllTransactions()
+        const dpData = await getDisputes()
         const notificationsData = await getNotifications()
         const customersData = await getAllCustomers()
 
-        if(!ignore && txData && notificationsData && customersData){
+        if(!ignore && txData && notificationsData && customersData && dpData){
           setTransactionsData(txData.data)
           setRawCustomersData(customersData.results)
           setNotifications(transformNotifications(notificationsData.data.notifications))
+          setDisputesData(transformDisputes(dpData.disputes))
         }
 
         
@@ -71,6 +76,8 @@ function AltTransactions() {
           setTransactionsData(null)
           setNotifications([])
           setRawCustomersData(null)
+          setDisputesData(null)
+          //console.log(error)
         }
       }finally {
         if(!ignore){
@@ -92,6 +99,7 @@ function AltTransactions() {
 
   const transactions = transformTransactions(transactionsData)
   const rawCustomers = transformCustomers(rawCustomersData).rawCustomers
+  const disputedTransactions = disputesData
 
   const transactionSummary = [
     {
@@ -240,7 +248,7 @@ function AltTransactions() {
             </Box>
           </Flex>
         </Flex>
-        <AltTransactionTable transactions={filteredTransactions} />
+        <AltTransactionTable transactions={filteredTransactions} disputedTransactions={disputedTransactions} />
       </Flex>
     </Flex>
   );

@@ -12,7 +12,7 @@ import logo from "../../../../assets/logo-lg.png";
 import { useState } from "react";
 import DisputesForm from "@/components/form/dispute-form/DisputesForm";
 
-function TransactionDialog({ children, data }) {
+function TransactionDialog({ children, data, disputable }) {
   const [display, setDisplay] = useState("details");
 
   // const data = {
@@ -55,6 +55,7 @@ function TransactionDialog({ children, data }) {
                     <TransactionDetailsCard
                       data={data}
                       setDisplay={setDisplay}
+                      disputable={disputable}
                     />
                   )}
                   {display == "disputeForm" && (

@@ -117,7 +117,7 @@ function TableData({
   );
 }
 
-function AltTransactionTable({ transactions }) {
+function AltTransactionTable({ transactions, disputedTransactions }) {
   //Attempting Pagination Inclusion
   const [page, setPage] = useState(1);
   const paginatedItems = transactions.slice(
@@ -155,9 +155,14 @@ function AltTransactionTable({ transactions }) {
       >
         <TableData isHeader={true} {...transactionsTableHeader} />
 
-        {paginatedItems.map((item) => (
-          <TransactionDialog data={item}><TableData {...item} /></TransactionDialog>
-        ))}
+        {paginatedItems.map((item) => {
+          const dispute = disputedTransactions.filter(tx => tx.transaction_id == item.id)
+          const disputeExists = dispute.length > 0
+
+          return (
+            <TransactionDialog disputable={!disputeExists} data={item}><TableData {...item} /></TransactionDialog>
+          )
+        })}
       </Box>
 
       <Box display={{base: 'block', md: 'none'}}>

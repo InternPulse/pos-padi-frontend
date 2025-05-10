@@ -27,7 +27,8 @@ import { formatCurrency } from "./AltTransactions";
 //     status: "successful",
 //   }
 
-const TransactionDetailsCard = ({ data, setDisplay }) => {
+const TransactionDetailsCard = ({ data, setDisplay, disputable }) => {
+  console.log(`This transaction can be disputed - ${disputable}`)
   return (
     <VStack>
       <VStack gap="3">
@@ -138,7 +139,7 @@ const TransactionDetailsCard = ({ data, setDisplay }) => {
           Download Receipt
         </Text>
       </Button>
-      <Button width="100%" p="20px" variant="outline" rounded="lg" onClick={() => {setDisplay('disputeForm')}}>
+      <Button disabled={!disputable} width="100%" p="20px" variant="outline" rounded="lg" onClick={() => {setDisplay('disputeForm')}}>
         <Text fontSize="14px" color="#626C7A">
           Raise Dispute
         </Text>
