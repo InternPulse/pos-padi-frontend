@@ -15,6 +15,8 @@ import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
 import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
 import { getNotifications } from "@/backend-functions/notifications";
 import { transformNotifications } from "@/components/transactions/notificationsMockData";
+import { getAllCustomers } from "@/backend-functions/customers-api";
+import { transformCustomers } from "@/components/transactions/customersMockData";
 
 export function formatCurrency(num) {
   const formattedCurrency = new Intl.NumberFormat("en-US", {
@@ -28,11 +30,12 @@ export function formatCurrency(num) {
 
 
 function AltTransactions() {
-  const { user, notifications, setNotifications } = useOutletContext();
+  const { user, notifications, setNotifications, newTransaction } = useOutletContext();
 
   const [ loading, setLoading ] = useState(true)
   const [ error, setError ] = useState(null)
   const [ transactionsData, setTransactionsData ] = useState([])
+  const [ rawCustomersData, setRawCustomersData ] = useState([])
   const [filters, setFilters] = useState({
     search: "",
     status: "",
@@ -53,9 +56,11 @@ function AltTransactions() {
 
         const txData = await getAllTransactions()
         const notificationsData = await getNotifications()
+        const customersData = await getAllCustomers()
 
-        if(!ignore && txData && notificationsData){
+        if(!ignore && txData && notificationsData && customersData){
           setTransactionsData(txData.data)
+          setRawCustomersData(customersData.results)
           setNotifications(transformNotifications(notificationsData.data.notifications))
         }
 
@@ -65,6 +70,7 @@ function AltTransactions() {
         if(!ignore){
           setTransactionsData(null)
           setNotifications([])
+          setRawCustomersData(null)
         }
       }finally {
         if(!ignore){
@@ -79,12 +85,13 @@ function AltTransactions() {
       ignore = true;
     }
 
-  }, []);
+  }, [newTransaction]);
 
   if(error){ return <ErrorMsg error={error} />}
   if(loading){ return <LoadingSpinner /> }
 
   const transactions = transformTransactions(transactionsData)
+  const rawCustomers = transformCustomers(rawCustomersData).rawCustomers
 
   const transactionSummary = [
     {
@@ -227,7 +234,7 @@ function AltTransactions() {
                 <FiPlus /> Add Transaction
               </Flex>
             </Button> */}
-            <AddTransactionDialog />
+            <AddTransactionDialog customers={rawCustomers} />
             <Box width={{ base: "50px", md: "150px" }}>
               <ExportButton />
             </Box>
