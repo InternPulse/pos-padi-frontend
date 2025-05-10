@@ -23,7 +23,9 @@ function Layout() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [ notifications, setNotifications ] = useState([])
+  const [notifications, setNotifications] = useState([]);
+  const [newAgent, setNewAgent] = useState(false);
+  const [newCustomer, setNewCustomer] = useState(false);
 
   useEffect(() => {
     let ignore = false;
@@ -74,9 +76,13 @@ function Layout() {
     setAuth(false);
   };
 
-  if (isLoading) { return <LoadingSpinner />; }
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
-  if (error) { return <ErrorMsg error={error} />; }
+  if (error) {
+    return <ErrorMsg error={error} />;
+  }
 
   return (
     // $ Changed the width of the parent Flex container to 100% instead of 100vw, this prevent the overflow of the components on the pages.
@@ -137,7 +143,10 @@ function Layout() {
               </Box>
             </Flex>
             <Flex align={"center"} gap={5}>
-              <NotificationsDrawer notifications={notifications} setNotifications={setNotifications} />
+              <NotificationsDrawer
+                notifications={notifications}
+                setNotifications={setNotifications}
+              />
               <Flex
                 height={{ base: "40px", lg: "60px" }}
                 width={{ base: "40px", lg: "180px" }}
@@ -184,7 +193,17 @@ function Layout() {
                 <PageTitle />
               </Box>
               <Flex justify={"center"} width={"100%"}>
-                <Outlet context={{ user, setNotifications }} />
+                <Outlet
+                  context={{
+                    user,
+                    notifications,
+                    setNotifications,
+                    newAgent,
+                    setNewAgent,
+                    newCustomer,
+                    setNewCustomer,
+                  }}
+                />
               </Flex>
             </Box>
           </Flex>

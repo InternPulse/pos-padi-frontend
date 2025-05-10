@@ -11,20 +11,26 @@ import {
 import { FaRegUser } from "react-icons/fa";
 import { BsTelephone } from "react-icons/bs";
 import SuccessDialog from "../success-dialog/SuccessDialog";
-import { useLocation } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { createAgent } from "@/backend-functions/agents-api";
+// import { useContext } from "react";
+// import { NewAgentContext } from "@/pages/Agents";
 
 const AddCustomerForm = () => {
   const currentPath = useLocation().pathname;
+  // console.log(useContext(NewAgentContext))
+  const { setNewAgent, setNewCustomer } = useOutletContext()
+
   const variant = currentPath.includes("customer") ? "customer" : "agent";
 
-  const customerFormData = { firstName: "", lastName: "", phoneNumber: "" };
-  const agentFormData = { ...customerFormData, email: "" };
+  const customerFormData = { firstName: "", lastName: "", phoneNumber: "", email: "" };
+  const agentFormData = { firstName: "", lastName: "", phoneNumber: "", email: ""  };
   const defaultFormData =
     variant == "customer" ? customerFormData : agentFormData;
 
   const [formData, setFormData] = useState(defaultFormData);
 
+  const [formStatus, setFormStatus] = useState('')
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
@@ -35,28 +41,46 @@ const AddCustomerForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (!formData.firstName || !formData.lastName || !formData.phoneNumber || (!formData.email && (variant == 'agent'))) {
       alert("Please fill in all fields");
       return;
     }
+    
+    setFormStatus('Submitting...')
+    
+    try{
+      const newAgent = await createAgent({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phoneNumber
+      }, variant)
+      
+      if(newAgent){
+        setShowSuccess(true);
+        setFormStatus('')
+        setFormData(defaultFormData);
+        //setNewAgent({agent: 'success'})
+      }
 
-    setShowSuccess(true);
-    setFormData(defaultFormData);
+    }catch(error){
+      setFormStatus(`Failed: ${error.message}`)
+    }
     // console.log("Form submitted:", formData);
+    
 
-    createAgent({
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      email: formData.email,
-      phone: formData.phoneNumber
-    })
   };
 
   const closeSuccess = () => {
     setShowSuccess(false);
+    if(variant == 'agent'){
+      setNewAgent(prev => !prev)
+    }else if(variant == 'customer'){
+      setNewCustomer(prev => !prev)
+    }
   };
 
   return (
@@ -247,6 +271,7 @@ const AddCustomerForm = () => {
           >
             Add New {variant}
           </Button>
+          {formStatus && <Text textAlign={'center'} color={'green'} fontWeight={'medium'} textStyle={'sm'}>{formStatus}</Text>}
         </VStack>
       </Box>
 
