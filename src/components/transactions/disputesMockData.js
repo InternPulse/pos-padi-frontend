@@ -95,3 +95,34 @@ export const disputes = [
     disputeStatus: "resolved"
   }
 ]
+
+export function transformDispute(dispute){
+  return {
+    id: dispute.id,
+    reference: dispute.transaction.reference,
+    reason: dispute.reason,
+    disputeStatus: dispute.status,
+    agent: (dispute.transaction.agent.first_name + ' ' + dispute.transaction.agent.last_name),
+    amount: dispute.transaction.amount,
+    customer: (dispute.transaction.customer.first_name + ' ' + dispute.transaction.customer.last_name),
+    dateTime: dispute.transaction.created_at,
+    fee: dispute.transaction.fee,
+    loyaltyPoints: dispute.transaction.fee * 0.1,
+    status: dispute.transaction.status,
+    type: dispute.transaction.type
+    //transaction: dispute.transaction
+
+  }
+}
+
+export function transformDisputes(arr){
+  let disputesData;
+
+  if(arr.length > 0){
+    disputesData = arr.map(item => transformDispute(item))
+  }else{
+    disputesData = []
+  }
+
+  return disputesData
+}

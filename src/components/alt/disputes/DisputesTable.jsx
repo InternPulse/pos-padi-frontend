@@ -105,7 +105,7 @@ function TableData({
           <Badge
             py={1}
             px={2}
-            colorPalette={disputeStatus == "resolved" ? "green" : "red"}
+            colorPalette={disputeStatus.toLowerCase() == "resolved" ? "green" : "red"}
             rounded={'xl'}
           >
             {disputeStatus}

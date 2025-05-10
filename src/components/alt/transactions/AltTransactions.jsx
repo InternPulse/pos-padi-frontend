@@ -84,9 +84,7 @@ function AltTransactions() {
   if(error){ return <ErrorMsg error={error} />}
   if(loading){ return <LoadingSpinner /> }
 
-  console.log(transactionsData)
   const transactions = transformTransactions(transactionsData)
-  console.log(transactions)
 
   const transactionSummary = [
     {
