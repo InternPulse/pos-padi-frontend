@@ -6,6 +6,7 @@ export async function createDispute(disputeData) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`)
   
     const requestOptions = {
       method: 'POST',
@@ -15,7 +16,7 @@ export async function createDispute(disputeData) {
     };
   
     try {
-      const response = await fetch("https://your-api-base-url.com/api/v1/disputes", requestOptions); 
+      const response = await fetch("https://pos-padi-express-backend.onrender.com/api/v1/disputes", requestOptions); 
   
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

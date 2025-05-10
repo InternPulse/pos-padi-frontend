@@ -109,8 +109,8 @@ export function transformDispute(dispute){
     fee: dispute.transaction.fee,
     loyaltyPoints: dispute.transaction.fee * 0.1,
     status: dispute.transaction.status,
-    type: dispute.transaction.type
-    //transaction: dispute.transaction
+    type: dispute.transaction.type,
+    transaction_id: dispute.transaction.id
 
   }
 }

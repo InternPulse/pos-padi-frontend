@@ -9,15 +9,41 @@ import {
 import { formatCurrency } from "@/components/alt/transactions/AltTransactions";
 import banks from "../../../components/alt/transactions/Effects/banks.json";
 import { useState } from "react";
+import { createDispute } from "@/backend-functions/dispute-api";
+import { useNavigate } from "react-router-dom";
 
 export default function DisputesForm({ data, store }) {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     ...data,
     status: "pending",
   });
+  const [disputeFormStatus, setDisputeFormStatus] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if(!formData.id || !formData.bank || !formData.reason || !formData.accountNumber){ 
+      alert('Please completely fill out dispute form')
+      return 
+    }
+
+    const disputeData = {transaction_id: formData.id, bank_name: formData.bank, account_number: formData.accountNumber, reason: formData.reason}
+    
+    setDisputeFormStatus('Submitting...')
+
+    try{
+
+      const newDispute = await createDispute(disputeData)
+
+      if(newDispute){
+        setDisputeFormStatus('')
+        navigate('/disputes')
+      }
+    }catch(error){
+      console.log(error.message)
+      setDisputeFormStatus(`Failed: ${error.message}`)
+    }
 
     console.log(formData);
     // Handle POST/PUT request to disputes API
@@ -99,6 +125,7 @@ export default function DisputesForm({ data, store }) {
           <Button type="submit" mt={4} colorPalette={"green"}>
             Raise Dispute
           </Button>
+          {disputeFormStatus && <Text textAlign={'center'} color={'green'} fontWeight={'medium'} textStyle={'sm'}>{disputeFormStatus}</Text>}
         </Flex>
       </Flex>
     </form>
