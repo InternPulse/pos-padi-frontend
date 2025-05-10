@@ -197,7 +197,6 @@ export async function createCompany(companyData) {
 export async function verifyEmail(emailandOTP) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  // myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
     method: 'POST',
@@ -208,18 +207,12 @@ export async function verifyEmail(emailandOTP) {
 
   try {
     const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/verify/", requestOptions);
-
-    // const res = await response.json()
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    console.log(response)
-    return response
-    // const res = await response.json();
-    // console.log("Owner created:", result);
-    // console.log(response)
-    return res;
+    console.log(response);
+    return response;
   } catch (error) {
     console.error("Error:", error);
     throw error;
@@ -286,9 +279,34 @@ export async function getUserSummary() {
   }
 }
 
+export async function updateUserProfile(userData) {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('Authorization', `Bearer ${localStorage.getItem('POSPadiaccess')}`);
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: myHeaders,
+    body: JSON.stringify(userData),
+    redirect: 'follow'
+  };
+
+  try {
+    const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/users/update-profile/", requestOptions);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return { ok: true };
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    throw error;
+  }
+}
 
 
 
 
 
-  
+

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Tabs, Flex, Box, Heading, Text, IconButton, Input, Grid, Button, Table, Switch, Popover, VStack, HStack, Badge, Progress, Dialog, Portal } from '@chakra-ui/react'
 import { FaUserEdit, FaTrash, FaDesktop, FaMobile, FaTablet, FaInfoCircle, FaStar, FaBan, FaHistory } from 'react-icons/fa'
 import { LuUsers, LuUpload } from "react-icons/lu"
-import { getUserSummary } from "@/backend-functions/useractions-api"
+import { getUserSummary, updateUserProfile } from "@/backend-functions/useractions-api"
+import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner"
+import ErrorMsg from "@/components/error-and-loading/ErrorMsg"
 
 function Settings() {
   const [isEditing, setIsEditing] = useState(false)
@@ -17,6 +19,7 @@ function Settings() {
     state: ''
   })
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [emailNotifications, setEmailNotifications] = useState(false)
   const [pushNotifications, setPushNotifications] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
@@ -50,6 +53,7 @@ function Settings() {
         });
       } catch (error) {
         console.error("Error fetching user details:", error);
+        setError(error.message || "Failed to load user data");
       } finally {
         setLoading(false);
       }
@@ -58,12 +62,35 @@ function Settings() {
     fetchUserData();
   }, []);
 
-  const handleEditClick = () => {
+  if(error) return <ErrorMsg error={error} />;
+  if(loading) return <LoadingSpinner />;
+
+  const handleEditClick = async () => {
     if (isEditing) {
-      // TODO: Implement save changes API call
-      setIsEditing(false)
+      try {
+        const updateData = {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone: formData.phone,
+          // Add photo handling when implementing image upload
+        };
+
+        await updateUserProfile(updateData);
+        showNotificationDialog(
+          "Profile updated",
+          "Your profile has been updated successfully"
+        );
+        setIsEditing(false);
+      } catch (error) {
+        showNotificationDialog(
+          "Error updating profile",
+          error.message || "Failed to update profile",
+          "error"
+        );
+        return;
+      }
     } else {
-      setIsEditing(true)
+      setIsEditing(true);
     }
   }
 
