@@ -12,11 +12,14 @@ import {
   Badge,
   Divider,
 } from "@chakra-ui/react";
-import { getAgentDetails, updateAgentDetails } from "../backend-functions/agents-api";
+import { getAgentDetails, updateUserProfile } from "../backend-functions/agents-api";
+import LoadingSpinner from "@/components/error-and-loading/LoadingSpinner";
+import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
 
 function Settings() {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const toast = useToast();
   const [formData, setFormData] = useState({
     first_name: "",
@@ -63,13 +66,7 @@ function Settings() {
         });
       } catch (error) {
         console.error("Error fetching user details:", error);
-        toast({
-          title: "Error fetching profile",
-          description: error.message || "Failed to load profile data",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
+        setError(error.message || "Failed to load profile data");
       } finally {
         setLoading(false);
       }
@@ -84,14 +81,11 @@ function Settings() {
         const updateData = {
           first_name: formData.first_name,
           last_name: formData.last_name,
-          email: formData.email,
           phone: formData.phone,
-          address: formData.address,
-          lga: formData.lga,
-          state: formData.state,
+          // Photo handling will be added when implementing image upload
         };
 
-        await updateAgentDetails(updateData);
+        await updateUserProfile(updateData);
         toast({
           title: "Profile updated",
           description: "Your profile has been updated successfully",
@@ -124,13 +118,8 @@ function Settings() {
     }));
   };
 
-  if (loading) {
-    return (
-      <Box p={4} display="flex" justifyContent="center" alignItems="center" minHeight="200px">
-        <Spinner size="xl" color="green.500" />
-      </Box>
-    );
-  }
+  if (error) return <ErrorMsg error={error} />;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <Box p={4}>
