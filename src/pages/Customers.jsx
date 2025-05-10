@@ -52,13 +52,14 @@ export function processCustomers(rawCustomers, transactions) {
 }
 
 function Customers() {
-  const { user, notifications, setNotifications } = useOutletContext();
+  const { user, notifications, setNotifications, newCustomer } = useOutletContext();
 
   const [rawCustomersData, setRawCustomersData] = useState(() => {
     return transformCustomers([]).rawCustomers;
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,7 +99,7 @@ function Customers() {
           ignore = true;
         };
 
-  }, []);
+  }, [newCustomer]);
 
   if(error){ return <ErrorMsg error={error} />}
   if(loading){ return <LoadingSpinner /> }
@@ -162,3 +163,5 @@ function Customers() {
 }
 
 export default Customers;
+
+

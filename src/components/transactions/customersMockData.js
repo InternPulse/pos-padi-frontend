@@ -308,7 +308,7 @@ export function listCustomers(arr) {
       item1: "Customer ID",
       item2: "First Name",
       item3: "Last Name",
-      item5: "Email",
+      item5: "Transactions",
       item6: "Phone",
     },
     items: arr.map((item) => {
@@ -317,7 +317,7 @@ export function listCustomers(arr) {
         item1: item.customerId,
         item2: item.firstName,
         item3: item.lastName,
-        item5: item.email,
+        item5: item.transactionsCount,
         item6: item.phone,
       };
     }),
@@ -386,6 +386,7 @@ function transformCustomerData(customer) {
     dateCreated: customer.created_at,
     customerId: customer.customer_id,
     performanceSummary: [],
+    transactionsCount: `${customer.transaction_count}`
   };
 }
 

@@ -1,7 +1,7 @@
 const token = localStorage.getItem('POSPadiaccess')
 const tokenRefresh = localStorage.getItem('POSPadirefresh')
 
-export async function createAgent(agentData) {
+export async function createAgent(agentData, variant) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
@@ -14,7 +14,7 @@ export async function createAgent(agentData) {
   };
 
   try {
-    const response = await fetch("https://pos-padi-django-backend.onrender.com/api/v1/agents/", requestOptions);
+    const response = await fetch(`https://pos-padi-django-backend.onrender.com/api/v1/${variant}s/`, requestOptions);
 
     // console.log(response)
     
@@ -23,10 +23,12 @@ export async function createAgent(agentData) {
     }
 
     const agent = await response.json();
-    console.log("Agent created:", agent);
+    console.log(`${variant} created:`, agent);
+
+    return agent
     
   } catch (error) {
-    console.error("Error creating agent:", error);
+    console.error(`Error creating ${variant}: `, error);
     throw error;
   }
 }

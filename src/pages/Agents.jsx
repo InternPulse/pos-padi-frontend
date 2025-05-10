@@ -1,6 +1,6 @@
 import { IoPeopleOutline } from "react-icons/io5";
 import GenericPage from "@/components/alt/transactions/generic-table/GenericPage";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { transformAgents } from "../components/transactions/agentsMockData";
 import { percentageDiff } from "@/utils/percentageDifference";
 import ErrorMsg from "@/components/error-and-loading/ErrorMsg";
@@ -10,12 +10,15 @@ import { useOutletContext } from "react-router-dom";
 import { getNotifications } from "@/backend-functions/notifications";
 import { transformNotifications } from "@/components/transactions/notificationsMockData";
 
+// const NewAgentContext = createContext()
+
 export default function Agents() {
-  const { user, notifications, setNotifications } = useOutletContext()
+  const { user, notifications, setNotifications, newAgent } = useOutletContext()
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [ agentsData, setAgentsData ] = useState([])
+  // const [ newAgent, setNewAgent ] = useState({})
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,7 +57,7 @@ export default function Agents() {
       ignore = true;
     }
 
-  }, []);
+  }, [newAgent]);
 
   if(error){ return <ErrorMsg error={error} />}
   if(loading){ return <LoadingSpinner />}
@@ -104,12 +107,14 @@ export default function Agents() {
   ];
 
   return (
-    <>
+    // <NewAgentContext.Provider value={{newAgent, setNewAgent}}>
       <GenericPage
         pageSummary={agentsSummary}
         pageTitle={"Agents"}
         pageTable={agentsList}
       />
-    </>
+    // </NewAgentContext.Provider>
   );
 }
+
+// export { NewAgentContext }
