@@ -26,6 +26,7 @@ function Layout() {
   const [notifications, setNotifications] = useState([]);
   const [newAgent, setNewAgent] = useState(false);
   const [newCustomer, setNewCustomer] = useState(false);
+  const [newTransaction, setNewTransaction] = useState(false)
 
   useEffect(() => {
     let ignore = false;
@@ -202,6 +203,8 @@ function Layout() {
                     setNewAgent,
                     newCustomer,
                     setNewCustomer,
+                    newTransaction,
+                    setNewTransaction
                   }}
                 />
               </Flex>

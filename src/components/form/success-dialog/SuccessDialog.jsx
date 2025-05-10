@@ -25,7 +25,7 @@ const SuccessDialog = ({ onClose, variant}) => {
       justifyContent="center"
     >
       <Box
-        bg="white"
+        bg={{base: 'white', _dark: 'gray.800'}}
         borderRadius="12px"
         p={{ base: 6, md: "90px" }}
         width={{ base: "90%", sm: "350px", md: "500px" }}
@@ -82,7 +82,7 @@ const SuccessDialog = ({ onClose, variant}) => {
             fontFamily="Poppins"
             fontWeight={600}
             fontSize="24px"
-            color="#000000"
+           // color="#000000"
           >
             Successful
           </Text>
@@ -90,7 +90,7 @@ const SuccessDialog = ({ onClose, variant}) => {
             fontFamily="Poppins"
             fontWeight={400}
             fontSize="14px"
-            color="#626C7A"
+           // color="#626C7A"
           >
             {description}
           </Text>

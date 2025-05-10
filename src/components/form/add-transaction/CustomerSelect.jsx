@@ -1,31 +1,28 @@
-import React from 'react';
-import { Box, Text, Input } from '@chakra-ui/react';
+import React from "react";
+import { Box, Text, Input, Field } from "@chakra-ui/react";
 
 const CustomerSelect = ({ value, onChange, customers }) => {
   return (
-    <Box>
-      <Text fontFamily="Poppins" fontWeight={400} fontSize="16px" mb={1}>
-        Select Customer
-      </Text>
-      <Input
-        list="customerList"
-        name="customerName"
-        value={value}
-        onChange={onChange}
-        placeholder="Type or select customer"
-        width="100%"
-        height="48px"
-        borderRadius="10px"
-        border="1px solid"
-        borderColor="gray.200"
-        fontFamily="Poppins"
-      />
-      <datalist id="customerList">
-        {customers.map((customer, index) => (
-          <option key={index} value={customer} />
-        ))}
-      </datalist>
-    </Box>
+
+      <Field.Root>
+        <Field.Label>Customer ID</Field.Label>
+        <Input
+          list="customerList"
+          name="customer_id"
+          value={value}
+          onChange={onChange}
+          placeholder="Search customer's first/last name"
+        />
+        <datalist id="customerList">
+          {customers.map((customer) => (
+            <option
+              key={customer.id}
+              value={customer.id}
+            >{`${customer.firstName} ${customer.lastName} - ${customer.phone}`}</option>
+          ))}
+        </datalist>
+      </Field.Root>
+
   );
 };
 

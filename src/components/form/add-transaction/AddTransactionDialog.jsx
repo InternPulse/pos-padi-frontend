@@ -3,7 +3,7 @@ import AddTransactionBackup from "./AddTransactionBackup";
 import { useOutletContext } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 
-function AddTransactionDialog() {
+function AddTransactionDialog({ customers }) {
   const { user } = useOutletContext();
 
   return (
@@ -22,9 +22,9 @@ function AddTransactionDialog() {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
+          <Dialog.Content border={'1px solid lightgrey'}>
             <Dialog.Body>
-              <AddTransactionBackup />
+              <AddTransactionBackup customers={customers} />
             </Dialog.Body>
             <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />

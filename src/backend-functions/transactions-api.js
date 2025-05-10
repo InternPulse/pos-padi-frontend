@@ -14,7 +14,7 @@ export async function createTransaction(transactionDetails) {
   };
 
   try {
-    const response = await fetch("https://pos-padi-express-backend.onrender.com//api/v1/transactions", requestOptions);
+    const response = await fetch("https://pos-padi-express-backend.onrender.com/api/v1/transactions", requestOptions);
 
     
     if (!response.ok) {
@@ -23,6 +23,8 @@ export async function createTransaction(transactionDetails) {
 
     const res = await response.json();
     console.log("Success:", res);
+
+    return res
     // return agent;
   } catch (error) {
     console.error("Error:", error);
