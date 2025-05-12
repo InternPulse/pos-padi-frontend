@@ -9,6 +9,7 @@ import {
   Clipboard,
 } from "@chakra-ui/react";
 import AgentDeactivation from "../alt/transactions/Effects/AgentDeactivation";
+import moment from 'moment'
 
 function AgentCard({ agent }) {
   return (
@@ -88,7 +89,7 @@ function AgentCard({ agent }) {
           </Text>
         </GridItem>
         <GridItem textAlign="right">
-          <Text>{agent.dateCreated}</Text>
+          <Text>{moment(agent.dateCreated).format('LLL')}</Text>
         </GridItem>
       </Grid>
       <Grid templateColumns="auto 1fr" width={"100%"} p="6px">

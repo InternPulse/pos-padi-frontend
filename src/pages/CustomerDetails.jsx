@@ -79,7 +79,7 @@ function CustomerDetails() {
 
   const transactions = transformTransactions(transactionsData);
   const rawCustomers = transformCustomers(rawCustomersData).rawCustomers;
-  const disputedTransactions = disputesData
+  const disputedTransactions = disputesData;
 
   const customerID = useParams().id;
   const customer = processCustomers(rawCustomers, transactions).find(
@@ -94,7 +94,14 @@ function CustomerDetails() {
     )
     .reduce((acc, item) => acc + item.loyaltyPoints, 0);
 
-  return <EntityDetails entity={customer} disputedTransactions={disputedTransactions} transactions={transactions} entityType={"customer"} />;
+  return (
+    <EntityDetails
+      entity={customer}
+      disputedTransactions={disputedTransactions}
+      transactions={transactions}
+      entityType={"customer"}
+    />
+  );
 }
 
 export default CustomerDetails;

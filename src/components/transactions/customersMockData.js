@@ -318,7 +318,7 @@ export function listCustomers(arr) {
         item1: item.customerId,
         item2: item.firstName,
         item3: item.lastName,
-        item5: item.transactionsCount,
+        item5: item.agent,//item.transactionsCount,
         item6: item.phone,
       };
     }),
@@ -384,6 +384,7 @@ function transformCustomerData(customer) {
     lastName: customer.last_name,
     email: customer.email || "unavailable",
     phone: customer.phone,
+    agent: 'Sheriff Deen',
     dateCreated: customer.created_at,
     customerId: customer.customer_id,
     performanceSummary: [],
