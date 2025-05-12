@@ -38,6 +38,7 @@ export function listAgents(arr) {
     items: arr.map((agent) => {
       return {
         isHeader: false,
+        item0: agent.id,
         item1: agent.agentId,
         item2: agent.firstName,
         item3: agent.lastName,

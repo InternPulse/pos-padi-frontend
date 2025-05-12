@@ -175,7 +175,7 @@ function GenericTable({ headings, items }) {
         <TableData isHeader={true} {...headings} />
 
         {paginatedItems?.map((item) => (
-          <Box onClick={()=>{handleClick(item.isHeader, item.item1)}}><TableData {...item} /></Box>
+          <Box onClick={()=>{handleClick(item.isHeader, item.item0)}}><TableData {...item} /></Box>
           // <TableData {...item} />
         ))}
       </Box>

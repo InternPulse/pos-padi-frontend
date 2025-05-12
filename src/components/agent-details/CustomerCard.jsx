@@ -8,6 +8,7 @@ import {
   Avatar,
   // Clipboard,
 } from "@chakra-ui/react";
+import moment from 'moment'
 
 import React from 'react'
 
@@ -53,7 +54,7 @@ function CustomerCard({ customer }) {
           <Text>{customer.lastName}</Text>
         </GridItem>
       </Grid>
-      <Grid templateColumns="auto 1fr" width={"100%"} p="6px">
+      {/* <Grid templateColumns="auto 1fr" width={"100%"} p="6px">
         <GridItem>
           <Text
             fontWeight="medium"
@@ -65,7 +66,7 @@ function CustomerCard({ customer }) {
         <GridItem textAlign="right" maxW={"300px"} overflow={"hidden"}>
           <Text>{customer.email}</Text>
         </GridItem>
-      </Grid>
+      </Grid> */}
       <Grid templateColumns="auto 1fr" width={"100%"} p="6px">
         <GridItem>
           <Text
@@ -89,7 +90,7 @@ function CustomerCard({ customer }) {
           </Text>
         </GridItem>
         <GridItem textAlign="right">
-          <Text>{customer.dateCreated}</Text>
+          <Text>{moment(customer.dateCreated).format('LLL')}</Text>
         </GridItem>
       </Grid>
       <Grid templateColumns="auto 1fr" width={"100%"} p="6px">

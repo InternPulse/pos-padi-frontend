@@ -24,10 +24,10 @@ import ExportButton from "../alt/dashboard-components/ExportButton";
 import { percentageDiff } from "@/utils/percentageDifference";
 import { TiVolumeMute } from "react-icons/ti";
 
-function EntityDetails({ entity, entityType }) {
+function EntityDetails({ entity, transactions, rawCustomers, disputedTransactions, entityType }) {
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
-  const [currentTab, setCurrentTab] = useState("customers");
+  const [currentTab, setCurrentTab] = useState("transactions");
   const [searchText, setSearchText] = useState("");
 
   const previousPage = currentPath.includes("agent") ? "/agents" : "/customers";
@@ -136,25 +136,25 @@ function EntityDetails({ entity, entityType }) {
               ).percentageChange,
               period: "month",
             },
-            {
-              title: "Customers",
-              amount: rawCustomers.filter(
-                (item) => item.agent == `${entity.firstName} ${entity.lastName}`
-              ).length,
-              icon: <GrGroup />,
-              iconColor: { base: "yellow.600", _dark: "yellow.300" },
-              iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
-              percent: percentageDiff(
-                rawCustomers.filter(
-                  (item) =>
-                    item.agent == `${entity.firstName} ${entity.lastName}`
-                ),
-                "customers",
-                "length",
-                "month"
-              )?.percentageChange,
-              period: "month",
-            },
+            // {
+            //   title: "Customers",
+            //   amount: rawCustomers.filter(
+            //     (item) => item.agent == `${entity.firstName} ${entity.lastName}`
+            //   ).length,
+            //   icon: <GrGroup />,
+            //   iconColor: { base: "yellow.600", _dark: "yellow.300" },
+            //   iconBgColor: { base: "yellow.50", _dark: "yellow.800" },
+            //   percent: percentageDiff(
+            //     rawCustomers.filter(
+            //       (item) =>
+            //         item.agent == `${entity.firstName} ${entity.lastName}`
+            //     ),
+            //     "customers",
+            //     "length",
+            //     "month"
+            //   )?.percentageChange,
+            //   period: "month",
+            // },
           ]
         : [
             {
@@ -331,11 +331,11 @@ function EntityDetails({ entity, entityType }) {
         </Flex>
       </Flex>
       <Tabs.Root
-        defaultValue={entityType == "agent" ? "customers" : "transactions"}
+        defaultValue={entityType == "agent" ? "transactions" : "transactions"}
         colorPalette={"green"}
       >
         <Tabs.List>
-          {entityType == "agent" && (
+          {/* {entityType == "agent" && (
             <Tabs.Trigger
               onClick={() => {
                 setCurrentTab("customers");
@@ -346,7 +346,7 @@ function EntityDetails({ entity, entityType }) {
             >
               Customers
             </Tabs.Trigger>
-          )}
+          )} */}
           <Tabs.Trigger
             onClick={() => {
               setCurrentTab("transactions");
@@ -418,7 +418,7 @@ function EntityDetails({ entity, entityType }) {
                 onAgentChange={handleAgentChange}
               />
             </Flex>
-            <AltTransactionTable transactions={filteredTransactions} />
+            <AltTransactionTable disputedTransactions={disputedTransactions} transactions={filteredTransactions} />
           </Flex>
         </Tabs.Content>
       </Tabs.Root>

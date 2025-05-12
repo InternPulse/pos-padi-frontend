@@ -6,7 +6,7 @@ function GenericTableCard({ items }) {
   const currentPath = useLocation().pathname
 
   function TableCard({ item }) {
-    const { item1, item2, item3, item5, item6, isHeader } = item;
+    const { item0, item1, item2, item3, item5, item6, isHeader } = item;
 
     const title = `${item1} - ${item2} ${item3}`;
     const email = item5;
@@ -37,7 +37,7 @@ function GenericTableCard({ items }) {
   return (
     <VStack separator={<StackSeparator />}>
       {items?.map((item) => (
-        <Box width={'100%'} onClick={()=>{handleClick(item.isHeader, item.item1)}}><TableCard item={item} /></Box>
+        <Box width={'100%'} onClick={()=>{handleClick(item.isHeader, item.item0)}}><TableCard item={item} /></Box>
       ))}
     </VStack>
   );
