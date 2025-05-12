@@ -24,7 +24,7 @@ import ExportButton from "../alt/dashboard-components/ExportButton";
 import { percentageDiff } from "@/utils/percentageDifference";
 import { TiVolumeMute } from "react-icons/ti";
 
-function EntityDetails({ entity, transactions, rawCustomers, disputedTransactions, entityType }) {
+function EntityDetails({ entity, transactions, disputedTransactions, entityType }) {
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState("transactions");
@@ -241,7 +241,7 @@ function EntityDetails({ entity, transactions, rawCustomers, disputedTransaction
           ],
   };
 
-  const customersList = listCustomers(rawCustomers)
+  const customersList = listCustomers([])
   
   const pageCustomersTable =
     entityType == "agent"

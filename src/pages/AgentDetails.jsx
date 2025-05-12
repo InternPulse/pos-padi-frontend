@@ -102,7 +102,6 @@ function AgentDetails() {
       disputedTransactions={disputedTransactions}
       transactions={transactions}
       entityType={"agent"}
-      rawCustomers={rawCustomers}
     />
   );
 }
