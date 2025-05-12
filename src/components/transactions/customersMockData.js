@@ -314,6 +314,7 @@ export function listCustomers(arr) {
     items: arr.map((item) => {
       return {
         isHeader: false,
+        item0: item.id,
         item1: item.customerId,
         item2: item.firstName,
         item3: item.lastName,

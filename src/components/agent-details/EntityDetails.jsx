@@ -24,7 +24,7 @@ import ExportButton from "../alt/dashboard-components/ExportButton";
 import { percentageDiff } from "@/utils/percentageDifference";
 import { TiVolumeMute } from "react-icons/ti";
 
-function EntityDetails({ entity, entityType }) {
+function EntityDetails({ entity, transactions, disputedTransactions, entityType }) {
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState("customers");
@@ -418,7 +418,7 @@ function EntityDetails({ entity, entityType }) {
                 onAgentChange={handleAgentChange}
               />
             </Flex>
-            <AltTransactionTable transactions={filteredTransactions} />
+            <AltTransactionTable disputedTransactions={disputedTransactions} transactions={filteredTransactions} />
           </Flex>
         </Tabs.Content>
       </Tabs.Root>
