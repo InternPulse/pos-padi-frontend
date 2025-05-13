@@ -202,10 +202,10 @@ const Footer = () => {
                   />
                   <Link
                     color={{ base: "gray.300", _dark: "gray.400" }}
-                    href="mailto:Support@pospade.com"
+                    href="mailto:support@pospadi.com.ng"
                     _hover={{ color: { base: "white", _dark: "gray.100" } }}
                   >
-                    Support@pospade.com
+                    support@pospadi.com.ng
                   </Link>
                 </Flex>
                 <Flex
